@@ -182,7 +182,10 @@ export function CreateSessionFromEmailDialog({
 
       // Extraire le lien de paiement
       const paymentLinkMatch = content.match(/(https?:\/\/[^\s]+)/i)
-      const paymentLink = paymentLinkMatch ? paymentLinkMatch[1] : undefined
+      let paymentLink = paymentLinkMatch ? paymentLinkMatch[1] : undefined
+      if (paymentLink) {
+        paymentLink = paymentLink.split('?')[0]
+      }
 
       return {
         date: isoDate,

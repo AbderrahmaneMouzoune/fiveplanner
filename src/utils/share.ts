@@ -1,5 +1,8 @@
 import type { Session, Player } from '@/types'
-import { generateCalendarEvent } from '@/utils/calendar'
+import {
+  generateCalendarEvent,
+  generateCalendarEventMinimal,
+} from '@/utils/calendar'
 
 export function generateSessionSummary(
   session: Session,
@@ -13,6 +16,19 @@ export function generateSessionSummary(
       month: 'long',
       year: 'numeric',
     })
+  }
+
+  // j'aimerais en sortie samedi 7
+  const formatDateShort = (dateString: string) => {
+    const date = new Date(dateString)
+    const day = date.getDate()
+    const weekday = date
+      .toLocaleDateString('fr-FR', { weekday: 'short' })
+      .replace('.', '') // retire le point
+    const month = date
+      .toLocaleDateString('fr-FR', { month: 'short' })
+      .replace('.', '') // retire le point
+    return `${weekday} ${day} ${month}.`
   }
 
   const getPlayerName = (playerId: string) => {
@@ -34,11 +50,11 @@ export function generateSessionSummary(
     ? `${session.pitch.name}\n📍 ${session.pitch.address}`
     : `📍 ${session.location}`
 
-  let summary = `⚽ SESSION DE FOOTBALL 5v5\n\n`
+  let summary = ``
+  summary += `⚽ ${locationText}\n`
   summary += `📅 ${formatDate(session.date)}\n`
   summary += `🕐 ${session.time}\n`
-  summary += `🏟️ ${sessionTypeText}\n`
-  summary += `${locationText}\n\n`
+  summary += `🏟️ ${sessionTypeText}\n\n`
 
   if (confirmedPlayers.length > 0) {
     summary += `✅ JOUEURS CONFIRMÉS (${confirmedPlayers.length}):\n`
@@ -72,14 +88,13 @@ export function generateSessionSummary(
   }
 
   // Ajouter le lien pour ajouter au calendrier
-  try {
-    const calendarUrl = generateCalendarEvent(session, players)
-    summary += `\n📅 Ajouter à votre agenda: ${calendarUrl}\n`
-  } catch (error) {
-    console.error('Erreur lors de la génération du lien calendrier:', error)
-  }
-
-  summary += `\n📱 Organisé avec Five Planner - https://fiveplanner.fr`
+  // TODO: lien trop long, on l'affiche pas pour l'instant
+  // try {
+  //   const calendarUrl = generateCalendarEventMinimal(session, players)
+  //   summary += `\n📅 Ajouter à votre agenda: ${calendarUrl}\n`
+  // } catch (error) {
+  //   console.error('Erreur lors de la génération du lien calendrier:', error)
+  // }
 
   return summary
 }
@@ -95,7 +110,8 @@ export async function shareSession(
     try {
       await navigator.share({
         title,
-        text: summary,
+        text:
+          summary + `\n📱 Organisé avec Five Planner - https://fiveplanner.fr`,
       })
       return true
     } catch (error) {

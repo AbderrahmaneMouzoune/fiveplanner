@@ -7,6 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
 import { PlayerStatus } from '@/types'
 import { getUniqueAvatarColor } from '@/utils/avatar-colors'
 
@@ -75,7 +76,7 @@ export function PlayerAvatar({
       <Tooltip>
         <TooltipTrigger asChild>
           <div className="relative">
-            <Avatar className={sizeClasses[size]}>
+            <Avatar className={cn(sizeClasses[size])}>
               <AvatarFallback
                 className={`${avatarColor} font-medium text-white`}
               >

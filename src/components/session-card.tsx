@@ -1,48 +1,43 @@
 'use client'
 
-import type { Session, Player, PlayerStatus } from '@/types'
-import { useState, useId } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
-import { PlayerAvatar } from '@/components/player-avatar'
-import { ManageSessionPlayersDialog } from '@/components/manage-session-players-dialog'
+import { AddPlayerDialog } from '@/components/add-player-dialog'
 import { CompleteSessionDialog } from '@/components/complete-session-dialog'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { ManageSessionPlayersDialog } from '@/components/manage-session-players-dialog'
 import { SharePreviewDialog } from '@/components/share-preview-dialog'
-import { shareSession } from '@/utils/share'
-import { addToCalendar } from '@/utils/calendar'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
+import { Label } from '@/components/ui/label'
+import type { Player, PlayerGroup, PlayerStatus, Session } from '@/types'
+import { addToCalendar } from '@/utils/calendar'
+import { shareSession } from '@/utils/share'
 import {
   IconCalendar,
-  IconClock,
-  IconMapPin,
-  IconUsers,
-  IconTrash,
+  IconCalendarPlus,
   IconCheck,
-  IconX,
-  IconHome,
-  IconSun,
-  IconShare,
-  IconCurrencyEuro,
-  IconExternalLink,
   IconChevronDown,
   IconChevronRight,
-  IconMail,
-  IconPhone,
-  IconCalendarPlus,
+  IconClock,
+  IconCurrencyEuro,
+  IconExternalLink,
   IconFilter,
+  IconHome,
+  IconMapPin,
   IconQuestionMark,
-  Icon24Hours,
+  IconShare,
+  IconSun,
+  IconTrash,
+  IconUsers,
+  IconX,
 } from '@tabler/icons-react'
-import { AddPlayerDialog } from '@/components/add-player-dialog'
-import type { PlayerGroup } from '@/types'
+import { useId, useState } from 'react'
 import { PlayerCardInline } from './player-card-inline'
 
 interface SessionCardProps {
@@ -146,9 +141,6 @@ export function SessionCard({
   ]
 
   const confirmedCount = confirmedPlayers.length
-
-  // Obtenir tous les noms des joueurs pour le système de couleurs uniques
-  const allPlayerNames = players.map((p) => p.name)
 
   // Filtrer les joueurs selon les checkboxes
   const getFilteredPlayers = () => {
@@ -427,9 +419,10 @@ export function SessionCard({
                         key={player.playerId}
                         player={players.find((p) => p.id === player.playerId)!}
                         status={getPlayerStatus(player.playerId)}
-                        allPlayerNames={players.map((p) => p.name)}
+                        allPlayer={players}
                         groupName={undefined}
                         groupColor={undefined}
+                        session={session}
                         handleStatusUpdate={(
                           playerId: string,
                           status: PlayerStatus,

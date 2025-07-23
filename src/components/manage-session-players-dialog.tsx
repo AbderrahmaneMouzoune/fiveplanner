@@ -177,7 +177,7 @@ export function ManageSessionPlayersDialog({
                       key={player.id}
                       player={player}
                       status={getPlayerStatus(player.id)}
-                      allPlayerNames={allPlayerNames}
+                      allPlayer={players}
                       groupName={getGroupName(player.group ?? '')}
                       groupColor={getGroupColor(player.group ?? '')}
                       handleStatusUpdate={handleStatusUpdate}
@@ -232,7 +232,7 @@ export function ManageSessionPlayersDialog({
                             key={player.id}
                             player={player}
                             status={getPlayerStatus(player.id)}
-                            allPlayerNames={allPlayerNames}
+                            allPlayer={players}
                             groupName={getGroupName(player.group ?? '')}
                             groupColor={getGroupColor(player.group ?? '')}
                             handleStatusUpdate={handleStatusUpdate}

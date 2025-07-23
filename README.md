@@ -48,6 +48,7 @@
 ## ✨ Features
 
 ### 🎯 Gestion des Sessions
+
 - **Création rapide** : Créez une session en quelques clics
 - **Import depuis email** : Analysez automatiquement vos emails de réservation
 - **Gestion des réponses** : Suivez qui vient, qui est optionnel, qui est absent
@@ -55,6 +56,7 @@
 - **Ajout au calendrier** : Intégration Google Calendar en un clic
 
 ### 👥 Gestion des Joueurs
+
 - **Base de données complète** : Noms, emails, téléphones, groupes
 - **Import depuis contacts** : Ajoutez rapidement vos contacts
 - **Groupes personnalisés** : Organisez vos joueurs (Réguliers, Occasionnels, etc.)
@@ -62,18 +64,21 @@
 - **Ajout en lot** : Ajoutez plusieurs joueurs simultanément
 
 ### 🏟️ Gestion des Terrains
+
 - **Terrains prédéfinis** : Base de données des terrains populaires (LE FIVE, etc.)
 - **Terrains personnalisés** : Ajoutez vos terrains favoris
 - **Informations détaillées** : Type de surface, prix, équipements
 - **Géolocalisation** : Adresses complètes pour faciliter l'accès
 
 ### 📊 Statistiques et Historique
+
 - **Historique complet** : Toutes vos sessions passées
 - **Statistiques joueurs** : Taux de participation, présence
 - **Scores des matchs** : Enregistrez les résultats
 - **Analyses visuelles** : Graphiques et métriques
 
 ### 🎨 Interface Moderne
+
 - **Design responsive** : Parfait sur mobile, tablette et desktop
 - **Mode sombre/clair** : Thème adaptatif selon vos préférences
 - **PWA Ready** : Installez l'app sur votre téléphone
@@ -137,6 +142,7 @@ npm run type-check # Vérifie les types TypeScript
 ## 🛠️ Technologies
 
 ### Frontend
+
 - **[Next.js 15](https://nextjs.org/)** - Framework React avec App Router
 - **[TypeScript](https://www.typescriptlang.org/)** - Typage statique
 - **[Tailwind CSS](https://tailwindcss.com/)** - Framework CSS utilitaire
@@ -144,12 +150,14 @@ npm run type-check # Vérifie les types TypeScript
 - **[Lucide React](https://lucide.dev/)** - Icônes modernes
 
 ### Development Tools
+
 - **[Prettier](https://prettier.io/)** - Formatage automatique du code
 - **[ESLint](https://eslint.org/)** - Linting et qualité du code
 - **[Husky](https://typicode.github.io/husky/)** - Git hooks
 - **[lint-staged](https://github.com/okonet/lint-staged)** - Linting sur les fichiers stagés
 
 ### Analytics & Features
+
 - **[PostHog](https://posthog.com/)** - Analytics et tracking utilisateur (optionnel)
 - **LocalStorage** - Stockage local des données
 - **PWA** - Application web progressive
@@ -214,18 +222,21 @@ Les contributions sont les bienvenues ! Voici comment participer :
 ## 🗺️ Roadmap
 
 ### Version 1.1
+
 - [ ] Notifications push pour les rappels
 - [ ] Export des données (CSV, PDF)
 - [ ] Intégration WhatsApp pour les invitations
 - [ ] Système de paiement intégré
 
 ### Version 1.2
+
 - [ ] Mode multi-équipes
 - [ ] Tournois et championnats
 - [ ] Statistiques avancées
 - [ ] API publique
 
 ### Version 2.0
+
 - [ ] Backend avec base de données
 - [ ] Comptes utilisateurs
 - [ ] Synchronisation multi-appareils

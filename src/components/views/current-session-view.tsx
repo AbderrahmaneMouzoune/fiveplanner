@@ -30,12 +30,7 @@ interface CurrentSessionViewProps {
     playerId: string,
     status: 'coming' | 'not-coming' | 'pending' | 'optional',
   ) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Player) => void
   onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
   onUpdatePitch: (pitchId: string, updates: Partial<Pitch>) => void
   onRemovePitch: (pitchId: string) => void

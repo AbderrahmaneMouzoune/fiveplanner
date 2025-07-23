@@ -29,28 +29,16 @@ import { useState } from 'react'
 
 interface BulkAddPlayersDialogProps {
   groups: PlayerGroup[]
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
   onBulkAddPlayers: (players: Omit<Player, 'id'>[]) => void
 }
 
-interface PlayerToAdd {
-  id: string
-  name: string
-  email: string
-  phone: string
-}
+type PlayerToAdd = Player
 
 export function BulkAddPlayersDialog({
   groups,
-  onAddPlayer,
   onAddGroup,
   onUpdateGroup,
   onRemoveGroup,
@@ -58,8 +46,8 @@ export function BulkAddPlayersDialog({
 }: BulkAddPlayersDialogProps) {
   const [open, setOpen] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState<string>('none')
-  const [playersToAdd, setPlayersToAdd] = useState<PlayerToAdd[]>([
-    { id: '1', name: '', email: '', phone: '' },
+  const [playersToAdd, setPlayersToAdd] = useState<Player[]>([
+    { id: '1', name: '' },
   ])
   const [bulkText, setBulkText] = useState('')
   const [mode, setMode] = useState<'form' | 'text'>('form')
@@ -68,10 +56,7 @@ export function BulkAddPlayersDialog({
     const newId = (
       Math.max(...playersToAdd.map((p) => Number.parseInt(p.id))) + 1
     ).toString()
-    setPlayersToAdd([
-      ...playersToAdd,
-      { id: newId, name: '', email: '', phone: '' },
-    ])
+    setPlayersToAdd([...playersToAdd, { id: newId, name: '' }])
   }
 
   const removePlayerRow = (id: string) => {
@@ -99,16 +84,10 @@ export function BulkAddPlayersDialog({
       parsed.push({
         id: (index + 1).toString(),
         name: parts[0] || '',
-        email: parts[1] || '',
-        phone: parts[2] || '',
       })
     })
 
-    setPlayersToAdd(
-      parsed.length > 0
-        ? parsed
-        : [{ id: '1', name: '', email: '', phone: '' }],
-    )
+    setPlayersToAdd(parsed.length > 0 ? parsed : [{ id: '1', name: '' }])
     setMode('form')
   }
 
@@ -124,14 +103,12 @@ export function BulkAddPlayersDialog({
     onBulkAddPlayers(
       validPlayers.map((player) => ({
         name: player.name.trim(),
-        email: player.email.trim() || undefined,
-        phone: player.phone.trim() || undefined,
         group: selectedGroup === 'none' ? undefined : selectedGroup,
       })),
     )
 
     // Reset
-    setPlayersToAdd([{ id: '1', name: '', email: '', phone: '' }])
+    setPlayersToAdd([{ id: '1', name: '' }])
     setSelectedGroup('none')
     setBulkText('')
     setOpen(false)
@@ -178,16 +155,15 @@ export function BulkAddPlayersDialog({
             <div className="space-y-4">
               <div className="grid gap-2">
                 <Label htmlFor="bulk-text">
-                  Liste des joueurs (un par ligne, format: Nom, Email,
-                  Téléphone)
+                  Liste des joueurs (un par ligne, format: Nom)
                 </Label>
                 <Textarea
                   id="bulk-text"
                   value={bulkText}
                   onChange={(e) => setBulkText(e.target.value)}
-                  placeholder={`Jean Dupont, jean@email.com, 06 12 34 56 78
-Marie Martin, marie@email.com, 06 98 76 54 32
-Pierre Durand, , 06 11 22 33 44`}
+                  placeholder={`Jean Dupont
+Marie Martin
+Pierre Durand`}
                   rows={8}
                 />
               </div>
@@ -245,8 +221,8 @@ Pierre Durand, , 06 11 22 33 44`}
                   {playersToAdd.map((player, index) => (
                     <Card key={player.id}>
                       <CardContent className="p-3">
-                        <div className="grid grid-cols-1 items-end gap-3 md:grid-cols-4">
-                          <div className="grid gap-1">
+                        <div className="flex items-end gap-3">
+                          <div className="flex flex-1 flex-col gap-1">
                             <Label className="text-xs">Nom *</Label>
                             <Input
                               value={player.name}
@@ -254,28 +230,6 @@ Pierre Durand, , 06 11 22 33 44`}
                                 updatePlayer(player.id, 'name', e.target.value)
                               }
                               placeholder="Nom du joueur"
-                            />
-                          </div>
-                          <div className="grid gap-1">
-                            <Label className="text-xs">Email</Label>
-                            <Input
-                              type="email"
-                              value={player.email}
-                              onChange={(e) =>
-                                updatePlayer(player.id, 'email', e.target.value)
-                              }
-                              placeholder="email@exemple.com"
-                            />
-                          </div>
-                          <div className="grid gap-1">
-                            <Label className="text-xs">Téléphone</Label>
-                            <Input
-                              type="tel"
-                              value={player.phone}
-                              onChange={(e) =>
-                                updatePlayer(player.id, 'phone', e.target.value)
-                              }
-                              placeholder="06 12 34 56 78"
                             />
                           </div>
                           <Button

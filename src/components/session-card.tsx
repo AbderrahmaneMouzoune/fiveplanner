@@ -55,12 +55,7 @@ interface SessionCardProps {
     playerId: string,
     status: 'coming' | 'not-coming' | 'pending' | 'optional',
   ) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Player) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void

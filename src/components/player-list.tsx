@@ -1,6 +1,8 @@
 'use client'
 
-import type { Player, Session, PlayerStatus, PlayerGroup } from '@/types'
+import { BulkAddPlayersDialog } from '@/components/bulk-add-players-dialog'
+import { EditPlayerDialog } from '@/components/edit-player-dialog'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -9,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import {
   Select,
   SelectContent,
@@ -17,21 +18,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { EditPlayerDialog } from '@/components/edit-player-dialog'
-import { BulkAddPlayersDialog } from '@/components/bulk-add-players-dialog'
+import type { Player, PlayerGroup, PlayerStatus, Session } from '@/types'
 import {
   IconCheck,
-  IconX,
   IconClock,
-  IconTrash,
-  IconMail,
-  IconPhone,
-  IconQuestionMark,
-  IconFilter,
-  IconUsers,
   IconEdit,
+  IconFilter,
+  IconQuestionMark,
+  IconTrash,
+  IconUsers,
+  IconX,
 } from '@tabler/icons-react'
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 interface PlayerListProps {
   players: Player[]
@@ -40,12 +38,7 @@ interface PlayerListProps {
   onUpdateResponse: (playerId: string, status: PlayerStatus) => void
   onRemovePlayer: (playerId: string) => void
   onUpdatePlayer: (playerId: string, updates: Partial<Player>) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Player) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
@@ -135,7 +128,6 @@ export function PlayerList({
         <CardFooter className="flex justify-center">
           <BulkAddPlayersDialog
             groups={groups}
-            onAddPlayer={onAddPlayer}
             onAddGroup={onAddGroup}
             onUpdateGroup={onUpdateGroup}
             onRemoveGroup={onRemoveGroup}
@@ -169,20 +161,6 @@ export function PlayerList({
                 </div>
               )}
               {getStatusBadge(status)}
-            </div>
-            <div className="text-muted-foreground mt-1 flex items-center gap-4 text-sm">
-              {player.email && (
-                <div className="flex items-center gap-1">
-                  <IconMail className="h-3 w-3" />
-                  {player.email}
-                </div>
-              )}
-              {player.phone && (
-                <div className="flex items-center gap-1">
-                  <IconPhone className="h-3 w-3" />
-                  {player.phone}
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -291,7 +269,6 @@ export function PlayerList({
               <div key={players.length} className="flex items-center gap-2">
                 <BulkAddPlayersDialog
                   groups={groups}
-                  onAddPlayer={onAddPlayer}
                   onAddGroup={onAddGroup}
                   onUpdateGroup={onUpdateGroup}
                   onRemoveGroup={onRemoveGroup}

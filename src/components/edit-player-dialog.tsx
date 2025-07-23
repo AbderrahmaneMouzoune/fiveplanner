@@ -37,8 +37,6 @@ export function EditPlayerDialog({
   onClose,
 }: EditPlayerDialogProps) {
   const [name, setName] = useState(player.name)
-  const [email, setEmail] = useState(player.email || '')
-  const [phone, setPhone] = useState(player.phone || '')
   const [selectedGroup, setSelectedGroup] = useState(player.group || 'no-group')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -46,8 +44,6 @@ export function EditPlayerDialog({
     if (name.trim()) {
       onUpdatePlayer(player.id, {
         name: name.trim(),
-        email: email.trim() || undefined,
-        phone: phone.trim() || undefined,
         group: selectedGroup === 'no-group' ? undefined : selectedGroup,
       })
       onClose()
@@ -76,26 +72,6 @@ export function EditPlayerDialog({
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Nom du joueur"
                 required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="edit-email">Email</Label>
-              <Input
-                id="edit-email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email@exemple.com"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="edit-phone">Téléphone</Label>
-              <Input
-                id="edit-phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="06 12 34 56 78"
               />
             </div>
             <div className="grid gap-2">

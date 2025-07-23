@@ -34,12 +34,7 @@ interface ManageSessionPlayersDialogProps {
   players: Player[]
   groups: PlayerGroup[]
   onUpdatePlayerResponse: (playerId: string, status: PlayerStatus) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Player) => void
 }
 
 export function ManageSessionPlayersDialog({

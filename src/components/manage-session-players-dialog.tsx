@@ -27,12 +27,19 @@ import {
   IconClock,
 } from '@tabler/icons-react'
 import { getUniqueAvatarColor } from '@/utils/avatar-colors'
+import { PlayerCardInline } from './player-card-inline'
 
 interface ManageSessionPlayersDialogProps {
   session: Session
   players: Player[]
   groups: PlayerGroup[]
   onUpdatePlayerResponse: (playerId: string, status: PlayerStatus) => void
+  onAddPlayer: (player: {
+    name: string
+    email?: string
+    phone?: string
+    group?: string
+  }) => void
 }
 
 export function ManageSessionPlayersDialog({
@@ -40,6 +47,7 @@ export function ManageSessionPlayersDialog({
   players,
   groups,
   onUpdatePlayerResponse,
+  onAddPlayer,
 }: ManageSessionPlayersDialogProps) {
   const [open, setOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
@@ -152,89 +160,6 @@ export function ManageSessionPlayersDialog({
     return `${group?.name || 'Groupe'} (${groupPlayers.length})`
   }
 
-  const renderPlayerCard = (player: Player) => {
-    const status = getPlayerStatus(player.id)
-    const avatarColor = getUniqueAvatarColor(player.name, allPlayerNames)
-
-    return (
-      <div
-        key={player.id}
-        className="border-border bg-card hover:bg-accent/50 flex items-center gap-3 rounded-lg border p-3 transition-colors"
-      >
-        <Avatar className="h-10 w-10">
-          <AvatarFallback
-            className={`${avatarColor} text-sm font-medium text-white`}
-          >
-            {getPlayerInitials(player.name)}
-          </AvatarFallback>
-        </Avatar>
-
-        <div className="min-w-0 flex-1">
-          <div className="mb-1 flex items-center gap-2">
-            <span className="text-sm font-medium">{player.name}</span>
-            {player.group && (
-              <div className="flex items-center gap-1">
-                <div
-                  className={`h-2 w-2 rounded-full ${getGroupColor(player.group)}`}
-                />
-                <span className="text-muted-foreground text-xs">
-                  {getGroupName(player.group)}
-                </span>
-              </div>
-            )}
-          </div>
-          {player.email && (
-            <div className="text-muted-foreground truncate text-xs">
-              {player.email}
-            </div>
-          )}
-        </div>
-
-        <div className="flex items-center gap-2">
-          {getStatusBadge(status)}
-          <div className="flex gap-1">
-            <Button
-              size="sm"
-              variant={status === 'coming' ? 'success' : 'outline'}
-              onClick={(e) => handleStatusUpdate(player.id, 'coming', e)}
-              className="h-7 w-7 p-0"
-              title="Confirmé"
-            >
-              <IconCheck className="h-3 w-3" />
-            </Button>
-            <Button
-              size="sm"
-              variant={status === 'optional' ? 'warning' : 'outline'}
-              onClick={(e) => handleStatusUpdate(player.id, 'optional', e)}
-              className="h-7 w-7 p-0"
-              title="Optionnel"
-            >
-              <IconQuestionMark className="h-3 w-3" />
-            </Button>
-            <Button
-              size="sm"
-              variant={status === 'not-coming' ? 'destructive' : 'outline'}
-              onClick={(e) => handleStatusUpdate(player.id, 'not-coming', e)}
-              className="h-7 w-7 p-0"
-              title="Absent"
-            >
-              <IconX className="h-3 w-3" />
-            </Button>
-            <Button
-              size="sm"
-              variant={status === 'pending' ? 'secondary' : 'outline'}
-              onClick={(e) => handleStatusUpdate(player.id, 'pending', e)}
-              className="h-7 w-7 p-0"
-              title="En attente"
-            >
-              <IconClock className="h-3 w-3" />
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -272,10 +197,28 @@ export function ManageSessionPlayersDialog({
             <div className="flex-1 overflow-y-auto rounded-lg">
               <div className="space-y-1">
                 {filteredPlayers.length > 0 ? (
-                  filteredPlayers.map(renderPlayerCard)
+                  filteredPlayers.map((player) => (
+                    <PlayerCardInline
+                      key={player.id}
+                      player={player}
+                      status={getPlayerStatus(player.id)}
+                      allPlayerNames={allPlayerNames}
+                      groupName={getGroupName(player.group ?? '')}
+                      groupColor={getGroupColor(player.group ?? '')}
+                      handleStatusUpdate={handleStatusUpdate}
+                    />
+                  ))
                 ) : (
                   <div className="text-muted-foreground py-8 text-center">
                     Aucun joueur trouvé pour "{searchTerm}"
+                    <Button
+                      onClick={() => onAddPlayer({ name: searchTerm })}
+                      variant="outline"
+                      size="sm"
+                      className="mx-auto mt-2 block"
+                    >
+                      Ajouter {searchTerm} en joueur
+                    </Button>
                   </div>
                 )}
               </div>
@@ -309,7 +252,17 @@ export function ManageSessionPlayersDialog({
                   >
                     <div className="space-y-1">
                       {groupPlayers.length > 0 ? (
-                        groupPlayers.map(renderPlayerCard)
+                        groupPlayers.map((player: Player) => (
+                          <PlayerCardInline
+                            key={player.id}
+                            player={player}
+                            status={getPlayerStatus(player.id)}
+                            allPlayerNames={allPlayerNames}
+                            groupName={getGroupName(player.group ?? '')}
+                            groupColor={getGroupColor(player.group ?? '')}
+                            handleStatusUpdate={handleStatusUpdate}
+                          />
+                        ))
                       ) : (
                         <div className="text-muted-foreground py-8 text-center">
                           Aucun joueur dans ce groupe

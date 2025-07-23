@@ -1,6 +1,6 @@
 'use client'
 
-import type { Session, Player } from '@/types'
+import type { Session, Player, PlayerStatus } from '@/types'
 import { useState, useId } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -42,6 +42,7 @@ import {
 } from '@tabler/icons-react'
 import { AddPlayerDialog } from '@/components/add-player-dialog'
 import type { PlayerGroup } from '@/types'
+import { PlayerCardInline } from './player-card-inline'
 
 interface SessionCardProps {
   session: Session
@@ -162,13 +163,22 @@ export function SessionCard({
       ...absentPlayers.map((r) => ({ ...r, type: 'absent' as const })),
     ]
 
-    return allPlayersWithStatus.filter((player) => {
-      if (player.type === 'confirmed' && !showConfirmed) return false
-      if (player.type === 'optional' && !showOptional) return false
-      if (player.type === 'pending' && !showPending) return false
-      if (player.type === 'absent' && !showAbsent) return false
-      return true
-    })
+    const playerNameByPlayerId = (playerId: string) =>
+      players.find((p) => p.id === playerId)?.name || 'Joueur inconnu'
+
+    return allPlayersWithStatus
+      .filter((player) => {
+        if (player.type === 'confirmed' && !showConfirmed) return false
+        if (player.type === 'optional' && !showOptional) return false
+        if (player.type === 'pending' && !showPending) return false
+        if (player.type === 'absent' && !showAbsent) return false
+        return true
+      })
+      .sort((a, b) =>
+        playerNameByPlayerId(a.playerId).localeCompare(
+          playerNameByPlayerId(b.playerId),
+        ),
+      )
   }
 
   const filteredPlayers = getFilteredPlayers()
@@ -460,57 +470,25 @@ export function SessionCard({
 
                   {/* Liste des joueurs filtrés */}
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {filteredPlayers.length > 0 ? (
-                      filteredPlayers.map((playerResponse) => {
-                        const playerName = getPlayerName(
-                          playerResponse.playerId,
-                        )
-                        const player = players.find(
-                          (p) => p.id === playerResponse.playerId,
-                        )
-                        const playerStatus = getPlayerStatus(
-                          playerResponse.playerId,
-                        )
-
-                        return (
-                          <div
-                            key={playerResponse.playerId}
-                            className={`flex items-center gap-2 rounded-lg border p-2 ${getPlayerCardBackground(playerResponse.type)}`}
-                          >
-                            <PlayerAvatar
-                              name={playerName}
-                              status={playerStatus}
-                              size="sm"
-                              existingPlayers={allPlayerNames}
-                            />
-                            <div className="min-w-0 flex-1">
-                              <span className="block truncate text-sm font-medium">
-                                {playerName}
-                              </span>
-                              {player && (player.email || player.phone) && (
-                                <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                                  {player.email && (
-                                    <span className="flex items-center gap-1 truncate">
-                                      <IconMail className="h-3 w-3 flex-shrink-0" />
-                                      <span className="truncate">
-                                        {player.email}
-                                      </span>
-                                    </span>
-                                  )}
-                                  {player.phone && (
-                                    <span className="flex items-center gap-1">
-                                      <IconPhone className="h-3 w-3 flex-shrink-0" />
-                                      {player.phone}
-                                    </span>
-                                  )}
-                                </div>
-                              )}
-                            </div>
-                            {getPlayerBadge(playerResponse.type)}
-                          </div>
-                        )
-                      })
-                    ) : (
+                    {(filteredPlayers ?? []).map((player) => (
+                      <PlayerCardInline
+                        key={player.playerId}
+                        player={players.find((p) => p.id === player.playerId)!}
+                        status={getPlayerStatus(player.playerId)}
+                        allPlayerNames={players.map((p) => p.name)}
+                        groupName={undefined}
+                        groupColor={undefined}
+                        handleStatusUpdate={(
+                          playerId: string,
+                          status: PlayerStatus,
+                          e: React.MouseEvent,
+                        ): void => {
+                          e.stopPropagation()
+                          onUpdatePlayerResponse(playerId, status)
+                        }}
+                      />
+                    ))}
+                    {filteredPlayers.length === 0 && (
                       <div className="text-muted-foreground col-span-2 py-4 text-center">
                         Aucun joueur ne correspond aux filtres sélectionnés
                       </div>
@@ -534,6 +512,7 @@ export function SessionCard({
                         session={session}
                         players={players}
                         groups={groups}
+                        onAddPlayer={onAddPlayer}
                         onUpdatePlayerResponse={onUpdatePlayerResponse}
                       />
                     </div>
@@ -576,6 +555,7 @@ export function SessionCard({
               players={players}
               groups={groups}
               onUpdatePlayerResponse={onUpdatePlayerResponse}
+              onAddPlayer={onAddPlayer}
             />
             <CompleteSessionDialog onCompleteSession={onCompleteSession}>
               <Button variant="success" size="sm" className="w-full sm:w-auto">

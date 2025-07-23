@@ -7,11 +7,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { PlayerStatus } from '@/types'
 import { getUniqueAvatarColor } from '@/utils/avatar-colors'
 
 interface PlayerAvatarProps {
   name: string
-  status: 'coming' | 'optional' | 'not-coming' | 'pending'
+  status: PlayerStatus
   size?: 'sm' | 'md' | 'lg'
   existingPlayers?: string[]
 }
@@ -82,7 +83,7 @@ export function PlayerAvatar({
               </AvatarFallback>
             </Avatar>
             <span
-              className={`border-background absolute -start-0.5 -bottom-0.5 size-3 rounded-full border-2 ${getStatusColor(status)}`}
+              className={`border-foreground absolute -start-0.5 -bottom-0.5 size-3 rounded-full border ${getStatusColor(status)}`}
             >
               <span className="sr-only">{getStatusLabel(status)}</span>
             </span>

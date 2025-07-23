@@ -2,7 +2,13 @@
 
 import type { Player, Session, PlayerStatus, PlayerGroup } from '@/types'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import {
   Select,
@@ -43,6 +49,7 @@ interface PlayerListProps {
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
+  onBulkAddPlayers: (players: Omit<Player, 'id'>[]) => void
 }
 
 export function PlayerList({
@@ -56,6 +63,7 @@ export function PlayerList({
   onAddGroup,
   onUpdateGroup,
   onRemoveGroup,
+  onBulkAddPlayers,
 }: PlayerListProps) {
   const [selectedGroupFilter, setSelectedGroupFilter] = useState<string>('all')
   const [editingPlayer, setEditingPlayer] = useState<Player | null>(null)
@@ -120,10 +128,20 @@ export function PlayerList({
 
   if (players.length === 0) {
     return (
-      <Card>
+      <Card key={players.length}>
         <CardContent className="text-muted-foreground p-6 text-center">
           Aucun joueur dans votre liste. Commencez par ajouter des joueurs !
         </CardContent>
+        <CardFooter className="flex justify-center">
+          <BulkAddPlayersDialog
+            groups={groups}
+            onAddPlayer={onAddPlayer}
+            onAddGroup={onAddGroup}
+            onUpdateGroup={onUpdateGroup}
+            onRemoveGroup={onRemoveGroup}
+            onBulkAddPlayers={onBulkAddPlayers}
+          />
+        </CardFooter>
       </Card>
     )
   }
@@ -270,13 +288,14 @@ export function PlayerList({
                 {players.length})
               </CardTitle>
 
-              <div className="flex items-center gap-2">
+              <div key={players.length} className="flex items-center gap-2">
                 <BulkAddPlayersDialog
                   groups={groups}
                   onAddPlayer={onAddPlayer}
                   onAddGroup={onAddGroup}
                   onUpdateGroup={onUpdateGroup}
                   onRemoveGroup={onRemoveGroup}
+                  onBulkAddPlayers={onBulkAddPlayers}
                 />
                 <IconFilter className="text-muted-foreground h-4 w-4" />
                 <Select

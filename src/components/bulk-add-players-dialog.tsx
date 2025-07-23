@@ -1,18 +1,7 @@
 'use client'
 
-import type React from 'react'
-import { useState } from 'react'
+import { ManageGroupsDialog } from '@/components/manage-groups-dialog'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Dialog,
@@ -23,9 +12,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ManageGroupsDialog } from '@/components/manage-groups-dialog'
-import type { PlayerGroup } from '@/types'
-import { IconUsersPlus, IconTrash, IconPlus } from '@tabler/icons-react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import type { Player, PlayerGroup } from '@/types'
+import { IconPlus, IconTrash, IconUsersPlus } from '@tabler/icons-react'
+import type React from 'react'
+import { useState } from 'react'
 
 interface BulkAddPlayersDialogProps {
   groups: PlayerGroup[]
@@ -38,6 +38,7 @@ interface BulkAddPlayersDialogProps {
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
+  onBulkAddPlayers: (players: Omit<Player, 'id'>[]) => void
 }
 
 interface PlayerToAdd {
@@ -53,6 +54,7 @@ export function BulkAddPlayersDialog({
   onAddGroup,
   onUpdateGroup,
   onRemoveGroup,
+  onBulkAddPlayers,
 }: BulkAddPlayersDialogProps) {
   const [open, setOpen] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState<string>('none')
@@ -119,14 +121,14 @@ export function BulkAddPlayersDialog({
       return
     }
 
-    validPlayers.forEach((player) => {
-      onAddPlayer({
+    onBulkAddPlayers(
+      validPlayers.map((player) => ({
         name: player.name.trim(),
         email: player.email.trim() || undefined,
         phone: player.phone.trim() || undefined,
         group: selectedGroup === 'none' ? undefined : selectedGroup,
-      })
-    })
+      })),
+    )
 
     // Reset
     setPlayersToAdd([{ id: '1', name: '', email: '', phone: '' }])
@@ -252,7 +254,6 @@ Pierre Durand, , 06 11 22 33 44`}
                                 updatePlayer(player.id, 'name', e.target.value)
                               }
                               placeholder="Nom du joueur"
-                              size="sm"
                             />
                           </div>
                           <div className="grid gap-1">
@@ -264,7 +265,6 @@ Pierre Durand, , 06 11 22 33 44`}
                                 updatePlayer(player.id, 'email', e.target.value)
                               }
                               placeholder="email@exemple.com"
-                              size="sm"
                             />
                           </div>
                           <div className="grid gap-1">
@@ -276,16 +276,13 @@ Pierre Durand, , 06 11 22 33 44`}
                                 updatePlayer(player.id, 'phone', e.target.value)
                               }
                               placeholder="06 12 34 56 78"
-                              size="sm"
                             />
                           </div>
                           <Button
                             type="button"
                             variant="destructive"
-                            size="sm"
                             onClick={() => removePlayerRow(player.id)}
                             disabled={playersToAdd.length === 1}
-                            className="text-red-500 hover:text-red-700"
                           >
                             <IconTrash className="h-4 w-4" />
                           </Button>
@@ -304,7 +301,7 @@ Pierre Durand, , 06 11 22 33 44`}
                 >
                   Annuler
                 </Button>
-                <Button type="submit" variant="accent">
+                <Button type="submit" variant="success">
                   Ajouter {playersToAdd.filter((p) => p.name.trim()).length}{' '}
                   joueur(s)
                 </Button>

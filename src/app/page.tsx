@@ -20,7 +20,8 @@ type View = 'current' | 'history' | 'stats' | 'players'
 
 export default function HomePage() {
   const [currentView, setCurrentView] = useState<View>('current')
-  const { players, addPlayer, removePlayer, updatePlayer } = usePlayers()
+  const { players, addPlayer, removePlayer, onBulkAddPlayers, updatePlayer } =
+    usePlayers()
   const { pitches, addPitch, updatePitch, removePitch } = usePitches()
   const { groups, addGroup, updateGroup, removeGroup } = usePlayerGroups()
   const {
@@ -82,6 +83,7 @@ export default function HomePage() {
             onAddGroup={addGroup}
             onUpdateGroup={updateGroup}
             onRemoveGroup={removeGroup}
+            onBulkAddPlayers={onBulkAddPlayers}
           />
         )
       case 'history':

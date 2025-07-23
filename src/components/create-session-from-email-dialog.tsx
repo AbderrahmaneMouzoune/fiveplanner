@@ -300,17 +300,6 @@ export function CreateSessionFromEmailDialog({
             />
           </div>
 
-          {!parsedData && (
-            <Button
-              variant="accent"
-              onClick={handleParseEmail}
-              disabled={!emailContent.trim()}
-            >
-              <IconCalendarPlus className="mr-2 h-4 w-4" />
-              Analyser l'email
-            </Button>
-          )}
-
           {parsedData && (
             <Card>
               <CardContent className="p-4">
@@ -398,6 +387,16 @@ export function CreateSessionFromEmailDialog({
           <Button variant="outline" onClick={resetForm}>
             Réinitialiser
           </Button>
+          {!parsedData && (
+            <Button
+              variant="accent"
+              onClick={handleParseEmail}
+              disabled={!emailContent.trim()}
+            >
+              <IconCalendarPlus className="mr-2 h-4 w-4" />
+              Analyser l'email
+            </Button>
+          )}
           {parsedData && parsedData.success && (
             <Button
               variant="accent"

@@ -360,9 +360,15 @@ export function SessionCard({
                   <span className="text-primary font-medium">
                     Tous les joueurs ({totalPlayersCount})
                   </span>
-                  <Badge variant="default" className="ml-auto">
-                    {filteredPlayers.length}
-                  </Badge>
+
+                  <div className="ml-auto space-x-2">
+                    <Badge variant={'destructive'}>
+                      {absentPlayers.length}
+                    </Badge>
+                    <Badge variant="muted">{pendingPlayers.length}</Badge>
+                    <Badge variant="warning">{optionalPlayers.length}</Badge>
+                    <Badge variant="default">{confirmedCount}</Badge>
+                  </div>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-3">
                   {/* Filtres avec checkboxes simples */}

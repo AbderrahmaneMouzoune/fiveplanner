@@ -63,7 +63,7 @@ export function CompleteSessionDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-h-[90vh] w-full max-w-[95vw] overflow-y-auto sm:w-[400px] sm:max-w-[90vw]">
+      <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
             <IconTrophy className="h-4 w-4 text-warning sm:h-5 sm:w-5" />

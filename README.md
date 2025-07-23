@@ -1,13 +1,53 @@
-# ⚽ Five Planner
+<div align="center">
 
-**Five Planner** est une application web moderne et intuitive pour organiser et gérer vos sessions de football 5v5. Créée avec Next.js et TypeScript, elle offre une expérience utilisateur fluide et responsive pour planifier vos matchs, gérer vos joueurs et suivre vos statistiques.
+<img src="https://fiveplanner.fr/logo/logo.png" alt="Five Planner Logo" width="120" height="120">
 
-![Five Planner Screenshot](https://via.placeholder.com/800x400/16a34a/ffffff?text=Five+Planner)
+<h1>Five Planner</h1>
 
-## ✨ Fonctionnalités
+<h3><em>Une application web moderne et intuitive pour organiser et gérer vos sessions de football 5v5</em></h3>
+
+<img src="https://img.shields.io/github/contributors/AbderrahmaneMouzoune/fiveplanner?style=plastic" alt="Contributors">
+<img src="https://img.shields.io/github/forks/AbderrahmaneMouzoune/fiveplanner" alt="Forks">
+<img src="https://img.shields.io/github/stars/AbderrahmaneMouzoune/fiveplanner" alt="Stars">
+<img src="https://img.shields.io/github/issues/AbderrahmaneMouzoune/fiveplanner" alt="Issues">
+<img src="https://img.shields.io/github/repo-size/AbderrahmaneMouzoune/fiveplanner" alt="Repository Size">
+<a href="LICENSE">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
+</a>
+
+<a href="https://fiveplanner.fr">
+  <img src="https://img.shields.io/badge/Demo-Live-blue?style=flat&logo=vercel&logoColor=white" alt="Live Demo">
+</a>
+
+</div>
+
+## 📋 Table of Contents
+
+- [🎬 Demo](#-demo)
+- [✨ Features](#-features)
+- [🚀 Quick Start](#-quick-start)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Development Commands](#development-commands)
+- [🛠️ Technologies](#️-technologies)
+- [📱 Usage Guide](#-usage-guide)
+- [🤝 Contributing](#-contributing)
+- [🗺️ Roadmap](#️-roadmap)
+- [🔒 Privacy](#-privacy)
+- [📄 License](#-license)
+- [💖 Support](#-support)
+
+---
+
+## 🎬 Demo
+
+![Five Planner Demo](assets/demo.gif)
+
+**🌐 Visitez [fiveplanner.fr](https://fiveplanner.fr) pour utiliser l'application**
+
+## ✨ Features
 
 ### 🎯 Gestion des Sessions
-
 - **Création rapide** : Créez une session en quelques clics
 - **Import depuis email** : Analysez automatiquement vos emails de réservation
 - **Gestion des réponses** : Suivez qui vient, qui est optionnel, qui est absent
@@ -15,7 +55,6 @@
 - **Ajout au calendrier** : Intégration Google Calendar en un clic
 
 ### 👥 Gestion des Joueurs
-
 - **Base de données complète** : Noms, emails, téléphones, groupes
 - **Import depuis contacts** : Ajoutez rapidement vos contacts
 - **Groupes personnalisés** : Organisez vos joueurs (Réguliers, Occasionnels, etc.)
@@ -23,142 +62,100 @@
 - **Ajout en lot** : Ajoutez plusieurs joueurs simultanément
 
 ### 🏟️ Gestion des Terrains
-
 - **Terrains prédéfinis** : Base de données des terrains populaires (LE FIVE, etc.)
 - **Terrains personnalisés** : Ajoutez vos terrains favoris
 - **Informations détaillées** : Type de surface, prix, équipements
 - **Géolocalisation** : Adresses complètes pour faciliter l'accès
 
 ### 📊 Statistiques et Historique
-
 - **Historique complet** : Toutes vos sessions passées
 - **Statistiques joueurs** : Taux de participation, présence
 - **Scores des matchs** : Enregistrez les résultats
 - **Analyses visuelles** : Graphiques et métriques
 
 ### 🎨 Interface Moderne
-
 - **Design responsive** : Parfait sur mobile, tablette et desktop
 - **Mode sombre/clair** : Thème adaptatif selon vos préférences
 - **PWA Ready** : Installez l'app sur votre téléphone
 - **Animations fluides** : Interface moderne et agréable
 
-## 🚀 Démarrage Rapide
+## 🚀 Quick Start
 
-### Prérequis
+### Prerequisites
 
-- Node.js 18+
-- npm ou yarn
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
 
 ### Installation
 
-1. **Clonez le repository**
-   \`\`\`bash
-   git clone <https://github.com/AbderrahmaneMouzoune/fiveplanner.git>
-   cd five-planner
-   \`\`\`
+**Step 1: Clone the repository**
 
-2. **Installez les dépendances**
-   \`\`\`bash
-   npm install
+```bash
+git clone https://github.com/AbderrahmaneMouzoune/fiveplanner.git
+cd five-planner
+```
 
+**Step 2: Install dependencies**
+
+```bash
+npm install
 # ou
-
 yarn install
-\`\`\`
+```
 
-3. **Configurez les variables d'environnement (optionnel)**
-   \`\`\`bash
-   cp .env.example .env.local
+**Step 3: Set up environment variables (optional)**
 
+```bash
+cp .env.example .env.local
 # Éditez .env.local avec vos clés PostHog si nécessaire
+```
 
-\`\`\`
+**Step 4: Start development server**
 
-4. **Lancez le serveur de développement**
-   \`\`\`bash
-   npm run dev
-
+```bash
+npm run dev
 # ou
-
 yarn dev
-\`\`\`
+```
 
-5. **Ouvrez votre navigateur**
-   \`\`\`
-   <http://localhost:3000>
-   \`\`\`
+**Step 5: Access Five Planner**
 
-## 🛠️ Technologies Utilisées
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
+
+### Development Commands
+
+```bash
+npm run dev        # Lance le serveur de développement
+npm run build      # Build de production
+npm run start      # Lance le serveur de production
+npm run lint       # Vérifie le linting
+npm run lint:fix   # Corrige automatiquement les erreurs de linting
+npm run format     # Formate le code avec Prettier
+npm run type-check # Vérifie les types TypeScript
+```
+
+## 🛠️ Technologies
 
 ### Frontend
-
 - **[Next.js 15](https://nextjs.org/)** - Framework React avec App Router
 - **[TypeScript](https://www.typescriptlang.org/)** - Typage statique
 - **[Tailwind CSS](https://tailwindcss.com/)** - Framework CSS utilitaire
 - **[Radix UI](https://www.radix-ui.com/)** - Composants accessibles
 - **[Lucide React](https://lucide.dev/)** - Icônes modernes
 
-### Outils de Développement
-
+### Development Tools
 - **[Prettier](https://prettier.io/)** - Formatage automatique du code
 - **[ESLint](https://eslint.org/)** - Linting et qualité du code
 - **[Husky](https://typicode.github.io/husky/)** - Git hooks
 - **[lint-staged](https://github.com/okonet/lint-staged)** - Linting sur les fichiers stagés
 
-### Analytics (Optionnel)
-
-- **[PostHog](https://posthog.com/)** - Analytics et tracking utilisateur
-
-### Fonctionnalités
-
+### Analytics & Features
+- **[PostHog](https://posthog.com/)** - Analytics et tracking utilisateur (optionnel)
 - **LocalStorage** - Stockage local des données
 - **PWA** - Application web progressive
 - **Responsive Design** - Compatible tous écrans
-- **Dark Mode** - Thème sombre/clair
 
-## 🧑‍💻 Développement
-
-### Scripts Disponibles
-
-\`\`\`bash
-
-# Développement
-
-npm run dev # Lance le serveur de développement
-npm run build # Build de production
-npm run start # Lance le serveur de production
-
-# Qualité du code
-
-npm run lint # Vérifie le linting
-npm run lint:fix # Corrige automatiquement les erreurs de linting
-npm run format # Formate le code avec Prettier
-npm run format:check # Vérifie le formatage
-npm run type-check # Vérifie les types TypeScript
-\`\`\`
-
-### Git Hooks
-
-Le projet utilise Husky pour automatiser la qualité du code :
-
-- **pre-commit** : Lance lint-staged qui vérifie et formate automatiquement les fichiers modifiés
-- **Formatage automatique** : Prettier et ESLint s'exécutent sur chaque commit
-
-### GitHub Actions
-
-Deux workflows automatisés :
-
-1. **CI** (`ci.yml`) :
-   - Vérifie le linting, formatage et types
-   - Build l'application
-   - S'exécute sur chaque PR et push
-
-2. **Auto Format PR** (`format-pr.yml`) :
-   - Formate automatiquement le code des PR
-   - Commit les changements si nécessaire
-
-## 📱 Utilisation
+## 📱 Usage Guide
 
 ### 1. Créer une Session
 
@@ -187,9 +184,25 @@ Deux workflows automatisés :
 2. La session passe automatiquement dans l'historique
 3. Consultez les statistiques de participation
 
-## 🤝 Contribution
+## 🤝 Contributing
 
 Les contributions sont les bienvenues ! Voici comment participer :
+
+### How to Contribute
+
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/AmazingFeature`
+3. **Make your changes** and test them thoroughly
+4. **Commit your changes**: `git commit -m 'Add some AmazingFeature'`
+5. **Push to your branch**: `git push origin feature/AmazingFeature`
+6. **Open a Pull Request**
+
+### Development Guidelines
+
+- Le code est automatiquement formaté avec Prettier
+- ESLint vérifie la qualité du code
+- Les types TypeScript sont obligatoires
+- Les tests sur mobile et desktop sont recommandés
 
 ### Signaler un Bug
 
@@ -198,28 +211,27 @@ Les contributions sont les bienvenues ! Voici comment participer :
 3. Décrivez le problème avec des détails précis
 4. Ajoutez des captures d'écran si possible
 
-### Proposer une Fonctionnalité
+## 🗺️ Roadmap
 
-1. Créez une [issue](https://github.com/AbderrahmaneMouzoune/fiveplanner/issues) avec le label "enhancement"
-2. Décrivez la fonctionnalité souhaitée
-3. Expliquez pourquoi elle serait utile
+### Version 1.1
+- [ ] Notifications push pour les rappels
+- [ ] Export des données (CSV, PDF)
+- [ ] Intégration WhatsApp pour les invitations
+- [ ] Système de paiement intégré
 
-### Développer
+### Version 1.2
+- [ ] Mode multi-équipes
+- [ ] Tournois et championnats
+- [ ] Statistiques avancées
+- [ ] API publique
 
-1. **Fork** le projet
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Poussez vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une **Pull Request**
+### Version 2.0
+- [ ] Backend avec base de données
+- [ ] Comptes utilisateurs
+- [ ] Synchronisation multi-appareils
+- [ ] Application mobile native
 
-### Standards de Code
-
-- Le code est automatiquement formaté avec Prettier
-- ESLint vérifie la qualité du code
-- Les types TypeScript sont obligatoires
-- Les tests sur mobile et desktop sont recommandés
-
-## 🔒 Confidentialité
+## 🔒 Privacy
 
 Five Planner respecte votre vie privée :
 
@@ -228,66 +240,29 @@ Five Planner respecte votre vie privée :
 - **Pas de tracking** : Aucun tracking sans consentement explicite
 - **Open source** : Code transparent et auditable
 
-## 📋 Roadmap
-
-### Version 1.1
-
-- [ ] Notifications push pour les rappels
-- [ ] Export des données (CSV, PDF)
-- [ ] Intégration WhatsApp pour les invitations
-- [ ] Système de paiement intégré
-
-### Version 1.2
-
-- [ ] Mode multi-équipes
-- [ ] Tournois et championnats
-- [ ] Statistiques avancées
-- [ ] API publique
-
-### Version 2.0
-
-- [ ] Backend avec base de données
-- [ ] Comptes utilisateurs
-- [ ] Synchronisation multi-appareils
-- [ ] Application mobile native
-
-## 🐛 Problèmes Connus
+## 🐛 Known Issues
 
 - L'import de contacts ne fonctionne que sur certains navigateurs mobiles
 - Les notifications ne sont pas encore implémentées
 - L'export des données est en cours de développement
 
-## 📄 Licence
+## 📄 License
 
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Équipe
-
-**Five Planner Team**
-
-- Site web: [fiveplanner.fr](https://fiveplanner.fr)
-- Email: <contact@abderrahmanemouzoune.fr>
-- GitHub: [@AbderrahmaneMouzoune](https://github.com/AbderrahmaneMouzoune)
-
-## 🙏 Remerciements
-
-- [Vercel](https://vercel.com) pour l'hébergement
-- [Radix UI](https://www.radix-ui.com/) pour les composants
-- [Lucide](https://lucide.dev/) pour les icônes
-- [PostHog](https://posthog.com/) pour les analytics
-- La communauté open source pour l'inspiration
-
-## 📞 Support
+## 💖 Support
 
 Si vous avez des questions ou besoin d'aide :
 
 1. Consultez la [documentation](https://github.com/AbderrahmaneMouzoune/fiveplanner/wiki)
 2. Recherchez dans les [issues existantes](https://github.com/AbderrahmaneMouzoune/fiveplanner/issues)
 3. Créez une nouvelle issue si nécessaire
-4. Contactez-nous par email : <contact@abderrahmanemouzoune.fr>
+4. Contactez-nous par email : contact@abderrahmanemouzoune.fr
 
----
+<div align="center">
 
-⭐ **N'oubliez pas de mettre une étoile si ce projet vous plaît !**
+Si Five Planner vous aide à organiser vos sessions de foot, [⭐ star the repo](https://github.com/AbderrahmaneMouzoune/fiveplanner) ou visitez [fiveplanner.fr](https://fiveplanner.fr)
 
-🌐 **Visitez [fiveplanner.fr](https://fiveplanner.fr) pour utiliser l'application**
+<sub>Built with ⚽ by [Abderrahmane Mouzoune](https://github.com/AbderrahmaneMouzoune) • Keep playing</sub>
+
+</div>

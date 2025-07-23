@@ -1,6 +1,6 @@
 {
-  "name": "Five Planner",
-  "short_name": "Five Planner",
+  "name": "FivePlanner",
+  "short_name": "FivePlanner",
   "description": "Gérez vos sessions de football 5v5",
   "start_url": "/",
   "display": "standalone",

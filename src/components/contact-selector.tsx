@@ -72,8 +72,8 @@ export function ContactSelector({
         <CardContent className="p-6 text-center">
           <IconAddressBook className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
           <p className="text-muted-foreground mb-4">
-            L'accès aux contacts n'est pas supporté sur cet appareil ou
-            navigateur.
+            L&apos;accès aux contacts n&apos;est pas supporté sur cet appareil
+            ou navigateur.
           </p>
           <Button onClick={onCancel} variant="outline">
             Retour

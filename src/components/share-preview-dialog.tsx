@@ -70,7 +70,7 @@ export function SharePreviewDialog({
             placeholder="Génération du résumé..."
           />
           <p className="text-muted-foreground mt-2 text-xs italic">
-            Note : La signature "📱 Organisé avec Five Planner" sera
+            Note : La signature &quot;📱 Organisé avec Five Planner&quot; sera
             automatiquement ajoutée
           </p>
         </div>

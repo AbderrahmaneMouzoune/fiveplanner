@@ -64,31 +64,18 @@ export function CookieBanner({ onAccept, onDecline }: CookieBannerProps) {
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     Nous utilisons des cookies pour améliorer votre expérience
-                    et analyser l'utilisation de notre site. En continuant, vous
-                    acceptez notre utilisation des cookies.
+                    et analyser l&apos;utilisation de notre site. En continuant,
+                    vous acceptez notre utilisation des cookies.
                   </p>
                 </div>
 
-                <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                  <a
-                    href="/privacy"
-                    className="hover:text-primary inline-flex items-center gap-1 transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Politique de confidentialité
-                    <IconExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-
                 <div className="flex flex-col gap-2 pt-2 sm:flex-row">
-                  <Button onClick={handleAccept} size="sm" className="flex-1">
+                  <Button onClick={handleAccept} className="flex-1">
                     Accepter
                   </Button>
                   <Button
                     onClick={handleDecline}
                     variant="outline"
-                    size="sm"
                     className="flex-1 bg-transparent"
                   >
                     Refuser

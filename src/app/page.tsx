@@ -15,8 +15,38 @@ import { HistoryView } from '@/components/views/history-view'
 import { StatsView } from '@/components/views/stats-view'
 import { OnboardingDialog } from '@/components/onboarding-dialog'
 import { CookieBanner } from '@/components/cookie-banner'
+import { FALLBACK_SEO } from '@/config/seo.config'
+import { Metadata, Viewport } from 'next'
+import { APP_CONFIG } from '@/config/app.config'
 
 type View = 'current' | 'history' | 'stats' | 'players'
+
+export const metadata: Metadata = {
+  ...FALLBACK_SEO,
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Five Planner',
+  },
+  keywords: [
+    'FivePlanner, foot 5, football 5v5, organiser match, gestion joueurs, session football, réservation terrain, app foot, calendrier foot, application PWA foot, Five LeFive, foot entre amis',
+  ],
+  alternates: {
+    canonical: APP_CONFIG.website,
+  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#16a34a' },
+    { media: '(prefers-color-scheme: dark)', color: '#16a34a' },
+  ],
+}
 
 export default function HomePage() {
   const [currentView, setCurrentView] = useState<View>('current')

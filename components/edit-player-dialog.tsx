@@ -1,11 +1,17 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import type React from 'react'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import {
   Dialog,
   DialogContent,
@@ -13,9 +19,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import type { Player, PlayerGroup } from "@/types"
-import { IconEdit } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import type { Player, PlayerGroup } from '@/types'
+import { IconEdit } from '@tabler/icons-react'
 
 interface EditPlayerDialogProps {
   player: Player
@@ -24,11 +30,16 @@ interface EditPlayerDialogProps {
   onClose: () => void
 }
 
-export function EditPlayerDialog({ player, groups, onUpdatePlayer, onClose }: EditPlayerDialogProps) {
+export function EditPlayerDialog({
+  player,
+  groups,
+  onUpdatePlayer,
+  onClose,
+}: EditPlayerDialogProps) {
   const [name, setName] = useState(player.name)
-  const [email, setEmail] = useState(player.email || "")
-  const [phone, setPhone] = useState(player.phone || "")
-  const [selectedGroup, setSelectedGroup] = useState(player.group || "no-group")
+  const [email, setEmail] = useState(player.email || '')
+  const [phone, setPhone] = useState(player.phone || '')
+  const [selectedGroup, setSelectedGroup] = useState(player.group || 'no-group')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,7 +48,7 @@ export function EditPlayerDialog({ player, groups, onUpdatePlayer, onClose }: Ed
         name: name.trim(),
         email: email.trim() || undefined,
         phone: phone.trim() || undefined,
-        group: selectedGroup === "no-group" ? undefined : selectedGroup,
+        group: selectedGroup === 'no-group' ? undefined : selectedGroup,
       })
       onClose()
     }
@@ -48,10 +59,12 @@ export function EditPlayerDialog({ player, groups, onUpdatePlayer, onClose }: Ed
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconEdit className="w-5 h-5" />
+            <IconEdit className="h-5 w-5" />
             Modifier le joueur
           </DialogTitle>
-          <DialogDescription>Modifiez les informations de {player.name}.</DialogDescription>
+          <DialogDescription>
+            Modifiez les informations de {player.name}.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
@@ -96,7 +109,9 @@ export function EditPlayerDialog({ player, groups, onUpdatePlayer, onClose }: Ed
                   {groups.map((group) => (
                     <SelectItem key={group.id} value={group.id}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${group.color}`} />
+                        <div
+                          className={`h-3 w-3 rounded-full ${group.color}`}
+                        />
                         {group.name}
                       </div>
                     </SelectItem>

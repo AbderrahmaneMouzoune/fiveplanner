@@ -1,30 +1,30 @@
-import "@/styles/globals.css"
-import type { Metadata } from "next"
-import { Geist_Mono, Outfit } from "next/font/google"
-import type React from "react"
+import '@/styles/globals.css'
+import type { Metadata } from 'next'
+import { Geist_Mono, Outfit } from 'next/font/google'
+import type React from 'react'
 
 const geist = Outfit({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 })
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 })
 
 export const metadata: Metadata = {
-  title: "Five Planner",
-  description: "Gérez vos sessions de football 5v5",
-  manifest: "/manifest.json",
-  themeColor: "#16a34a",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  title: 'Five Planner',
+  description: 'Gérez vos sessions de football 5v5',
+  manifest: '/manifest.json',
+  themeColor: '#16a34a',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
-    title: "Five Planner",
+    statusBarStyle: 'default',
+    title: 'Five Planner',
   },
-    generator: 'v0.dev'
+  generator: 'v0.dev',
 }
 
 export default function RootLayout({
@@ -50,7 +50,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geist.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={`${geist.variable} ${geistMono.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   )
 }

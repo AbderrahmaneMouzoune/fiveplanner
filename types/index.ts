@@ -16,7 +16,7 @@ export interface Pitch {
   id: string
   name: string
   address: string
-  surfaceType: "synthetic" | "grass" | "indoor" | "concrete"
+  surfaceType: 'synthetic' | 'grass' | 'indoor' | 'concrete'
   isFilmed: boolean
   priceRange?: string
   description?: string
@@ -28,11 +28,11 @@ export interface Session {
   time: string
   location: string
   pitch?: Pitch
-  sessionType: "indoor" | "outdoor"
+  sessionType: 'indoor' | 'outdoor'
   paymentLink?: string
   maxPlayers: number
   responses: PlayerResponse[]
-  status: "upcoming" | "completed" | "cancelled"
+  status: 'upcoming' | 'completed' | 'cancelled'
   createdAt: string
   completedAt?: string
   score?: {
@@ -43,11 +43,11 @@ export interface Session {
 
 export interface PlayerResponse {
   playerId: string
-  status: "coming" | "not-coming" | "pending" | "optional"
+  status: 'coming' | 'not-coming' | 'pending' | 'optional'
   respondedAt?: string
 }
 
-export type PlayerStatus = "coming" | "not-coming" | "pending" | "optional"
+export type PlayerStatus = 'coming' | 'not-coming' | 'pending' | 'optional'
 
 export interface PlayerStats {
   playerId: string

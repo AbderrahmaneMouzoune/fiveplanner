@@ -1,15 +1,21 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { Switch } from '@/components/ui/switch'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -17,38 +23,49 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { PitchCard } from "@/components/pitch-card"
-import type { Pitch } from "@/types"
-import { IconSettings, IconPlus, IconTrash, IconEdit } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import { PitchCard } from '@/components/pitch-card'
+import type { Pitch } from '@/types'
+import {
+  IconSettings,
+  IconPlus,
+  IconTrash,
+  IconEdit,
+} from '@tabler/icons-react'
 
 interface ManagePitchesDialogProps {
   pitches: Pitch[]
-  onAddPitch: (pitch: Omit<Pitch, "id">) => void
+  onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
   onUpdatePitch: (pitchId: string, updates: Partial<Pitch>) => void
   onRemovePitch: (pitchId: string) => void
 }
 
-export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemovePitch }: ManagePitchesDialogProps) {
+export function ManagePitchesDialog({
+  pitches,
+  onAddPitch,
+  onUpdatePitch,
+  onRemovePitch,
+}: ManagePitchesDialogProps) {
   const [open, setOpen] = useState(false)
   const [editingPitch, setEditingPitch] = useState<Pitch | null>(null)
   const [showAddForm, setShowAddForm] = useState(false)
 
   // Form state
-  const [name, setName] = useState("")
-  const [address, setAddress] = useState("")
-  const [surfaceType, setSurfaceType] = useState<Pitch["surfaceType"]>("synthetic")
+  const [name, setName] = useState('')
+  const [address, setAddress] = useState('')
+  const [surfaceType, setSurfaceType] =
+    useState<Pitch['surfaceType']>('synthetic')
   const [isFilmed, setIsFilmed] = useState(false)
-  const [priceRange, setPriceRange] = useState("")
-  const [description, setDescription] = useState("")
+  const [priceRange, setPriceRange] = useState('')
+  const [description, setDescription] = useState('')
 
   const resetForm = () => {
-    setName("")
-    setAddress("")
-    setSurfaceType("synthetic")
+    setName('')
+    setAddress('')
+    setSurfaceType('synthetic')
     setIsFilmed(false)
-    setPriceRange("")
-    setDescription("")
+    setPriceRange('')
+    setDescription('')
     setEditingPitch(null)
     setShowAddForm(false)
   }
@@ -59,8 +76,8 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
     setAddress(pitch.address)
     setSurfaceType(pitch.surfaceType)
     setIsFilmed(pitch.isFilmed)
-    setPriceRange(pitch.priceRange || "")
-    setDescription(pitch.description || "")
+    setPriceRange(pitch.priceRange || '')
+    setDescription(pitch.description || '')
     setShowAddForm(true)
   }
 
@@ -89,20 +106,26 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
-          <IconSettings className="w-4 h-4 mr-2" />
+          <IconSettings className="mr-2 h-4 w-4" />
           Gérer les terrains
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[700px] max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[700px]">
         <DialogHeader>
           <DialogTitle>Gérer les terrains</DialogTitle>
-          <DialogDescription>Ajoutez, modifiez ou supprimez vos terrains favoris.</DialogDescription>
+          <DialogDescription>
+            Ajoutez, modifiez ou supprimez vos terrains favoris.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           {!showAddForm && (
-            <Button onClick={() => setShowAddForm(true)} className="w-full" variant="accent">
-              <IconPlus className="w-4 h-4 mr-2" />
+            <Button
+              onClick={() => setShowAddForm(true)}
+              className="w-full"
+              variant="accent"
+            >
+              <IconPlus className="mr-2 h-4 w-4" />
               Ajouter un terrain
             </Button>
           )}
@@ -110,7 +133,9 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
           {showAddForm && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">{editingPitch ? "Modifier le terrain" : "Nouveau terrain"}</CardTitle>
+                <CardTitle className="text-lg">
+                  {editingPitch ? 'Modifier le terrain' : 'Nouveau terrain'}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -138,7 +163,12 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
 
                   <div className="grid gap-2">
                     <Label htmlFor="pitch-surface">Type de surface</Label>
-                    <Select value={surfaceType} onValueChange={(value: Pitch["surfaceType"]) => setSurfaceType(value)}>
+                    <Select
+                      value={surfaceType}
+                      onValueChange={(value: Pitch['surfaceType']) =>
+                        setSurfaceType(value)
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -152,7 +182,11 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Switch id="pitch-filmed" checked={isFilmed} onCheckedChange={setIsFilmed} />
+                    <Switch
+                      id="pitch-filmed"
+                      checked={isFilmed}
+                      onCheckedChange={setIsFilmed}
+                    />
                     <Label htmlFor="pitch-filmed">Terrain filmé</Label>
                   </div>
 
@@ -178,7 +212,9 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
                   </div>
 
                   <div className="flex gap-2">
-                    <Button type="submit">{editingPitch ? "Modifier" : "Ajouter"}</Button>
+                    <Button type="submit">
+                      {editingPitch ? 'Modifier' : 'Ajouter'}
+                    </Button>
                     <Button type="button" variant="outline" onClick={resetForm}>
                       Annuler
                     </Button>
@@ -189,7 +225,9 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
           )}
 
           <div className="space-y-3">
-            <h3 className="font-medium">Terrains existants ({pitches.length})</h3>
+            <h3 className="font-medium">
+              Terrains existants ({pitches.length})
+            </h3>
             {pitches.map((pitch) => (
               <Card key={pitch.id}>
                 <CardContent className="p-3">
@@ -197,9 +235,13 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
                     <div className="flex-1">
                       <PitchCard pitch={pitch} compact />
                     </div>
-                    <div className="flex gap-1 ml-3">
-                      <Button variant="success" size="sm" onClick={() => handleEdit(pitch)}>
-                        <IconEdit className="w-4 h-4" />
+                    <div className="ml-3 flex gap-1">
+                      <Button
+                        variant="success"
+                        size="sm"
+                        onClick={() => handleEdit(pitch)}
+                      >
+                        <IconEdit className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="destructive"
@@ -207,7 +249,7 @@ export function ManagePitchesDialog({ pitches, onAddPitch, onUpdatePitch, onRemo
                         onClick={() => onRemovePitch(pitch.id)}
                         className="text-red-500 hover:text-red-700"
                       >
-                        <IconTrash className="w-4 h-4" />
+                        <IconTrash className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>

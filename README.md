@@ -53,14 +53,14 @@
 ### Installation
 
 1. **Clonez le repository**
-\`\`\`bash
-git clone <https://github.com/AbderrahmaneMouzoune/fiveplanner.git>
-cd five-planner
-\`\`\`
+   \`\`\`bash
+   git clone <https://github.com/AbderrahmaneMouzoune/fiveplanner.git>
+   cd five-planner
+   \`\`\`
 
 2. **Installez les dépendances**
-\`\`\`bash
-npm install
+   \`\`\`bash
+   npm install
 
 # ou
 
@@ -68,16 +68,16 @@ yarn install
 \`\`\`
 
 3. **Configurez les variables d'environnement (optionnel)**
-\`\`\`bash
-cp .env.example .env.local
+   \`\`\`bash
+   cp .env.example .env.local
 
 # Éditez .env.local avec vos clés PostHog si nécessaire
 
 \`\`\`
 
 4. **Lancez le serveur de développement**
-\`\`\`bash
-npm run dev
+   \`\`\`bash
+   npm run dev
 
 # ou
 
@@ -85,9 +85,9 @@ yarn dev
 \`\`\`
 
 5. **Ouvrez votre navigateur**
-\`\`\`
-<http://localhost:3000>
-\`\`\`
+   \`\`\`
+   <http://localhost:3000>
+   \`\`\`
 
 ## 🛠️ Technologies Utilisées
 
@@ -125,17 +125,17 @@ yarn dev
 
 # Développement
 
-npm run dev              # Lance le serveur de développement
-npm run build           # Build de production
-npm run start           # Lance le serveur de production
+npm run dev # Lance le serveur de développement
+npm run build # Build de production
+npm run start # Lance le serveur de production
 
 # Qualité du code
 
-npm run lint            # Vérifie le linting
-npm run lint:fix        # Corrige automatiquement les erreurs de linting
-npm run format          # Formate le code avec Prettier
-npm run format:check    # Vérifie le formatage
-npm run type-check      # Vérifie les types TypeScript
+npm run lint # Vérifie le linting
+npm run lint:fix # Corrige automatiquement les erreurs de linting
+npm run format # Formate le code avec Prettier
+npm run format:check # Vérifie le formatage
+npm run type-check # Vérifie les types TypeScript
 \`\`\`
 
 ### Git Hooks

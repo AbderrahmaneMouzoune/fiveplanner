@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Dialog,
   DialogContent,
@@ -10,10 +10,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { generateSessionSummary } from "@/utils/share"
-import type { Session, Player } from "@/types"
-import { IconShare, IconCopy, IconCheck } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import { generateSessionSummary } from '@/utils/share'
+import type { Session, Player } from '@/types'
+import { IconShare, IconCopy, IconCheck } from '@tabler/icons-react'
 
 interface SharePreviewDialogProps {
   session: Session
@@ -23,7 +23,13 @@ interface SharePreviewDialogProps {
   onConfirmShare: () => void
 }
 
-export function SharePreviewDialog({ session, players, open, onOpenChange, onConfirmShare }: SharePreviewDialogProps) {
+export function SharePreviewDialog({
+  session,
+  players,
+  open,
+  onOpenChange,
+  onConfirmShare,
+}: SharePreviewDialogProps) {
   const [copied, setCopied] = useState(false)
   const summary = generateSessionSummary(session, players)
 
@@ -33,7 +39,7 @@ export function SharePreviewDialog({ session, players, open, onOpenChange, onCon
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (error) {
-      console.error("Erreur lors de la copie:", error)
+      console.error('Erreur lors de la copie:', error)
     }
   }
 
@@ -44,14 +50,15 @@ export function SharePreviewDialog({ session, players, open, onOpenChange, onCon
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-hidden flex flex-col">
+      <DialogContent className="flex max-h-[80vh] flex-col overflow-hidden sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconShare className="w-5 h-5" />
+            <IconShare className="h-5 w-5" />
             Prévisualisation du partage
           </DialogTitle>
           <DialogDescription>
-            Voici le message qui sera partagé. Vous pouvez le copier ou le partager directement.
+            Voici le message qui sera partagé. Vous pouvez le copier ou le
+            partager directement.
           </DialogDescription>
         </DialogHeader>
 
@@ -59,30 +66,39 @@ export function SharePreviewDialog({ session, players, open, onOpenChange, onCon
           <Textarea
             value={summary}
             readOnly
-            className="min-h-[300px] resize-none font-mono text-sm bg-muted/50"
+            className="min-h-[300px] resize-none bg-muted/50 font-mono text-sm"
             placeholder="Génération du résumé..."
           />
-          <p className="text-xs text-muted-foreground mt-2 italic">
-            Note : La signature "📱 Organisé avec Five Planner" sera automatiquement ajoutée
+          <p className="mt-2 text-xs italic text-muted-foreground">
+            Note : La signature "📱 Organisé avec Five Planner" sera
+            automatiquement ajoutée
           </p>
         </div>
 
         <DialogFooter className="flex-col gap-2 sm:flex-row sm:gap-2">
-          <Button variant="outline" onClick={handleCopy} className="w-full sm:w-auto bg-transparent">
+          <Button
+            variant="outline"
+            onClick={handleCopy}
+            className="w-full bg-transparent sm:w-auto"
+          >
             {copied ? (
               <>
-                <IconCheck className="w-4 h-4 mr-2" />
+                <IconCheck className="mr-2 h-4 w-4" />
                 Copié !
               </>
             ) : (
               <>
-                <IconCopy className="w-4 h-4 mr-2" />
+                <IconCopy className="mr-2 h-4 w-4" />
                 Copier le texte
               </>
             )}
           </Button>
-          <Button variant="accent" onClick={handleShare} className="w-full sm:w-auto">
-            <IconShare className="w-4 h-4 mr-2" />
+          <Button
+            variant="accent"
+            onClick={handleShare}
+            className="w-full sm:w-auto"
+          >
+            <IconShare className="mr-2 h-4 w-4" />
             Partager
           </Button>
         </DialogFooter>

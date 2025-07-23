@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import type React from 'react'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Dialog,
   DialogContent,
@@ -13,18 +13,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { IconCheck, IconTrophy } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import { IconCheck, IconTrophy } from '@tabler/icons-react'
 
 interface CompleteSessionDialogProps {
   onCompleteSession: (score?: { team1: number; team2: number }) => void
   children: React.ReactNode
 }
 
-export function CompleteSessionDialog({ onCompleteSession, children }: CompleteSessionDialogProps) {
+export function CompleteSessionDialog({
+  onCompleteSession,
+  children,
+}: CompleteSessionDialogProps) {
   const [open, setOpen] = useState(false)
-  const [team1Score, setTeam1Score] = useState<string>("")
-  const [team2Score, setTeam2Score] = useState<string>("")
+  const [team1Score, setTeam1Score] = useState<string>('')
+  const [team2Score, setTeam2Score] = useState<string>('')
   const [skipScore, setSkipScore] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,7 +40,7 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
       const score2 = Number.parseInt(team2Score)
 
       if (isNaN(score1) || isNaN(score2) || score1 < 0 || score2 < 0) {
-        alert("Veuillez saisir des scores valides (nombres positifs)")
+        alert('Veuillez saisir des scores valides (nombres positifs)')
         return
       }
 
@@ -45,8 +48,8 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
     }
 
     // Reset form
-    setTeam1Score("")
-    setTeam2Score("")
+    setTeam1Score('')
+    setTeam2Score('')
     setSkipScore(false)
     setOpen(false)
   }
@@ -60,10 +63,10 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[90vw] max-w-[95vw] w-full sm:w-[400px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] w-full max-w-[95vw] overflow-y-auto sm:w-[400px] sm:max-w-[90vw]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
-            <IconTrophy className="w-4 h-4 sm:w-5 sm:h-5 text-warning" />
+            <IconTrophy className="h-4 w-4 text-warning sm:h-5 sm:w-5" />
             Terminer la session
           </DialogTitle>
           <DialogDescription className="text-sm">
@@ -74,11 +77,16 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="text-center">
-              <h3 className="font-medium text-base sm:text-lg mb-4">Score final</h3>
+              <h3 className="mb-4 text-base font-medium sm:text-lg">
+                Score final
+              </h3>
 
               <div className="flex items-center justify-center gap-2 sm:gap-4">
-                <div className="text-center flex-1">
-                  <Label htmlFor="team1" className="text-xs sm:text-sm font-medium">
+                <div className="flex-1 text-center">
+                  <Label
+                    htmlFor="team1"
+                    className="text-xs font-medium sm:text-sm"
+                  >
                     Équipe 1
                   </Label>
                   <Input
@@ -88,16 +96,21 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
                     max="99"
                     value={team1Score}
                     onChange={(e) => setTeam1Score(e.target.value)}
-                    className="w-full text-center text-xl sm:text-2xl font-bold mt-2 h-12 sm:h-14"
+                    className="mt-2 h-12 w-full text-center text-xl font-bold sm:h-14 sm:text-2xl"
                     placeholder="0"
                     disabled={skipScore}
                   />
                 </div>
 
-                <div className="text-xl sm:text-2xl font-bold text-muted-foreground mt-6 px-2">-</div>
+                <div className="mt-6 px-2 text-xl font-bold text-muted-foreground sm:text-2xl">
+                  -
+                </div>
 
-                <div className="text-center flex-1">
-                  <Label htmlFor="team2" className="text-xs sm:text-sm font-medium">
+                <div className="flex-1 text-center">
+                  <Label
+                    htmlFor="team2"
+                    className="text-xs font-medium sm:text-sm"
+                  >
                     Équipe 2
                   </Label>
                   <Input
@@ -107,7 +120,7 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
                     max="99"
                     value={team2Score}
                     onChange={(e) => setTeam2Score(e.target.value)}
-                    className="w-full text-center text-xl sm:text-2xl font-bold mt-2 h-12 sm:h-14"
+                    className="mt-2 h-12 w-full text-center text-xl font-bold sm:h-14 sm:text-2xl"
                     placeholder="0"
                     disabled={skipScore}
                   />
@@ -116,14 +129,16 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
             </div>
 
             {!skipScore && team1Score && team2Score && (
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-xs sm:text-sm text-muted-foreground mb-1">Résultat</div>
-                <div className="font-bold text-sm sm:text-lg">
+              <div className="rounded-lg bg-muted p-3 text-center">
+                <div className="mb-1 text-xs text-muted-foreground sm:text-sm">
+                  Résultat
+                </div>
+                <div className="text-sm font-bold sm:text-lg">
                   {Number.parseInt(team1Score) > Number.parseInt(team2Score)
-                    ? "Victoire Équipe 1"
+                    ? 'Victoire Équipe 1'
                     : Number.parseInt(team2Score) > Number.parseInt(team1Score)
-                      ? "Victoire Équipe 2"
-                      : "Match nul"}
+                      ? 'Victoire Équipe 2'
+                      : 'Match nul'}
                 </div>
               </div>
             )}
@@ -134,9 +149,9 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
               type="submit"
               variant="success"
               disabled={!skipScore && (!team1Score || !team2Score)}
-              className="w-full sm:w-auto order-2 sm:order-1"
+              className="order-2 w-full sm:order-1 sm:w-auto"
             >
-              <IconCheck className="w-4 h-4 mr-2" />
+              <IconCheck className="mr-2 h-4 w-4" />
               Terminer la session
             </Button>
 
@@ -144,7 +159,7 @@ export function CompleteSessionDialog({ onCompleteSession, children }: CompleteS
               type="button"
               variant="outline"
               onClick={handleSkipScore}
-              className="w-full sm:w-auto bg-transparent order-1 sm:order-2"
+              className="order-1 w-full bg-transparent sm:order-2 sm:w-auto"
             >
               Terminer sans score
             </Button>

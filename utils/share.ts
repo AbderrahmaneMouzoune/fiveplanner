@@ -1,28 +1,38 @@
-import type { Session, Player } from "@/types"
-import { generateCalendarEvent } from "@/utils/calendar"
+import type { Session, Player } from '@/types'
+import { generateCalendarEvent } from '@/utils/calendar'
 
-export function generateSessionSummary(session: Session, players: Player[]): string {
+export function generateSessionSummary(
+  session: Session,
+  players: Player[],
+): string {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString("fr-FR", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
     })
   }
 
   const getPlayerName = (playerId: string) => {
     const player = players.find((p) => p.id === playerId)
-    return player?.name || "Joueur inconnu"
+    return player?.name || 'Joueur inconnu'
   }
 
-  const confirmedPlayers = session.responses.filter((r) => r.status === "coming")
-  const optionalPlayers = session.responses.filter((r) => r.status === "optional")
-  const pendingPlayers = session.responses.filter((r) => r.status === "pending")
+  const confirmedPlayers = session.responses.filter(
+    (r) => r.status === 'coming',
+  )
+  const optionalPlayers = session.responses.filter(
+    (r) => r.status === 'optional',
+  )
+  const pendingPlayers = session.responses.filter((r) => r.status === 'pending')
 
-  const sessionTypeText = session.sessionType === "indoor" ? "Intérieur" : "Extérieur"
-  const locationText = session.pitch ? `${session.pitch.name}\n📍 ${session.pitch.address}` : `📍 ${session.location}`
+  const sessionTypeText =
+    session.sessionType === 'indoor' ? 'Intérieur' : 'Extérieur'
+  const locationText = session.pitch
+    ? `${session.pitch.name}\n📍 ${session.pitch.address}`
+    : `📍 ${session.location}`
 
   let summary = `⚽ SESSION DE FOOTBALL 5v5\n\n`
   summary += `📅 ${formatDate(session.date)}\n`
@@ -66,7 +76,7 @@ export function generateSessionSummary(session: Session, players: Player[]): str
     const calendarUrl = generateCalendarEvent(session, players)
     summary += `\n📅 Ajouter à votre agenda: ${calendarUrl}\n`
   } catch (error) {
-    console.error("Erreur lors de la génération du lien calendrier:", error)
+    console.error('Erreur lors de la génération du lien calendrier:', error)
   }
 
   summary += `\n📱 Organisé avec Five Planner - https://fiveplanner.fr`
@@ -74,9 +84,12 @@ export function generateSessionSummary(session: Session, players: Player[]): str
   return summary
 }
 
-export async function shareSession(session: Session, players: Player[]): Promise<boolean> {
+export async function shareSession(
+  session: Session,
+  players: Player[],
+): Promise<boolean> {
   const summary = generateSessionSummary(session, players)
-  const title = `Session Football 5v5 - ${new Date(session.date).toLocaleDateString("fr-FR")}`
+  const title = `Session Football 5v5 - ${new Date(session.date).toLocaleDateString('fr-FR')}`
 
   if (navigator.share) {
     try {
@@ -86,7 +99,7 @@ export async function shareSession(session: Session, players: Player[]): Promise
       })
       return true
     } catch (error) {
-      console.error("Erreur lors du partage:", error)
+      console.error('Erreur lors du partage:', error)
       return false
     }
   } else {
@@ -95,7 +108,7 @@ export async function shareSession(session: Session, players: Player[]): Promise
       await navigator.clipboard.writeText(summary)
       return true
     } catch (error) {
-      console.error("Erreur lors de la copie:", error)
+      console.error('Erreur lors de la copie:', error)
       return false
     }
   }

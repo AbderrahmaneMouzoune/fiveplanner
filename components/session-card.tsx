@@ -1,20 +1,24 @@
-"use client"
+'use client'
 
-import type { Session, Player } from "@/types"
-import { useState, useId } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import { PlayerAvatar } from "@/components/player-avatar"
-import { ManageSessionPlayersDialog } from "@/components/manage-session-players-dialog"
-import { CompleteSessionDialog } from "@/components/complete-session-dialog"
-import { ConfirmDialog } from "@/components/confirm-dialog"
-import { SharePreviewDialog } from "@/components/share-preview-dialog"
-import { shareSession } from "@/utils/share"
-import { addToCalendar } from "@/utils/calendar"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import type { Session, Player } from '@/types'
+import { useState, useId } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
+import { PlayerAvatar } from '@/components/player-avatar'
+import { ManageSessionPlayersDialog } from '@/components/manage-session-players-dialog'
+import { CompleteSessionDialog } from '@/components/complete-session-dialog'
+import { ConfirmDialog } from '@/components/confirm-dialog'
+import { SharePreviewDialog } from '@/components/share-preview-dialog'
+import { shareSession } from '@/utils/share'
+import { addToCalendar } from '@/utils/calendar'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
 import {
   IconCalendar,
   IconClock,
@@ -35,9 +39,9 @@ import {
   IconCalendarPlus,
   IconFilter,
   IconQuestionMark,
-} from "@tabler/icons-react"
-import { AddPlayerDialog } from "@/components/add-player-dialog"
-import type { PlayerGroup } from "@/types"
+} from '@tabler/icons-react'
+import { AddPlayerDialog } from '@/components/add-player-dialog'
+import type { PlayerGroup } from '@/types'
 
 interface SessionCardProps {
   session: Session
@@ -46,9 +50,17 @@ interface SessionCardProps {
   onCompleteSession: (score?: { team1: number; team2: number }) => void
   onCancelSession: () => void
   onClearSession: () => void
-  onUpdatePlayerResponse: (playerId: string, status: "coming" | "not-coming" | "pending" | "optional") => void
-  onAddPlayer: (player: { name: string; email?: string; phone?: string; group?: string }) => void
-  onAddGroup: (group: Omit<PlayerGroup, "id">) => void
+  onUpdatePlayerResponse: (
+    playerId: string,
+    status: 'coming' | 'not-coming' | 'pending' | 'optional',
+  ) => void
+  onAddPlayer: (player: {
+    name: string
+    email?: string
+    phone?: string
+    group?: string
+  }) => void
+  onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
 }
@@ -87,44 +99,51 @@ export function SessionCard({
     try {
       const date = new Date(dateString)
       if (isNaN(date.getTime())) {
-        return "Date invalide"
+        return 'Date invalide'
       }
-      return date.toLocaleDateString("fr-FR", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
+      return date.toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       })
     } catch (error) {
-      console.error("Erreur lors du formatage de la date:", error)
-      return "Date invalide"
+      console.error('Erreur lors du formatage de la date:', error)
+      return 'Date invalide'
     }
   }
 
   const getPlayerName = (playerId: string) => {
     const player = players.find((p) => p.id === playerId)
-    return player?.name || "Joueur inconnu"
+    return player?.name || 'Joueur inconnu'
   }
 
   const getPlayerStatus = (playerId: string) => {
     const response = session.responses.find((r) => r.playerId === playerId)
-    return response?.status || "pending"
+    return response?.status || 'pending'
   }
 
-  const confirmedPlayers = session.responses.filter((r) => r.status === "coming")
-  const optionalPlayers = session.responses.filter((r) => r.status === "optional")
-  const absentPlayers = session.responses.filter((r) => r.status === "not-coming")
-  const pendingPlayers = session.responses.filter((r) => r.status === "pending")
+  const confirmedPlayers = session.responses.filter(
+    (r) => r.status === 'coming',
+  )
+  const optionalPlayers = session.responses.filter(
+    (r) => r.status === 'optional',
+  )
+  const absentPlayers = session.responses.filter(
+    (r) => r.status === 'not-coming',
+  )
+  const pendingPlayers = session.responses.filter((r) => r.status === 'pending')
 
   const playersWithoutResponse = players.filter(
-    (player) => !session.responses.some((response) => response.playerId === player.id),
+    (player) =>
+      !session.responses.some((response) => response.playerId === player.id),
   )
 
   const allPendingPlayers = [
     ...pendingPlayers,
     ...playersWithoutResponse.map((player) => ({
       playerId: player.id,
-      status: "pending" as const,
+      status: 'pending' as const,
       respondedAt: undefined,
     })),
   ]
@@ -137,17 +156,17 @@ export function SessionCard({
   // Filtrer les joueurs selon les checkboxes
   const getFilteredPlayers = () => {
     const allPlayersWithStatus = [
-      ...confirmedPlayers.map((r) => ({ ...r, type: "confirmed" as const })),
-      ...optionalPlayers.map((r) => ({ ...r, type: "optional" as const })),
-      ...allPendingPlayers.map((r) => ({ ...r, type: "pending" as const })),
-      ...absentPlayers.map((r) => ({ ...r, type: "absent" as const })),
+      ...confirmedPlayers.map((r) => ({ ...r, type: 'confirmed' as const })),
+      ...optionalPlayers.map((r) => ({ ...r, type: 'optional' as const })),
+      ...allPendingPlayers.map((r) => ({ ...r, type: 'pending' as const })),
+      ...absentPlayers.map((r) => ({ ...r, type: 'absent' as const })),
     ]
 
     return allPlayersWithStatus.filter((player) => {
-      if (player.type === "confirmed" && !showConfirmed) return false
-      if (player.type === "optional" && !showOptional) return false
-      if (player.type === "pending" && !showPending) return false
-      if (player.type === "absent" && !showAbsent) return false
+      if (player.type === 'confirmed' && !showConfirmed) return false
+      if (player.type === 'optional' && !showOptional) return false
+      if (player.type === 'pending' && !showPending) return false
+      if (player.type === 'absent' && !showAbsent) return false
       return true
     })
   }
@@ -155,14 +174,14 @@ export function SessionCard({
   const filteredPlayers = getFilteredPlayers()
 
   const getSessionTypeBadge = () => {
-    return session.sessionType === "indoor" ? (
+    return session.sessionType === 'indoor' ? (
       <Badge variant="secondary">
-        <IconHome className="w-3 h-3 mr-1" />
+        <IconHome className="mr-1 h-3 w-3" />
         Intérieur
       </Badge>
     ) : (
       <Badge variant="default">
-        <IconSun className="w-3 h-3 mr-1" />
+        <IconSun className="mr-1 h-3 w-3" />
         Extérieur
       </Badge>
     )
@@ -177,11 +196,11 @@ export function SessionCard({
     try {
       const success = await shareSession(session, players)
       if (success && !navigator.share) {
-        alert("Récapitulatif copié dans le presse-papiers !")
+        alert('Récapitulatif copié dans le presse-papiers !')
       }
     } catch (error) {
-      console.error("Erreur lors du partage:", error)
-      alert("Erreur lors du partage")
+      console.error('Erreur lors du partage:', error)
+      alert('Erreur lors du partage')
     } finally {
       setIsSharing(false)
     }
@@ -191,12 +210,12 @@ export function SessionCard({
     setIsAddingToCalendar(true)
     try {
       if (!session.date || !session.time) {
-        throw new Error("Données de session incomplètes")
+        throw new Error('Données de session incomplètes')
       }
 
       const dateTest = new Date(session.date)
       if (isNaN(dateTest.getTime())) {
-        throw new Error("Format de date invalide")
+        throw new Error('Format de date invalide')
       }
 
       const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
@@ -207,7 +226,9 @@ export function SessionCard({
       addToCalendar(session, players)
     } catch (error) {
       console.error("Erreur lors de l'ajout au calendrier:", error)
-      alert("Impossible d'ajouter l'événement au calendrier. Veuillez vérifier les informations de la session.")
+      alert(
+        "Impossible d'ajouter l'événement au calendrier. Veuillez vérifier les informations de la session.",
+      )
     } finally {
       setIsAddingToCalendar(false)
     }
@@ -215,27 +236,27 @@ export function SessionCard({
 
   const getPlayerBadge = (type: string) => {
     switch (type) {
-      case "confirmed":
+      case 'confirmed':
         return (
-          <Badge variant="success" className="text-xs flex-shrink-0">
+          <Badge variant="success" className="flex-shrink-0 text-xs">
             Confirmé
           </Badge>
         )
-      case "optional":
+      case 'optional':
         return (
-          <Badge variant="warning" className="text-xs flex-shrink-0">
+          <Badge variant="warning" className="flex-shrink-0 text-xs">
             Optionnel
           </Badge>
         )
-      case "pending":
+      case 'pending':
         return (
-          <Badge variant="outline" className="text-xs flex-shrink-0">
+          <Badge variant="outline" className="flex-shrink-0 text-xs">
             En attente
           </Badge>
         )
-      case "absent":
+      case 'absent':
         return (
-          <Badge variant="destructive" className="text-xs flex-shrink-0">
+          <Badge variant="destructive" className="flex-shrink-0 text-xs">
             Absent
           </Badge>
         )
@@ -246,21 +267,24 @@ export function SessionCard({
 
   const getPlayerCardBackground = (type: string) => {
     switch (type) {
-      case "confirmed":
-        return "bg-success/20 border-success-foreground/10"
-      case "optional":
-        return "bg-warning/20 border-warning-foreground120"
-      case "pending":
-        return "bg-muted/20 border-muted-foreground/10"
-      case "absent":
-        return "bg-destructive/20 border-destructive-foreground/10"
+      case 'confirmed':
+        return 'bg-success/20 border-success-foreground/10'
+      case 'optional':
+        return 'bg-warning/20 border-warning-foreground120'
+      case 'pending':
+        return 'bg-muted/20 border-muted-foreground/10'
+      case 'absent':
+        return 'bg-destructive/20 border-destructive-foreground/10'
       default:
-        return "bg-card border-border"
+        return 'bg-card border-border'
     }
   }
 
   const totalPlayersCount =
-    confirmedPlayers.length + optionalPlayers.length + allPendingPlayers.length + absentPlayers.length
+    confirmedPlayers.length +
+    optionalPlayers.length +
+    allPendingPlayers.length +
+    absentPlayers.length
 
   return (
     <>
@@ -278,42 +302,42 @@ export function SessionCard({
               disabled={isAddingToCalendar}
               className="flex-shrink-0"
             >
-              <IconCalendarPlus className="w-4 h-4 mr-1" />
-              {isAddingToCalendar ? "Ajout..." : "Agenda"}
+              <IconCalendarPlus className="mr-1 h-4 w-4" />
+              {isAddingToCalendar ? 'Ajout...' : 'Agenda'}
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="relative w-full bg-muted rounded-full h-2 -mt-2 mb-4">
+          <div className="relative -mt-2 mb-4 h-2 w-full rounded-full bg-muted">
             <div
-              className="absolute top-0 left-0 bg-warning-foreground h-2 rounded-full transition-all duration-300"
+              className="absolute left-0 top-0 h-2 rounded-full bg-warning-foreground transition-all duration-300"
               style={{
                 width: `${Math.min(((confirmedCount + optionalPlayers.length) / session.maxPlayers) * 100, 100)}%`,
               }}
             />
             <div
-              className="absolute top-0 left-0 bg-success h-2 rounded-full transition-all duration-300"
+              className="absolute left-0 top-0 h-2 rounded-full bg-success transition-all duration-300"
               style={{
                 width: `${Math.min((confirmedCount / session.maxPlayers) * 100, 100)}%`,
               }}
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex items-center gap-2">
-              <IconCalendar className="w-4 h-4 text-muted-foreground" />
+              <IconCalendar className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">{formatDate(session.date)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <IconClock className="w-4 h-4 text-muted-foreground" />
+              <IconClock className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">{session.time}</span>
             </div>
             <div className="flex items-center gap-2">
-              <IconMapPin className="w-4 h-4 text-muted-foreground" />
+              <IconMapPin className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">{session.location}</span>
             </div>
             <div className="flex items-center gap-2">
-              <IconUsers className="w-4 h-4 text-muted-foreground" />
+              <IconUsers className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">
                 {confirmedCount}/{session.maxPlayers} joueurs
               </span>
@@ -322,62 +346,105 @@ export function SessionCard({
 
           {totalPlayersCount > 0 && (
             <div className="space-y-3">
-              <Collapsible open={showAllPlayers} onOpenChange={setShowAllPlayers}>
-                <CollapsibleTrigger className="flex items-center gap-2 w-full p-3 bg-primary/10 hover:bg-primary/20 rounded-lg border border-primary/20 transition-colors">
+              <Collapsible
+                open={showAllPlayers}
+                onOpenChange={setShowAllPlayers}
+              >
+                <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 p-3 transition-colors hover:bg-primary/20">
                   {showAllPlayers ? (
-                    <IconChevronDown className="w-4 h-4 text-primary" />
+                    <IconChevronDown className="h-4 w-4 text-primary" />
                   ) : (
-                    <IconChevronRight className="w-4 h-4 text-primary" />
+                    <IconChevronRight className="h-4 w-4 text-primary" />
                   )}
-                  <IconUsers className="w-4 h-4 text-primary" />
-                  <span className="font-medium text-primary">Tous les joueurs ({totalPlayersCount})</span>
+                  <IconUsers className="h-4 w-4 text-primary" />
+                  <span className="font-medium text-primary">
+                    Tous les joueurs ({totalPlayersCount})
+                  </span>
                   <Badge variant="default" className="ml-auto">
                     {filteredPlayers.length}
                   </Badge>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-3">
                   {/* Filtres avec checkboxes simples */}
-                  <div className="mb-4 p-3 bg-muted/50 rounded-lg border border-border">
-                    <div className="flex items-center gap-2 mb-3">
-                      <IconFilter className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-sm font-medium text-foreground">Filtrer par statut :</span>
+                  <div className="mb-4 rounded-lg border border-border bg-muted/50 p-3">
+                    <div className="mb-3 flex items-center gap-2">
+                      <IconFilter className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm font-medium text-foreground">
+                        Filtrer par statut :
+                      </span>
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div className="flex items-center space-x-2">
-                        <Checkbox id={confirmedId} checked={showConfirmed} onCheckedChange={(value: boolean) => setShowConfirmed(value)} />
-                        <Label htmlFor={confirmedId} className="text-sm font-medium cursor-pointer">
+                        <Checkbox
+                          id={confirmedId}
+                          checked={showConfirmed}
+                          onCheckedChange={(value: boolean) =>
+                            setShowConfirmed(value)
+                          }
+                        />
+                        <Label
+                          htmlFor={confirmedId}
+                          className="cursor-pointer text-sm font-medium"
+                        >
                           <div className="flex items-center gap-2">
-                            <IconCheck className="w-3 h-3 text-success" />
+                            <IconCheck className="h-3 w-3 text-success" />
                             Confirmés ({confirmedPlayers.length})
                           </div>
                         </Label>
                       </div>
 
                       <div className="flex items-center space-x-2">
-                        <Checkbox id={optionalId} checked={showOptional} onCheckedChange={(value: boolean) => setShowOptional(value)} />
-                        <Label htmlFor={optionalId} className="text-sm font-medium cursor-pointer">
+                        <Checkbox
+                          id={optionalId}
+                          checked={showOptional}
+                          onCheckedChange={(value: boolean) =>
+                            setShowOptional(value)
+                          }
+                        />
+                        <Label
+                          htmlFor={optionalId}
+                          className="cursor-pointer text-sm font-medium"
+                        >
                           <div className="flex items-center gap-2">
-                            <IconQuestionMark className="w-3 h-3 text-warning" />
+                            <IconQuestionMark className="h-3 w-3 text-warning" />
                             Optionnels ({optionalPlayers.length})
                           </div>
                         </Label>
                       </div>
 
                       <div className="flex items-center space-x-2">
-                        <Checkbox id={pendingId} checked={showPending} onCheckedChange={(value: boolean) => setShowPending(value)} />
-                        <Label htmlFor={pendingId} className="text-sm font-medium cursor-pointer">
+                        <Checkbox
+                          id={pendingId}
+                          checked={showPending}
+                          onCheckedChange={(value: boolean) =>
+                            setShowPending(value)
+                          }
+                        />
+                        <Label
+                          htmlFor={pendingId}
+                          className="cursor-pointer text-sm font-medium"
+                        >
                           <div className="flex items-center gap-2">
-                            <IconClock className="w-3 h-3 text-muted-foreground" />
+                            <IconClock className="h-3 w-3 text-muted-foreground" />
                             En attente ({allPendingPlayers.length})
                           </div>
                         </Label>
                       </div>
 
                       <div className="flex items-center space-x-2">
-                        <Checkbox id={absentId} checked={showAbsent} onCheckedChange={(value: boolean) => setShowAbsent(value)} />
-                        <Label htmlFor={absentId} className="text-sm font-medium cursor-pointer">
+                        <Checkbox
+                          id={absentId}
+                          checked={showAbsent}
+                          onCheckedChange={(value: boolean) =>
+                            setShowAbsent(value)
+                          }
+                        />
+                        <Label
+                          htmlFor={absentId}
+                          className="cursor-pointer text-sm font-medium"
+                        >
                           <div className="flex items-center gap-2">
-                            <IconX className="w-3 h-3 text-destructive" />
+                            <IconX className="h-3 w-3 text-destructive" />
                             Absents ({absentPlayers.length})
                           </div>
                         </Label>
@@ -386,17 +453,23 @@ export function SessionCard({
                   </div>
 
                   {/* Liste des joueurs filtrés */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {filteredPlayers.length > 0 ? (
                       filteredPlayers.map((playerResponse) => {
-                        const playerName = getPlayerName(playerResponse.playerId)
-                        const player = players.find((p) => p.id === playerResponse.playerId)
-                        const playerStatus = getPlayerStatus(playerResponse.playerId)
+                        const playerName = getPlayerName(
+                          playerResponse.playerId,
+                        )
+                        const player = players.find(
+                          (p) => p.id === playerResponse.playerId,
+                        )
+                        const playerStatus = getPlayerStatus(
+                          playerResponse.playerId,
+                        )
 
                         return (
                           <div
                             key={playerResponse.playerId}
-                            className={`flex items-center gap-2 p-2 rounded-lg border ${getPlayerCardBackground(playerResponse.type)}`}
+                            className={`flex items-center gap-2 rounded-lg border p-2 ${getPlayerCardBackground(playerResponse.type)}`}
                           >
                             <PlayerAvatar
                               name={playerName}
@@ -404,19 +477,23 @@ export function SessionCard({
                               size="sm"
                               existingPlayers={allPlayerNames}
                             />
-                            <div className="flex-1 min-w-0">
-                              <span className="text-sm font-medium truncate block">{playerName}</span>
+                            <div className="min-w-0 flex-1">
+                              <span className="block truncate text-sm font-medium">
+                                {playerName}
+                              </span>
                               {player && (player.email || player.phone) && (
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                   {player.email && (
                                     <span className="flex items-center gap-1 truncate">
-                                      <IconMail className="w-3 h-3 flex-shrink-0" />
-                                      <span className="truncate">{player.email}</span>
+                                      <IconMail className="h-3 w-3 flex-shrink-0" />
+                                      <span className="truncate">
+                                        {player.email}
+                                      </span>
                                     </span>
                                   )}
                                   {player.phone && (
                                     <span className="flex items-center gap-1">
-                                      <IconPhone className="w-3 h-3 flex-shrink-0" />
+                                      <IconPhone className="h-3 w-3 flex-shrink-0" />
                                       {player.phone}
                                     </span>
                                   )}
@@ -428,15 +505,17 @@ export function SessionCard({
                         )
                       })
                     ) : (
-                      <div className="col-span-2 text-center text-muted-foreground py-4">
+                      <div className="col-span-2 py-4 text-center text-muted-foreground">
                         Aucun joueur ne correspond aux filtres sélectionnés
                       </div>
                     )}
                   </div>
 
                   {/* Actions rapides */}
-                  <div className="mt-4 p-3 bg-muted rounded-lg">
-                    <p className="text-xs text-muted-foreground mb-2">Actions rapides :</p>
+                  <div className="mt-4 rounded-lg bg-muted p-3">
+                    <p className="mb-2 text-xs text-muted-foreground">
+                      Actions rapides :
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       <AddPlayerDialog
                         groups={groups}
@@ -459,24 +538,31 @@ export function SessionCard({
           )}
 
           {session.paymentLink && (
-            <div className="flex items-center gap-2 p-3 bg-chart-2/10 rounded-lg border border-chart-2/20">
-              <IconCurrencyEuro className="w-4 h-4 text-chart-2" />
-              <span className="text-sm font-medium text-chart-2">Paiement :</span>
+            <div className="flex items-center gap-2 rounded-lg border border-chart-2/20 bg-chart-2/10 p-3">
+              <IconCurrencyEuro className="h-4 w-4 text-chart-2" />
+              <span className="text-sm font-medium text-chart-2">
+                Paiement :
+              </span>
               <a
                 href={session.paymentLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-chart-2 hover:text-chart-2/80 underline flex items-center gap-1"
+                className="flex items-center gap-1 text-sm text-chart-2 underline hover:text-chart-2/80"
               >
                 Cliquez ici pour payer
-                <IconExternalLink className="w-3 h-3" />
+                <IconExternalLink className="h-3 w-3" />
               </a>
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-2 pt-4 border-t border-border">
-            <Button variant="accent" size="sm" onClick={handleSharePreview} className="w-full sm:w-auto">
-              <IconShare className="w-4 h-4 mr-1" />
+          <div className="flex flex-col gap-2 border-t border-border pt-4 sm:flex-row sm:gap-2">
+            <Button
+              variant="accent"
+              size="sm"
+              onClick={handleSharePreview}
+              className="w-full sm:w-auto"
+            >
+              <IconShare className="mr-1 h-4 w-4" />
               Partager
             </Button>
             <ManageSessionPlayersDialog
@@ -487,7 +573,7 @@ export function SessionCard({
             />
             <CompleteSessionDialog onCompleteSession={onCompleteSession}>
               <Button variant="success" size="sm" className="w-full sm:w-auto">
-                <IconCheck className="w-4 h-4 mr-1" />
+                <IconCheck className="mr-1 h-4 w-4" />
                 Terminer
               </Button>
             </CompleteSessionDialog>
@@ -497,8 +583,12 @@ export function SessionCard({
               confirmText="Annuler la session"
               onConfirm={onCancelSession}
             >
-              <Button variant="destructive" size="sm" className="w-full sm:w-auto">
-                <IconX className="w-4 h-4 mr-1" />
+              <Button
+                variant="destructive"
+                size="sm"
+                className="w-full sm:w-auto"
+              >
+                <IconX className="mr-1 h-4 w-4" />
                 Annuler
               </Button>
             </ConfirmDialog>
@@ -508,8 +598,12 @@ export function SessionCard({
               confirmText="Supprimer"
               onConfirm={onClearSession}
             >
-              <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive w-full sm:w-auto">
-                <IconTrash className="w-4 h-4" />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full text-destructive hover:text-destructive sm:w-auto"
+              >
+                <IconTrash className="h-4 w-4" />
               </Button>
             </ConfirmDialog>
           </div>

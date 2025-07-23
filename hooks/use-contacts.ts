@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 
 interface Contact {
   name?: string[]
@@ -15,7 +15,11 @@ export function useContacts() {
    *    causing the “Too many re-renders” error.
    * ---------------------------------------------------------- */
   const [isSupported] = useState<boolean>(() => {
-    return typeof navigator !== "undefined" && "contacts" in navigator && "ContactsManager" in window
+    return (
+      typeof navigator !== 'undefined' &&
+      'contacts' in navigator &&
+      'ContactsManager' in window
+    )
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -31,11 +35,14 @@ export function useContacts() {
 
     setIsLoading(true)
     try {
-      const props = ["name", "tel", "email"]
+      const props = ['name', 'tel', 'email']
       const opts = { multiple: true }
 
       // @ts-ignore – Contacts API is still experimental
-      const contactList: Contact[] = await navigator.contacts.select(props, opts)
+      const contactList: Contact[] = await navigator.contacts.select(
+        props,
+        opts,
+      )
 
       const valid = contactList.filter((c) => c.name && c.name.length > 0)
       setContacts(valid)

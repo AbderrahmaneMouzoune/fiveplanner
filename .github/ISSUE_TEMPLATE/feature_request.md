@@ -17,6 +17,7 @@ Une description claire et concise de toutes les solutions ou fonctionnalités al
 
 **Cas d'Usage**
 Décrivez comment cette fonctionnalité serait utilisée :
+
 - Qui l'utiliserait ?
 - Dans quelles situations ?
 - À quelle fréquence ?
@@ -25,12 +26,14 @@ Décrivez comment cette fonctionnalité serait utilisée :
 Si vous avez des idées sur l'apparence ou le fonctionnement, ajoutez des croquis, mockups ou exemples.
 
 **Priorité**
+
 - [ ] Critique - Nécessaire pour utiliser l'app
 - [ ] Haute - Améliorerait significativement l'expérience
 - [ ] Moyenne - Serait pratique à avoir
 - [ ] Basse - Idée intéressante pour l'avenir
 
 **Complexité Estimée**
+
 - [ ] Simple - Quelques heures de développement
 - [ ] Moyenne - Quelques jours de développement
 - [ ] Complexe - Plusieurs semaines de développement

@@ -1,25 +1,25 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { usePlayers } from "@/hooks/use-players"
-import { useSession } from "@/hooks/use-session"
-import { usePitches } from "@/hooks/use-pitches"
-import { usePlayerGroups } from "@/hooks/use-player-groups"
-import { usePlayerStats } from "@/hooks/use-player-stats"
-import { useOnboarding } from "@/hooks/use-onboarding"
-import { useAnalytics } from "@/hooks/use-analytics"
-import { Navigation } from "@/components/navigation"
-import { CurrentSessionView } from "@/components/views/current-session-view"
-import { PlayersView } from "@/components/views/players-view"
-import { HistoryView } from "@/components/views/history-view"
-import { StatsView } from "@/components/views/stats-view"
-import { OnboardingDialog } from "@/components/onboarding-dialog"
-import { CookieBanner } from "@/components/cookie-banner"
+import { useState } from 'react'
+import { usePlayers } from '@/hooks/use-players'
+import { useSession } from '@/hooks/use-session'
+import { usePitches } from '@/hooks/use-pitches'
+import { usePlayerGroups } from '@/hooks/use-player-groups'
+import { usePlayerStats } from '@/hooks/use-player-stats'
+import { useOnboarding } from '@/hooks/use-onboarding'
+import { useAnalytics } from '@/hooks/use-analytics'
+import { Navigation } from '@/components/navigation'
+import { CurrentSessionView } from '@/components/views/current-session-view'
+import { PlayersView } from '@/components/views/players-view'
+import { HistoryView } from '@/components/views/history-view'
+import { StatsView } from '@/components/views/stats-view'
+import { OnboardingDialog } from '@/components/onboarding-dialog'
+import { CookieBanner } from '@/components/cookie-banner'
 
-type View = "current" | "history" | "stats" | "players"
+type View = 'current' | 'history' | 'stats' | 'players'
 
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<View>("current")
+  const [currentView, setCurrentView] = useState<View>('current')
   const { players, addPlayer, removePlayer, updatePlayer } = usePlayers()
   const { pitches, addPitch, updatePitch, removePitch } = usePitches()
   const { groups, addGroup, updateGroup, removeGroup } = usePlayerGroups()
@@ -39,7 +39,7 @@ export default function HomePage() {
 
   const handleCookieAccept = () => {
     enableAnalytics()
-    trackEvent("cookie_consent_accepted")
+    trackEvent('cookie_consent_accepted')
   }
 
   const handleCookieDecline = () => {
@@ -48,7 +48,7 @@ export default function HomePage() {
 
   const renderCurrentView = () => {
     switch (currentView) {
-      case "current":
+      case 'current':
         return (
           <CurrentSessionView
             currentSession={currentSession}
@@ -69,7 +69,7 @@ export default function HomePage() {
             onRemoveGroup={removeGroup}
           />
         )
-      case "players":
+      case 'players':
         return (
           <PlayersView
             players={players}
@@ -84,10 +84,22 @@ export default function HomePage() {
             onRemoveGroup={removeGroup}
           />
         )
-      case "history":
-        return <HistoryView sessions={sessionHistory} players={players} onDeleteSession={deleteHistorySession} />
-      case "stats":
-        return <StatsView players={players} stats={playerStats} sessionHistory={sessionHistory} />
+      case 'history':
+        return (
+          <HistoryView
+            sessions={sessionHistory}
+            players={players}
+            onDeleteSession={deleteHistorySession}
+          />
+        )
+      case 'stats':
+        return (
+          <StatsView
+            players={players}
+            stats={playerStats}
+            sessionHistory={sessionHistory}
+          />
+        )
       default:
         return null
     }
@@ -95,11 +107,23 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background pb-20 transition-colors">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">{renderCurrentView()}</div>
-      <Navigation currentView={currentView} onViewChange={setCurrentView} sessionHistoryCount={sessionHistory.length} />
+      <div className="container mx-auto max-w-4xl px-4 py-8">
+        {renderCurrentView()}
+      </div>
+      <Navigation
+        currentView={currentView}
+        onViewChange={setCurrentView}
+        sessionHistoryCount={sessionHistory.length}
+      />
 
-      <OnboardingDialog open={showOnboarding} onOpenChange={setShowOnboarding} />
-      <CookieBanner onAccept={handleCookieAccept} onDecline={handleCookieDecline} />
+      <OnboardingDialog
+        open={showOnboarding}
+        onOpenChange={setShowOnboarding}
+      />
+      <CookieBanner
+        onAccept={handleCookieAccept}
+        onDecline={handleCookieDecline}
+      />
     </div>
   )
 }

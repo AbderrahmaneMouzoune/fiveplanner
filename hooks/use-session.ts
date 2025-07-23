@@ -1,19 +1,19 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import type { Session, PlayerResponse, PlayerStatus } from "@/types"
+import { useState, useEffect } from 'react'
+import type { Session, PlayerResponse, PlayerStatus } from '@/types'
 
 export function useSession() {
   const [currentSession, setCurrentSession] = useState<Session | null>(null)
   const [sessionHistory, setSessionHistory] = useState<Session[]>([])
 
   useEffect(() => {
-    const savedSession = localStorage.getItem("five-planner-current-session")
+    const savedSession = localStorage.getItem('five-planner-current-session')
     if (savedSession) {
       setCurrentSession(JSON.parse(savedSession))
     }
 
-    const savedHistory = localStorage.getItem("five-planner-session-history")
+    const savedHistory = localStorage.getItem('five-planner-session-history')
     if (savedHistory) {
       setSessionHistory(JSON.parse(savedHistory))
     }
@@ -21,24 +21,32 @@ export function useSession() {
 
   const saveSessionToStorage = (session: Session | null) => {
     if (session) {
-      localStorage.setItem("five-planner-current-session", JSON.stringify(session))
+      localStorage.setItem(
+        'five-planner-current-session',
+        JSON.stringify(session),
+      )
     } else {
-      localStorage.removeItem("five-planner-current-session")
+      localStorage.removeItem('five-planner-current-session')
     }
     setCurrentSession(session)
   }
 
   const saveHistoryToStorage = (history: Session[]) => {
-    localStorage.setItem("five-planner-session-history", JSON.stringify(history))
+    localStorage.setItem(
+      'five-planner-session-history',
+      JSON.stringify(history),
+    )
     setSessionHistory(history)
   }
 
-  const createSession = (sessionData: Omit<Session, "id" | "responses" | "status" | "createdAt">) => {
+  const createSession = (
+    sessionData: Omit<Session, 'id' | 'responses' | 'status' | 'createdAt'>,
+  ) => {
     const newSession: Session = {
       ...sessionData,
       id: Date.now().toString(),
       responses: [],
-      status: "upcoming",
+      status: 'upcoming',
       createdAt: new Date().toISOString(),
     }
     saveSessionToStorage(newSession)
@@ -47,13 +55,17 @@ export function useSession() {
   const updatePlayerResponse = (playerId: string, status: PlayerStatus) => {
     if (!currentSession) return
 
-    const existingResponseIndex = currentSession.responses.findIndex((r) => r.playerId === playerId)
+    const existingResponseIndex = currentSession.responses.findIndex(
+      (r) => r.playerId === playerId,
+    )
 
     let newResponses: PlayerResponse[]
 
     if (existingResponseIndex >= 0) {
       newResponses = currentSession.responses.map((response, index) =>
-        index === existingResponseIndex ? { ...response, status, respondedAt: new Date().toISOString() } : response,
+        index === existingResponseIndex
+          ? { ...response, status, respondedAt: new Date().toISOString() }
+          : response,
       )
     } else {
       newResponses = [
@@ -79,7 +91,7 @@ export function useSession() {
 
     const completedSession: Session = {
       ...currentSession,
-      status: "completed",
+      status: 'completed',
       completedAt: new Date().toISOString(),
       score,
     }
@@ -94,7 +106,7 @@ export function useSession() {
 
     const cancelledSession: Session = {
       ...currentSession,
-      status: "cancelled",
+      status: 'cancelled',
       completedAt: new Date().toISOString(),
     }
 

@@ -1,10 +1,10 @@
-"use client"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+'use client'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Card, CardContent } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
   Dialog,
   DialogContent,
@@ -13,9 +13,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import type { Pitch } from "@/types"
-import { IconMail, IconCalendarPlus, IconCheck, IconX } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import type { Pitch } from '@/types'
+import {
+  IconMail,
+  IconCalendarPlus,
+  IconCheck,
+  IconX,
+} from '@tabler/icons-react'
 
 interface CreateSessionFromEmailDialogProps {
   pitches: Pitch[]
@@ -24,11 +29,11 @@ interface CreateSessionFromEmailDialogProps {
     time: string
     location: string
     pitch?: Pitch
-    sessionType: "indoor" | "outdoor"
+    sessionType: 'indoor' | 'outdoor'
     paymentLink?: string
     maxPlayers: number
   }) => void
-  onAddPitch: (pitch: Omit<Pitch, "id">) => void
+  onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
 }
 
 interface ParsedEmailData {
@@ -47,14 +52,14 @@ export function CreateSessionFromEmailDialog({
   onAddPitch,
 }: CreateSessionFromEmailDialogProps) {
   const [open, setOpen] = useState(false)
-  const [emailContent, setEmailContent] = useState("")
+  const [emailContent, setEmailContent] = useState('')
   const [parsedData, setParsedData] = useState<ParsedEmailData | null>(null)
   const [isCreating, setIsCreating] = useState(false)
 
   const parseEmailContent = (content: string): ParsedEmailData => {
     try {
       // Nettoyer le contenu
-      const cleanContent = content.replace(/\s+/g, " ").trim()
+      const cleanContent = content.replace(/\s+/g, ' ').trim()
 
       // Extraire la date - chercher des patterns comme "samedi 26 juillet 2025", "le 26/07/2025", etc.
       const datePatterns = [
@@ -69,17 +74,17 @@ export function CreateSessionFromEmailDialog({
       ]
 
       let dateMatch: RegExpMatchArray | null = null
-      let dateFormat = ""
+      let dateFormat = ''
 
       for (const pattern of datePatterns) {
         dateMatch = cleanContent.match(pattern)
         if (dateMatch) {
           if (pattern === datePatterns[0] || pattern === datePatterns[1]) {
-            dateFormat = "french"
+            dateFormat = 'french'
           } else if (pattern === datePatterns[2]) {
-            dateFormat = "dmy"
+            dateFormat = 'dmy'
           } else {
-            dateFormat = "ymd"
+            dateFormat = 'ymd'
           }
           break
         }
@@ -90,35 +95,36 @@ export function CreateSessionFromEmailDialog({
       }
 
       // Convertir la date au format ISO
-      let isoDate = ""
-      if (dateFormat === "french") {
+      let isoDate = ''
+      if (dateFormat === 'french') {
         const monthNames = {
-          janvier: "01",
-          février: "02",
-          mars: "03",
-          avril: "04",
-          mai: "05",
-          juin: "06",
-          juillet: "07",
-          août: "08",
-          septembre: "09",
-          octobre: "10",
-          novembre: "11",
-          décembre: "12",
+          janvier: '01',
+          février: '02',
+          mars: '03',
+          avril: '04',
+          mai: '05',
+          juin: '06',
+          juillet: '07',
+          août: '08',
+          septembre: '09',
+          octobre: '10',
+          novembre: '11',
+          décembre: '12',
         }
-        const day = dateMatch[1].padStart(2, "0")
-        const month = monthNames[dateMatch[2].toLowerCase() as keyof typeof monthNames]
+        const day = dateMatch[1].padStart(2, '0')
+        const month =
+          monthNames[dateMatch[2].toLowerCase() as keyof typeof monthNames]
         const year = dateMatch[3]
         isoDate = `${year}-${month}-${day}`
-      } else if (dateFormat === "dmy") {
-        const day = dateMatch[1].padStart(2, "0")
-        const month = dateMatch[2].padStart(2, "0")
+      } else if (dateFormat === 'dmy') {
+        const day = dateMatch[1].padStart(2, '0')
+        const month = dateMatch[2].padStart(2, '0')
         const year = dateMatch[3]
         isoDate = `${year}-${month}-${day}`
       } else {
         const year = dateMatch[1]
-        const month = dateMatch[2].padStart(2, "0")
-        const day = dateMatch[3].padStart(2, "0")
+        const month = dateMatch[2].padStart(2, '0')
+        const day = dateMatch[3].padStart(2, '0')
         isoDate = `${year}-${month}-${day}`
       }
 
@@ -146,9 +152,11 @@ export function CreateSessionFromEmailDialog({
         throw new Error("Impossible de trouver l'heure dans l'email")
       }
 
-      const startTime = `${timeMatch[1].padStart(2, "0")}:${timeMatch[2].padStart(2, "0")}`
+      const startTime = `${timeMatch[1].padStart(2, '0')}:${timeMatch[2].padStart(2, '0')}`
       const endTime =
-        timeMatch[3] && timeMatch[4] ? `${timeMatch[3].padStart(2, "0")}:${timeMatch[4].padStart(2, "0")}` : ""
+        timeMatch[3] && timeMatch[4]
+          ? `${timeMatch[3].padStart(2, '0')}:${timeMatch[4].padStart(2, '0')}`
+          : ''
 
       // Extraire le lieu - chercher des patterns comme "LE FIVE Paris 18", "centre LE FIVE", etc.
       const locationPatterns = [
@@ -168,7 +176,9 @@ export function CreateSessionFromEmailDialog({
         if (locationMatch) break
       }
 
-      const location = locationMatch ? locationMatch[1].trim() : "Lieu non spécifié"
+      const location = locationMatch
+        ? locationMatch[1].trim()
+        : 'Lieu non spécifié'
 
       // Extraire le lien de paiement
       const paymentLinkMatch = content.match(/(https?:\/\/[^\s]+)/i)
@@ -184,12 +194,15 @@ export function CreateSessionFromEmailDialog({
       }
     } catch (error) {
       return {
-        date: "",
-        time: "",
-        endTime: "",
-        location: "",
+        date: '',
+        time: '',
+        endTime: '',
+        location: '',
         success: false,
-        error: error instanceof Error ? error.message : "Erreur lors de l'analyse de l'email",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Erreur lors de l'analyse de l'email",
       }
     }
   }
@@ -218,14 +231,14 @@ export function CreateSessionFromEmailDialog({
 
     // Si aucun terrain ne correspond, créer un nouveau terrain
     const pitchToUse = matchingPitch
-    if (!matchingPitch && parsedData.location !== "Lieu non spécifié") {
+    if (!matchingPitch && parsedData.location !== 'Lieu non spécifié') {
       const newPitch = {
         name: parsedData.location,
         address: parsedData.location,
-        surfaceType: "synthetic" as const,
+        surfaceType: 'synthetic' as const,
         isFilmed: false,
-        priceRange: "€€€",
-        description: "Terrain ajouté automatiquement depuis un email",
+        priceRange: '€€€',
+        description: 'Terrain ajouté automatiquement depuis un email',
       }
       onAddPitch(newPitch)
       // Note: Dans un vrai cas, on récupérerait l'ID du terrain créé
@@ -236,19 +249,19 @@ export function CreateSessionFromEmailDialog({
       time: parsedData.time,
       location: parsedData.location,
       pitch: pitchToUse,
-      sessionType: "indoor", // Par défaut indoor pour les centres comme LE FIVE
+      sessionType: 'indoor', // Par défaut indoor pour les centres comme LE FIVE
       paymentLink: parsedData.paymentLink,
       maxPlayers: 10, // Valeur par défaut
     })
 
     setIsCreating(false)
-    setEmailContent("")
+    setEmailContent('')
     setParsedData(null)
     setOpen(false)
   }
 
   const resetForm = () => {
-    setEmailContent("")
+    setEmailContent('')
     setParsedData(null)
   }
 
@@ -256,24 +269,27 @@ export function CreateSessionFromEmailDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
-          <IconMail className="w-4 h-4 mr-2" />
+          <IconMail className="mr-2 h-4 w-4" />
           Créer depuis email
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconMail className="w-5 h-5" />
+            <IconMail className="h-5 w-5" />
             Créer une session depuis un email
           </DialogTitle>
           <DialogDescription>
-            Collez le contenu de votre email de confirmation de réservation pour créer automatiquement une session.
+            Collez le contenu de votre email de confirmation de réservation pour
+            créer automatiquement une session.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="grid gap-2">
-            <Label htmlFor="email-content">Contenu de l'email de confirmation</Label>
+            <Label htmlFor="email-content">
+              Contenu de l'email de confirmation
+            </Label>
             <Textarea
               id="email-content"
               value={emailContent}
@@ -285,8 +301,12 @@ export function CreateSessionFromEmailDialog({
           </div>
 
           {!parsedData && (
-            <Button variant="accent" onClick={handleParseEmail} disabled={!emailContent.trim()}>
-              <IconCalendarPlus className="w-4 h-4 mr-2" />
+            <Button
+              variant="accent"
+              onClick={handleParseEmail}
+              disabled={!emailContent.trim()}
+            >
+              <IconCalendarPlus className="mr-2 h-4 w-4" />
               Analyser l'email
             </Button>
           )}
@@ -297,20 +317,25 @@ export function CreateSessionFromEmailDialog({
                 {parsedData.success ? (
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 text-primary">
-                      <IconCheck className="w-4 h-4" />
-                      <span className="font-medium">Email analysé avec succès !</span>
+                      <IconCheck className="h-4 w-4" />
+                      <span className="font-medium">
+                        Email analysé avec succès !
+                      </span>
                     </div>
 
                     <div className="grid gap-2 text-sm">
                       <div className="flex justify-between">
                         <span className="font-medium">Date :</span>
                         <span>
-                          {new Date(parsedData.date).toLocaleDateString("fr-FR", {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                          {new Date(parsedData.date).toLocaleDateString(
+                            'fr-FR',
+                            {
+                              weekday: 'long',
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            },
+                          )}
                         </span>
                       </div>
                       <div className="flex justify-between">
@@ -327,7 +352,10 @@ export function CreateSessionFromEmailDialog({
                       {parsedData.paymentLink && (
                         <div className="flex justify-between">
                           <span className="font-medium">Paiement :</span>
-                          <span className="text-chart-2 truncate max-w-48" title={parsedData.paymentLink}>
+                          <span
+                            className="max-w-48 truncate text-chart-2"
+                            title={parsedData.paymentLink}
+                          >
                             {parsedData.paymentLink}
                           </span>
                         </div>
@@ -337,8 +365,10 @@ export function CreateSessionFromEmailDialog({
                 ) : (
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 text-destructive">
-                      <IconX className="w-4 h-4" />
-                      <span className="font-medium">Erreur lors de l'analyse</span>
+                      <IconX className="h-4 w-4" />
+                      <span className="font-medium">
+                        Erreur lors de l'analyse
+                      </span>
                     </div>
                     <Alert>
                       <AlertDescription>{parsedData.error}</AlertDescription>
@@ -352,9 +382,10 @@ export function CreateSessionFromEmailDialog({
           {parsedData && !parsedData.success && (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                L'email n'a pas pu être analysé automatiquement. Vérifiez que le contenu contient :
+                L'email n'a pas pu être analysé automatiquement. Vérifiez que le
+                contenu contient :
               </p>
-              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+              <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
                 <li>Une date (ex: "samedi 26 juillet 2025" ou "26/07/2025")</li>
                 <li>Une heure (ex: "entre 19:30 et 21:00" ou "à 19:30")</li>
                 <li>Un lieu (ex: "LE FIVE Paris 18")</li>
@@ -368,8 +399,12 @@ export function CreateSessionFromEmailDialog({
             Réinitialiser
           </Button>
           {parsedData && parsedData.success && (
-            <Button variant="accent" onClick={handleCreateSession} disabled={isCreating}>
-              {isCreating ? "Création..." : "Créer la session"}
+            <Button
+              variant="accent"
+              onClick={handleCreateSession}
+              disabled={isCreating}
+            >
+              {isCreating ? 'Création...' : 'Créer la session'}
             </Button>
           )}
         </DialogFooter>

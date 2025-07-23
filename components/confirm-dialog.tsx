@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import type React from 'react'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -11,15 +11,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { IconAlertTriangle } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import { IconAlertTriangle } from '@tabler/icons-react'
 
 interface ConfirmDialogProps {
   title: string
   description: string
   confirmText?: string
   cancelText?: string
-  variant?: "destructive" | "default"
+  variant?: 'destructive' | 'default'
   onConfirm: () => void
   children: React.ReactNode
 }
@@ -27,9 +27,9 @@ interface ConfirmDialogProps {
 export function ConfirmDialog({
   title,
   description,
-  confirmText = "Confirmer",
-  cancelText = "Annuler",
-  variant = "destructive",
+  confirmText = 'Confirmer',
+  cancelText = 'Annuler',
+  variant = 'destructive',
   onConfirm,
   children,
 }: ConfirmDialogProps) {
@@ -46,7 +46,7 @@ export function ConfirmDialog({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <IconAlertTriangle className="w-5 h-5 text-warning" />
+            <IconAlertTriangle className="h-5 w-5 text-warning" />
             {title}
           </DialogTitle>
           <DialogDescription>{description}</DialogDescription>

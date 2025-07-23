@@ -1,13 +1,19 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card } from "@/components/ui/card"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Card } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -16,12 +22,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { PitchCard } from "@/components/pitch-card"
-import { PitchCombobox } from "@/components/pitch-combobox"
-import { ManagePitchesDialog } from "@/components/manage-pitches-dialog"
-import type { Pitch } from "@/types"
-import { IconCalendarPlus, IconHome, IconSun } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import { PitchCard } from '@/components/pitch-card'
+import { PitchCombobox } from '@/components/pitch-combobox'
+import { ManagePitchesDialog } from '@/components/manage-pitches-dialog'
+import type { Pitch } from '@/types'
+import { IconCalendarPlus, IconHome, IconSun } from '@tabler/icons-react'
 
 interface CreateSessionDialogProps {
   pitches: Pitch[]
@@ -30,11 +36,11 @@ interface CreateSessionDialogProps {
     time: string
     location: string
     pitch?: Pitch
-    sessionType: "indoor" | "outdoor"
+    sessionType: 'indoor' | 'outdoor'
     paymentLink?: string
     maxPlayers: number
   }) => void
-  onAddPitch: (pitch: Omit<Pitch, "id">) => void
+  onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
   onUpdatePitch: (pitchId: string, updates: Partial<Pitch>) => void
   onRemovePitch: (pitchId: string) => void
 }
@@ -47,12 +53,14 @@ export function CreateSessionDialog({
   onRemovePitch,
 }: CreateSessionDialogProps) {
   const [open, setOpen] = useState(false)
-  const [date, setDate] = useState("")
-  const [time, setTime] = useState("")
-  const [selectedPitchId, setSelectedPitchId] = useState<string>("")
-  const [customLocation, setCustomLocation] = useState("")
-  const [sessionType, setSessionType] = useState<"indoor" | "outdoor">("outdoor")
-  const [paymentLink, setPaymentLink] = useState("")
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [selectedPitchId, setSelectedPitchId] = useState<string>('')
+  const [customLocation, setCustomLocation] = useState('')
+  const [sessionType, setSessionType] = useState<'indoor' | 'outdoor'>(
+    'outdoor',
+  )
+  const [paymentLink, setPaymentLink] = useState('')
   const [maxPlayers, setMaxPlayers] = useState(10)
   const [useCustomLocation, setUseCustomLocation] = useState(false)
 
@@ -64,18 +72,20 @@ export function CreateSessionDialog({
       onCreateSession({
         date,
         time,
-        location: useCustomLocation ? customLocation.trim() : selectedPitch?.name || "",
+        location: useCustomLocation
+          ? customLocation.trim()
+          : selectedPitch?.name || '',
         pitch: useCustomLocation ? undefined : selectedPitch,
         sessionType,
         paymentLink: paymentLink.trim() || undefined,
         maxPlayers,
       })
-      setDate("")
-      setTime("")
-      setSelectedPitchId("")
-      setCustomLocation("")
-      setSessionType("outdoor")
-      setPaymentLink("")
+      setDate('')
+      setTime('')
+      setSelectedPitchId('')
+      setCustomLocation('')
+      setSessionType('outdoor')
+      setPaymentLink('')
       setMaxPlayers(10)
       setUseCustomLocation(false)
       setOpen(false)
@@ -86,42 +96,61 @@ export function CreateSessionDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="accent">
-          <IconCalendarPlus className="w-4 h-4 mr-2" />
+          <IconCalendarPlus className="mr-2 h-4 w-4" />
           Nouvelle session
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>Créer une nouvelle session</DialogTitle>
-          <DialogDescription>Planifiez votre prochaine session de football 5v5.</DialogDescription>
+          <DialogDescription>
+            Planifiez votre prochaine session de football 5v5.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="date">Date *</Label>
-              <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+              <Input
+                id="date"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="time">Heure *</Label>
-              <Input id="time" type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
+              <Input
+                id="time"
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                required
+              />
             </div>
 
             <div className="grid gap-2">
               <Label>Type de session *</Label>
-              <Select value={sessionType} onValueChange={(value: "indoor" | "outdoor") => setSessionType(value)}>
+              <Select
+                value={sessionType}
+                onValueChange={(value: 'indoor' | 'outdoor') =>
+                  setSessionType(value)
+                }
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="outdoor">
                     <div className="flex items-center gap-2">
-                      <IconSun className="w-4 h-4" />
+                      <IconSun className="h-4 w-4" />
                       Extérieur
                     </div>
                   </SelectItem>
                   <SelectItem value="indoor">
                     <div className="flex items-center gap-2">
-                      <IconHome className="w-4 h-4" />
+                      <IconHome className="h-4 w-4" />
                       Intérieur
                     </div>
                   </SelectItem>
@@ -139,10 +168,10 @@ export function CreateSessionDialog({
                   onRemovePitch={onRemovePitch}
                 />
               </div>
-              <div className="flex gap-2 mb-2">
+              <div className="mb-2 flex gap-2">
                 <Button
                   type="button"
-                  variant={!useCustomLocation ? "default" : "outline"}
+                  variant={!useCustomLocation ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setUseCustomLocation(false)}
                 >
@@ -150,7 +179,7 @@ export function CreateSessionDialog({
                 </Button>
                 <Button
                   type="button"
-                  variant={useCustomLocation ? "default" : "outline"}
+                  variant={useCustomLocation ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setUseCustomLocation(true)}
                 >

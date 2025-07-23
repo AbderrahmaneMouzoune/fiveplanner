@@ -8,19 +8,19 @@ Dans l'intérêt de favoriser un environnement ouvert et accueillant, nous, en t
 
 Exemples de comportements qui contribuent à créer un environnement positif :
 
-* Utiliser un langage accueillant et inclusif
-* Respecter les différents points de vue et expériences
-* Accepter gracieusement les critiques constructives
-* Se concentrer sur ce qui est le mieux pour la communauté
-* Faire preuve d'empathie envers les autres membres de la communauté
+- Utiliser un langage accueillant et inclusif
+- Respecter les différents points de vue et expériences
+- Accepter gracieusement les critiques constructives
+- Se concentrer sur ce qui est le mieux pour la communauté
+- Faire preuve d'empathie envers les autres membres de la communauté
 
 Exemples de comportements inacceptables :
 
-* L'utilisation de langage ou d'imagerie sexualisés et les avances sexuelles non sollicitées
-* Le trolling, les commentaires insultants/désobligeants, et les attaques personnelles ou politiques
-* Le harcèlement public ou privé
-* Publier des informations privées d'autrui, telles que des adresses physiques ou électroniques, sans permission explicite
-* Autres conduites qui pourraient raisonnablement être considérées comme inappropriées dans un cadre professionnel
+- L'utilisation de langage ou d'imagerie sexualisés et les avances sexuelles non sollicitées
+- Le trolling, les commentaires insultants/désobligeants, et les attaques personnelles ou politiques
+- Le harcèlement public ou privé
+- Publier des informations privées d'autrui, telles que des adresses physiques ou électroniques, sans permission explicite
+- Autres conduites qui pourraient raisonnablement être considérées comme inappropriées dans un cadre professionnel
 
 ## Nos Responsabilités
 

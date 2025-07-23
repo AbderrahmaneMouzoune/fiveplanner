@@ -21,21 +21,25 @@ En participant à ce projet, vous acceptez de respecter notre [Code de Conduite]
 Il existe plusieurs façons de contribuer à Five Planner :
 
 ### 🐛 Signaler des Bugs
+
 - Utilisez les [issues GitHub](https://github.com/votre-username/five-planner/issues)
 - Vérifiez d'abord que le bug n'a pas déjà été signalé
 - Utilisez le template de bug report
 
 ### 💡 Proposer des Fonctionnalités
+
 - Créez une issue avec le label "enhancement"
 - Décrivez clairement la fonctionnalité souhaitée
 - Expliquez le cas d'usage et les bénéfices
 
 ### 🔧 Corriger des Bugs
+
 - Regardez les issues avec le label "bug"
 - Commentez l'issue pour indiquer que vous travaillez dessus
 - Suivez le process de développement ci-dessous
 
 ### ✨ Ajouter des Fonctionnalités
+
 - Regardez les issues avec le label "enhancement"
 - Discutez de l'implémentation avant de commencer
 - Suivez le process de développement
@@ -43,16 +47,19 @@ Il existe plusieurs façons de contribuer à Five Planner :
 ## 🐛 Signaler un Bug
 
 ### Avant de Signaler
+
 1. **Vérifiez les issues existantes** - Le bug a peut-être déjà été signalé
 2. **Testez sur la dernière version** - Le bug a peut-être été corrigé
 3. **Reproduisez le bug** - Assurez-vous qu'il est reproductible
 
 ### Template de Bug Report
+
 \`\`\`markdown
 **Description du Bug**
 Une description claire et concise du bug.
 
 **Étapes pour Reproduire**
+
 1. Allez sur '...'
 2. Cliquez sur '...'
 3. Faites défiler jusqu'à '...'
@@ -65,10 +72,11 @@ Une description claire de ce qui devrait se passer.
 Si applicable, ajoutez des captures d'écran.
 
 **Environnement:**
- - OS: [ex: iOS, Windows, macOS]
- - Navigateur: [ex: Chrome, Safari, Firefox]
- - Version: [ex: 22]
- - Appareil: [ex: iPhone 12, Desktop]
+
+- OS: [ex: iOS, Windows, macOS]
+- Navigateur: [ex: Chrome, Safari, Firefox]
+- Version: [ex: 22]
+- Appareil: [ex: iPhone 12, Desktop]
 
 **Contexte Additionnel**
 Ajoutez tout autre contexte utile.
@@ -77,6 +85,7 @@ Ajoutez tout autre contexte utile.
 ## 💡 Proposer une Fonctionnalité
 
 ### Template de Feature Request
+
 \`\`\`markdown
 **La Fonctionnalité Résout-elle un Problème ?**
 Une description claire du problème. Ex: Je suis frustré quand [...]
@@ -96,59 +105,67 @@ Ajoutez tout autre contexte ou captures d'écran.
 ### Configuration de l'Environnement
 
 1. **Fork le repository**
-\`\`\`bash
+   \`\`\`bash
+
 # Cliquez sur "Fork" sur GitHub
+
 \`\`\`
 
 2. **Clonez votre fork**
-\`\`\`bash
-git clone https://github.com/votre-username/five-planner.git
-cd five-planner
-\`\`\`
+   \`\`\`bash
+   git clone https://github.com/votre-username/five-planner.git
+   cd five-planner
+   \`\`\`
 
 3. **Ajoutez le repository original comme remote**
-\`\`\`bash
-git remote add upstream https://github.com/original-username/five-planner.git
-\`\`\`
+   \`\`\`bash
+   git remote add upstream https://github.com/original-username/five-planner.git
+   \`\`\`
 
 4. **Installez les dépendances**
-\`\`\`bash
-npm install
-\`\`\`
+   \`\`\`bash
+   npm install
+   \`\`\`
 
 5. **Lancez le serveur de développement**
-\`\`\`bash
-npm run dev
-\`\`\`
+   \`\`\`bash
+   npm run dev
+   \`\`\`
 
 ### Workflow de Développement
 
 1. **Créez une branche pour votre fonctionnalité**
-\`\`\`bash
-git checkout -b feature/nom-de-la-fonctionnalite
+   \`\`\`bash
+   git checkout -b feature/nom-de-la-fonctionnalite
+
 # ou
+
 git checkout -b fix/nom-du-bug
 \`\`\`
 
 2. **Développez votre fonctionnalité**
+
 - Écrivez du code propre et documenté
 - Suivez les standards de code
 - Testez vos changements
 
 3. **Committez vos changements**
-\`\`\`bash
-git add .
-git commit -m "feat: ajoute la fonctionnalité X"
+   \`\`\`bash
+   git add .
+   git commit -m "feat: ajoute la fonctionnalité X"
+
 # ou
+
 git commit -m "fix: corrige le bug Y"
 \`\`\`
 
 4. **Poussez vers votre fork**
-\`\`\`bash
-git push origin feature/nom-de-la-fonctionnalite
-\`\`\`
+   \`\`\`bash
+   git push origin feature/nom-de-la-fonctionnalite
+   \`\`\`
 
 5. **Créez une Pull Request**
+
 - Allez sur GitHub
 - Cliquez sur "New Pull Request"
 - Remplissez le template de PR
@@ -166,6 +183,7 @@ type(scope): description
 \`\`\`
 
 **Types :**
+
 - `feat`: nouvelle fonctionnalité
 - `fix`: correction de bug
 - `docs`: documentation
@@ -184,30 +202,34 @@ docs(readme): met à jour les instructions d'installation
 ## 📏 Standards de Code
 
 ### TypeScript
+
 - Utilisez TypeScript pour tout nouveau code
 - Définissez des types explicites
 - Évitez `any`, utilisez des types spécifiques
 
 ### React/Next.js
+
 - Utilisez les hooks React modernes
 - Préférez les composants fonctionnels
 - Utilisez Next.js App Router
 
 ### Styling
+
 - Utilisez Tailwind CSS pour le styling
 - Suivez les conventions de nommage
 - Utilisez les variables CSS personnalisées
 
 ### Structure des Fichiers
+
 \`\`\`
 components/
-  ├── ui/           # Composants de base (Button, Input, etc.)
-  ├── views/        # Vues principales
-  └── [feature]/    # Composants spécifiques à une fonctionnalité
+├── ui/ # Composants de base (Button, Input, etc.)
+├── views/ # Vues principales
+└── [feature]/ # Composants spécifiques à une fonctionnalité
 
-hooks/              # Hooks personnalisés
-utils/              # Fonctions utilitaires
-types/              # Définitions TypeScript
+hooks/ # Hooks personnalisés
+utils/ # Fonctions utilitaires
+types/ # Définitions TypeScript
 \`\`\`
 
 ### Bonnes Pratiques
@@ -235,6 +257,7 @@ types/              # Définitions TypeScript
 ## 🔍 Process de Review
 
 ### Checklist avant PR
+
 - [ ] Le code compile sans erreurs
 - [ ] Les tests passent (quand ils existent)
 - [ ] Le code suit les standards du projet
@@ -242,29 +265,37 @@ types/              # Définitions TypeScript
 - [ ] Les changements sont testés sur mobile et desktop
 
 ### Template de Pull Request
+
 \`\`\`markdown
+
 ## Description
+
 Décrivez brièvement vos changements.
 
 ## Type de Changement
+
 - [ ] Bug fix (changement non-breaking qui corrige un problème)
 - [ ] Nouvelle fonctionnalité (changement non-breaking qui ajoute une fonctionnalité)
 - [ ] Breaking change (fix ou fonctionnalité qui casserait la fonctionnalité existante)
 - [ ] Documentation
 
 ## Comment Tester
+
 Décrivez comment tester vos changements.
 
 ## Captures d'Écran
+
 Si applicable, ajoutez des captures d'écran.
 
 ## Checklist
+
 - [ ] Mon code suit les standards du projet
 - [ ] J'ai testé mes changements
 - [ ] J'ai mis à jour la documentation si nécessaire
-\`\`\`
+      \`\`\`
 
 ### Process de Review
+
 1. **Review automatique** - Les checks automatiques doivent passer
 2. **Review par les pairs** - Au moins une approbation requise
 3. **Tests** - Vérification manuelle si nécessaire

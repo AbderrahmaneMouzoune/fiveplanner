@@ -1,12 +1,18 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import {
   Dialog,
   DialogContent,
@@ -15,15 +21,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { ManageGroupsDialog } from "@/components/manage-groups-dialog"
-import type { PlayerGroup } from "@/types"
-import { IconPlus } from "@tabler/icons-react"
+} from '@/components/ui/dialog'
+import { ManageGroupsDialog } from '@/components/manage-groups-dialog'
+import type { PlayerGroup } from '@/types'
+import { IconPlus } from '@tabler/icons-react'
 
 interface AddPlayerDialogProps {
   groups: PlayerGroup[]
-  onAddPlayer: (player: { name: string; email?: string; phone?: string; group?: string }) => void
-  onAddGroup: (group: Omit<PlayerGroup, "id">) => void
+  onAddPlayer: (player: {
+    name: string
+    email?: string
+    phone?: string
+    group?: string
+  }) => void
+  onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
 }
@@ -36,10 +47,10 @@ export function AddPlayerDialog({
   onRemoveGroup,
 }: AddPlayerDialogProps) {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
-  const [selectedGroup, setSelectedGroup] = useState<string>("")
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [selectedGroup, setSelectedGroup] = useState<string>('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,10 +61,10 @@ export function AddPlayerDialog({
         phone: phone.trim() || undefined,
         group: selectedGroup || undefined,
       })
-      setName("")
-      setEmail("")
-      setPhone("")
-      setSelectedGroup("")
+      setName('')
+      setEmail('')
+      setPhone('')
+      setSelectedGroup('')
       setOpen(false)
     }
   }
@@ -62,14 +73,16 @@ export function AddPlayerDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="accent">
-          <IconPlus className="w-4 h-4 mr-2" />
+          <IconPlus className="mr-2 h-4 w-4" />
           Ajouter un joueur
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Ajouter un nouveau joueur</DialogTitle>
-          <DialogDescription>Ajoutez un joueur à votre liste pour les futures sessions.</DialogDescription>
+          <DialogDescription>
+            Ajoutez un joueur à votre liste pour les futures sessions.
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit}>
@@ -122,7 +135,9 @@ export function AddPlayerDialog({
                   {groups.map((group) => (
                     <SelectItem key={group.id} value={group.id}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${group.color}`} />
+                        <div
+                          className={`h-3 w-3 rounded-full ${group.color}`}
+                        />
                         {group.name}
                       </div>
                     </SelectItem>

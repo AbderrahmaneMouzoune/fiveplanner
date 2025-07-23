@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Five Planner',
+    title: 'FivePlanner',
   },
   keywords: [
     'FivePlanner, foot 5, football 5v5, organiser match, gestion joueurs, session football, réservation terrain, app foot, calendrier foot, application PWA foot, Five LeFive, foot entre amis',

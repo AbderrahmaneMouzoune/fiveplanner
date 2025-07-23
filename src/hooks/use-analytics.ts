@@ -22,7 +22,8 @@ export function useAnalytics() {
         api_host:
           process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com',
         person_profiles: 'identified_only',
-        capture_pageview: true,
+        capture_pageview: 'history_change',
+        capture_exceptions: true,
         capture_pageleave: true,
         loaded: (posthog) => {
           if (process.env.NODE_ENV === 'development') {

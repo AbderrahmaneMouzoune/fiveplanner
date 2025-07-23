@@ -164,7 +164,7 @@ function PlayerCardInline({
         existingPlayers={allPlayer.map((p) => p.name)}
       />
 
-      <div className="min-w-0 flex-1">
+      <div className="flex-1">
         <div className="mb-1 flex items-center gap-2">
           <span className="text-sm font-medium">{player.name}</span>
           {player.group && (
@@ -174,59 +174,62 @@ function PlayerCardInline({
             </div>
           )}
         </div>
-      </div>
-
-      <div className="flex items-center gap-2">
-        {getStatusBadge(status)}
-        <div className="flex gap-1">
-          <Button
-            size="sm"
-            variant={status === 'coming' ? 'success' : 'outline'}
-            onClick={(e) => handleStatusUpdate(player.id, 'coming', e)}
-            className="h-7 w-7 p-0"
-            title="Confirmé"
-          >
-            <IconCheck className="h-3 w-3" />
-          </Button>
-          <Button
-            size="sm"
-            variant={status === 'optional' ? 'warning' : 'outline'}
-            onClick={(e) => handleStatusUpdate(player.id, 'optional', e)}
-            className="h-7 w-7 p-0"
-            title="Optionnel"
-          >
-            <IconQuestionMark className="h-3 w-3" />
-          </Button>
-          <Button
-            size="sm"
-            variant={status === 'not-coming' ? 'destructive' : 'outline'}
-            onClick={(e) => handleStatusUpdate(player.id, 'not-coming', e)}
-            className="h-7 w-7 p-0"
-            title="Absent"
-          >
-            <IconX className="h-3 w-3" />
-          </Button>
-          <Button
-            size="sm"
-            variant={status === 'pending' ? 'secondary' : 'outline'}
-            onClick={(e) => handleStatusUpdate(player.id, 'pending', e)}
-            className="h-7 w-7 p-0"
-            title="En attente"
-          >
-            <IconClock className="h-3 w-3" />
-          </Button>
+        {/* Badge de statut déplacé sous le nom */}
+        <div className="flex items-center gap-2">
+          {getStatusBadge(status)}
           {session && (
             <Button
               size="sm"
-              variant="outline"
+              variant="ghost"
               onClick={handleShare}
-              className="h-7 w-7 p-0"
+              className="text-muted-foreground hover:text-foreground h-6 px-2 text-xs"
               title="Partager l'invitation"
             >
-              <IconBellRinging className="h-3 w-3" />
+              <IconBellRinging className="mr-1 h-3 w-3" />
+              Relance
             </Button>
           )}
         </div>
+      </div>
+
+      {/* Groupe de boutons de statut plus compact */}
+      <div className="border-border ml-auto flex overflow-hidden rounded-md border">
+        <Button
+          size="sm"
+          variant={status === 'coming' ? 'success' : 'ghost'}
+          onClick={(e) => handleStatusUpdate(player.id, 'coming', e)}
+          className="border-border size-7 rounded-none border-r p-0"
+          title="Confirmé"
+        >
+          <IconCheck className="h-3 w-3" />
+        </Button>
+        <Button
+          size="sm"
+          variant={status === 'optional' ? 'warning' : 'ghost'}
+          onClick={(e) => handleStatusUpdate(player.id, 'optional', e)}
+          className="border-border size-7 rounded-none border-r p-0"
+          title="Optionnel"
+        >
+          <IconQuestionMark className="h-3 w-3" />
+        </Button>
+        <Button
+          size="sm"
+          variant={status === 'not-coming' ? 'destructive' : 'ghost'}
+          onClick={(e) => handleStatusUpdate(player.id, 'not-coming', e)}
+          className="border-border size-7 rounded-none border-r p-0"
+          title="Absent"
+        >
+          <IconX className="h-3 w-3" />
+        </Button>
+        <Button
+          size="sm"
+          variant={status === 'pending' ? 'secondary' : 'ghost'}
+          onClick={(e) => handleStatusUpdate(player.id, 'pending', e)}
+          className="size-7 rounded-none p-0"
+          title="En attente"
+        >
+          <IconClock className="h-3 w-3" />
+        </Button>
       </div>
     </div>
   )

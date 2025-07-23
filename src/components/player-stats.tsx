@@ -18,7 +18,7 @@ export function PlayerStatsComponent({ players, stats }: PlayerStatsProps) {
   if (stats.length === 0) {
     return (
       <Card>
-        <CardContent className="p-6 text-center text-muted-foreground">
+        <CardContent className="text-muted-foreground p-6 text-center">
           Aucune statistique disponible. Complétez quelques sessions pour voir
           les stats !
         </CardContent>
@@ -39,7 +39,7 @@ export function PlayerStatsComponent({ players, stats }: PlayerStatsProps) {
                 <span className="font-medium">
                   {getPlayerName(stat.playerId)}
                 </span>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-muted-foreground text-sm">
                   {stat.attendedSessions}/{stat.totalSessions} sessions (
                   {Math.round(stat.attendanceRate)}%)
                 </span>

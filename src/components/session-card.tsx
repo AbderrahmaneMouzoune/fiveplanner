@@ -308,15 +308,15 @@ export function SessionCard({
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="relative -mt-2 mb-4 h-2 w-full rounded-full bg-muted">
+          <div className="bg-muted relative -mt-2 mb-4 h-2 w-full rounded-full">
             <div
-              className="absolute left-0 top-0 h-2 rounded-full bg-warning-foreground transition-all duration-300"
+              className="bg-warning-foreground absolute top-0 left-0 h-2 rounded-full transition-all duration-300"
               style={{
                 width: `${Math.min(((confirmedCount + optionalPlayers.length) / session.maxPlayers) * 100, 100)}%`,
               }}
             />
             <div
-              className="absolute left-0 top-0 h-2 rounded-full bg-success transition-all duration-300"
+              className="bg-success absolute top-0 left-0 h-2 rounded-full transition-all duration-300"
               style={{
                 width: `${Math.min((confirmedCount / session.maxPlayers) * 100, 100)}%`,
               }}
@@ -325,19 +325,19 @@ export function SessionCard({
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex items-center gap-2">
-              <IconCalendar className="h-4 w-4 text-muted-foreground" />
+              <IconCalendar className="text-muted-foreground h-4 w-4" />
               <span className="text-sm">{formatDate(session.date)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <IconClock className="h-4 w-4 text-muted-foreground" />
+              <IconClock className="text-muted-foreground h-4 w-4" />
               <span className="text-sm">{session.time}</span>
             </div>
             <div className="flex items-center gap-2">
-              <IconMapPin className="h-4 w-4 text-muted-foreground" />
+              <IconMapPin className="text-muted-foreground h-4 w-4" />
               <span className="text-sm">{session.location}</span>
             </div>
             <div className="flex items-center gap-2">
-              <IconUsers className="h-4 w-4 text-muted-foreground" />
+              <IconUsers className="text-muted-foreground h-4 w-4" />
               <span className="text-sm">
                 {confirmedCount}/{session.maxPlayers} joueurs
               </span>
@@ -350,14 +350,14 @@ export function SessionCard({
                 open={showAllPlayers}
                 onOpenChange={setShowAllPlayers}
               >
-                <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 p-3 transition-colors hover:bg-primary/20">
+                <CollapsibleTrigger className="border-primary/20 bg-primary/10 hover:bg-primary/20 flex w-full items-center gap-2 rounded-lg border p-3 transition-colors">
                   {showAllPlayers ? (
-                    <IconChevronDown className="h-4 w-4 text-primary" />
+                    <IconChevronDown className="text-primary h-4 w-4" />
                   ) : (
-                    <IconChevronRight className="h-4 w-4 text-primary" />
+                    <IconChevronRight className="text-primary h-4 w-4" />
                   )}
-                  <IconUsers className="h-4 w-4 text-primary" />
-                  <span className="font-medium text-primary">
+                  <IconUsers className="text-primary h-4 w-4" />
+                  <span className="text-primary font-medium">
                     Tous les joueurs ({totalPlayersCount})
                   </span>
                   <Badge variant="default" className="ml-auto">
@@ -366,10 +366,10 @@ export function SessionCard({
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-3">
                   {/* Filtres avec checkboxes simples */}
-                  <div className="mb-4 rounded-lg border border-border bg-muted/50 p-3">
+                  <div className="border-border bg-muted/50 mb-4 rounded-lg border p-3">
                     <div className="mb-3 flex items-center gap-2">
-                      <IconFilter className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-medium text-foreground">
+                      <IconFilter className="text-muted-foreground h-4 w-4" />
+                      <span className="text-foreground text-sm font-medium">
                         Filtrer par statut :
                       </span>
                     </div>
@@ -387,7 +387,7 @@ export function SessionCard({
                           className="cursor-pointer text-sm font-medium"
                         >
                           <div className="flex items-center gap-2">
-                            <IconCheck className="h-3 w-3 text-success" />
+                            <IconCheck className="text-success h-3 w-3" />
                             Confirmés ({confirmedPlayers.length})
                           </div>
                         </Label>
@@ -406,7 +406,7 @@ export function SessionCard({
                           className="cursor-pointer text-sm font-medium"
                         >
                           <div className="flex items-center gap-2">
-                            <IconQuestionMark className="h-3 w-3 text-warning" />
+                            <IconQuestionMark className="text-warning h-3 w-3" />
                             Optionnels ({optionalPlayers.length})
                           </div>
                         </Label>
@@ -425,7 +425,7 @@ export function SessionCard({
                           className="cursor-pointer text-sm font-medium"
                         >
                           <div className="flex items-center gap-2">
-                            <IconClock className="h-3 w-3 text-muted-foreground" />
+                            <IconClock className="text-muted-foreground h-3 w-3" />
                             En attente ({allPendingPlayers.length})
                           </div>
                         </Label>
@@ -444,7 +444,7 @@ export function SessionCard({
                           className="cursor-pointer text-sm font-medium"
                         >
                           <div className="flex items-center gap-2">
-                            <IconX className="h-3 w-3 text-destructive" />
+                            <IconX className="text-destructive h-3 w-3" />
                             Absents ({absentPlayers.length})
                           </div>
                         </Label>
@@ -482,7 +482,7 @@ export function SessionCard({
                                 {playerName}
                               </span>
                               {player && (player.email || player.phone) && (
-                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <div className="text-muted-foreground flex items-center gap-2 text-xs">
                                   {player.email && (
                                     <span className="flex items-center gap-1 truncate">
                                       <IconMail className="h-3 w-3 flex-shrink-0" />
@@ -505,15 +505,15 @@ export function SessionCard({
                         )
                       })
                     ) : (
-                      <div className="col-span-2 py-4 text-center text-muted-foreground">
+                      <div className="text-muted-foreground col-span-2 py-4 text-center">
                         Aucun joueur ne correspond aux filtres sélectionnés
                       </div>
                     )}
                   </div>
 
                   {/* Actions rapides */}
-                  <div className="mt-4 rounded-lg bg-muted p-3">
-                    <p className="mb-2 text-xs text-muted-foreground">
+                  <div className="bg-muted mt-4 rounded-lg p-3">
+                    <p className="text-muted-foreground mb-2 text-xs">
                       Actions rapides :
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -538,16 +538,16 @@ export function SessionCard({
           )}
 
           {session.paymentLink && (
-            <div className="flex items-center gap-2 rounded-lg border border-chart-2/20 bg-chart-2/10 p-3">
-              <IconCurrencyEuro className="h-4 w-4 text-chart-2" />
-              <span className="text-sm font-medium text-chart-2">
+            <div className="border-chart-2/20 bg-chart-2/10 flex items-center gap-2 rounded-lg border p-3">
+              <IconCurrencyEuro className="text-chart-2 h-4 w-4" />
+              <span className="text-chart-2 text-sm font-medium">
                 Paiement :
               </span>
               <a
                 href={session.paymentLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-sm text-chart-2 underline hover:text-chart-2/80"
+                className="text-chart-2 hover:text-chart-2/80 flex items-center gap-1 text-sm underline"
               >
                 Cliquez ici pour payer
                 <IconExternalLink className="h-3 w-3" />
@@ -555,7 +555,7 @@ export function SessionCard({
             </div>
           )}
 
-          <div className="flex flex-col gap-2 border-t border-border pt-4 sm:flex-row sm:gap-2">
+          <div className="border-border flex flex-col gap-2 border-t pt-4 sm:flex-row sm:gap-2">
             <Button
               variant="accent"
               size="sm"
@@ -601,7 +601,7 @@ export function SessionCard({
               <Button
                 variant="ghost"
                 size="sm"
-                className="w-full text-destructive hover:text-destructive sm:w-auto"
+                className="text-destructive hover:text-destructive w-full sm:w-auto"
               >
                 <IconTrash className="h-4 w-4" />
               </Button>

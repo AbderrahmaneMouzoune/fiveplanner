@@ -66,7 +66,7 @@ export function CompleteSessionDialog({
       <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
-            <IconTrophy className="h-4 w-4 text-warning sm:h-5 sm:w-5" />
+            <IconTrophy className="text-warning h-4 w-4 sm:h-5 sm:w-5" />
             Terminer la session
           </DialogTitle>
           <DialogDescription className="text-sm">
@@ -102,7 +102,7 @@ export function CompleteSessionDialog({
                   />
                 </div>
 
-                <div className="mt-6 px-2 text-xl font-bold text-muted-foreground sm:text-2xl">
+                <div className="text-muted-foreground mt-6 px-2 text-xl font-bold sm:text-2xl">
                   -
                 </div>
 
@@ -129,8 +129,8 @@ export function CompleteSessionDialog({
             </div>
 
             {!skipScore && team1Score && team2Score && (
-              <div className="rounded-lg bg-muted p-3 text-center">
-                <div className="mb-1 text-xs text-muted-foreground sm:text-sm">
+              <div className="bg-muted rounded-lg p-3 text-center">
+                <div className="text-muted-foreground mb-1 text-xs sm:text-sm">
                   Résultat
                 </div>
                 <div className="text-sm font-bold sm:text-lg">

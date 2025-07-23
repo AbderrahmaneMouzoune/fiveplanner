@@ -38,8 +38,8 @@ export function PlayersView({
     <div className="space-y-6">
       <header className="text-center">
         <div className="mb-4 flex items-center justify-center gap-3">
-          <IconUsers className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold text-foreground">
+          <IconUsers className="text-primary h-8 w-8" />
+          <h1 className="text-foreground text-3xl font-bold">
             Gestion des joueurs
           </h1>
         </div>

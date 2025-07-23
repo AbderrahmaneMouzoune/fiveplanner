@@ -66,10 +66,10 @@ export function SharePreviewDialog({
           <Textarea
             value={summary}
             readOnly
-            className="min-h-[300px] resize-none bg-muted/50 font-mono text-sm"
+            className="bg-muted/50 min-h-[300px] resize-none font-mono text-sm"
             placeholder="Génération du résumé..."
           />
-          <p className="mt-2 text-xs italic text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-xs italic">
             Note : La signature "📱 Organisé avec Five Planner" sera
             automatiquement ajoutée
           </p>

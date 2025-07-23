@@ -316,7 +316,7 @@ export function CreateSessionFromEmailDialog({
               <CardContent className="p-4">
                 {parsedData.success ? (
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-primary">
+                    <div className="text-primary flex items-center gap-2">
                       <IconCheck className="h-4 w-4" />
                       <span className="font-medium">
                         Email analysé avec succès !
@@ -353,7 +353,7 @@ export function CreateSessionFromEmailDialog({
                         <div className="flex justify-between">
                           <span className="font-medium">Paiement :</span>
                           <span
-                            className="max-w-48 truncate text-chart-2"
+                            className="text-chart-2 max-w-48 truncate"
                             title={parsedData.paymentLink}
                           >
                             {parsedData.paymentLink}
@@ -364,7 +364,7 @@ export function CreateSessionFromEmailDialog({
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-destructive">
+                    <div className="text-destructive flex items-center gap-2">
                       <IconX className="h-4 w-4" />
                       <span className="font-medium">
                         Erreur lors de l'analyse
@@ -381,11 +381,11 @@ export function CreateSessionFromEmailDialog({
 
           {parsedData && !parsedData.success && (
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 L'email n'a pas pu être analysé automatiquement. Vérifiez que le
                 contenu contient :
               </p>
-              <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
+              <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
                 <li>Une date (ex: "samedi 26 juillet 2025" ou "26/07/2025")</li>
                 <li>Une heure (ex: "entre 19:30 et 21:00" ou "à 19:30")</li>
                 <li>Un lieu (ex: "LE FIVE Paris 18")</li>

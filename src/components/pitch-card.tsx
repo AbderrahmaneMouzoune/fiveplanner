@@ -22,7 +22,7 @@ export function PitchCard({ pitch, compact = false }: PitchCardProps) {
         <div className="flex items-start justify-between">
           <div>
             <h4 className="text-sm font-medium">{pitch.name}</h4>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-1 text-xs">
               <IconMapPin className="h-3 w-3" />
               <span>{pitch.address}</span>
             </div>
@@ -35,19 +35,19 @@ export function PitchCard({ pitch, compact = false }: PitchCardProps) {
             </Badge>
             {pitch.isFilmed ? (
               <IconVideo
-                className="h-3 w-3 text-destructive"
+                className="text-destructive h-3 w-3"
                 title="Terrain filmé"
               />
             ) : (
               <IconVideoOff
-                className="h-3 w-3 text-muted-foreground"
+                className="text-muted-foreground h-3 w-3"
                 title="Non filmé"
               />
             )}
           </div>
         </div>
         {pitch.description && (
-          <p className="line-clamp-2 text-xs text-muted-foreground">
+          <p className="text-muted-foreground line-clamp-2 text-xs">
             {pitch.description}
           </p>
         )}
@@ -60,7 +60,7 @@ export function PitchCard({ pitch, compact = false }: PitchCardProps) {
       <div className="flex items-start justify-between">
         <div>
           <h3 className="font-semibold">{pitch.name}</h3>
-          <div className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
+          <div className="text-muted-foreground mt-1 flex items-center gap-1 text-sm">
             <IconMapPin className="h-4 w-4" />
             <span>{pitch.address}</span>
           </div>
@@ -70,18 +70,18 @@ export function PitchCard({ pitch, compact = false }: PitchCardProps) {
             {getSurfaceTypeLabel(pitch.surfaceType)}
           </Badge>
           {pitch.priceRange && (
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-1 text-sm">
               <IconCurrencyEuro className="h-4 w-4" />
               <span>{pitch.priceRange}</span>
             </div>
           )}
           {pitch.isFilmed ? (
-            <div className="flex items-center gap-1 text-sm text-destructive">
+            <div className="text-destructive flex items-center gap-1 text-sm">
               <IconVideo className="h-4 w-4" />
               <span>Filmé</span>
             </div>
           ) : (
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-1 text-sm">
               <IconVideoOff className="h-4 w-4" />
               <span>Non filmé</span>
             </div>
@@ -90,7 +90,7 @@ export function PitchCard({ pitch, compact = false }: PitchCardProps) {
       </div>
 
       {pitch.description && (
-        <p className="text-sm text-muted-foreground">{pitch.description}</p>
+        <p className="text-muted-foreground text-sm">{pitch.description}</p>
       )}
     </div>
   )

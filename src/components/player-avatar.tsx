@@ -82,7 +82,7 @@ export function PlayerAvatar({
               </AvatarFallback>
             </Avatar>
             <span
-              className={`absolute -bottom-0.5 -start-0.5 size-3 rounded-full border-2 border-background ${getStatusColor(status)}`}
+              className={`border-background absolute -start-0.5 -bottom-0.5 size-3 rounded-full border-2 ${getStatusColor(status)}`}
             >
               <span className="sr-only">{getStatusLabel(status)}</span>
             </span>

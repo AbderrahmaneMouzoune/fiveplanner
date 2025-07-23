@@ -125,9 +125,9 @@ export function SessionHistory({
     const isDraw = score.team1 === score.team2
 
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-warning/20 bg-warning/10 p-3">
-        <IconTrophy className="h-4 w-4 text-warning" />
-        <span className="text-sm font-medium text-warning">Score final :</span>
+      <div className="border-warning/20 bg-warning/10 flex items-center gap-2 rounded-lg border p-3">
+        <IconTrophy className="text-warning h-4 w-4" />
+        <span className="text-warning text-sm font-medium">Score final :</span>
         <div className="flex items-center gap-2 font-bold">
           <span className={isTeam1Winner ? 'text-success' : 'text-foreground'}>
             Équipe 1: {score.team1}
@@ -201,7 +201,7 @@ export function SessionHistory({
   if (sessions.length === 0) {
     return (
       <Card>
-        <CardContent className="p-6 text-center text-muted-foreground">
+        <CardContent className="text-muted-foreground p-6 text-center">
           Aucune session dans l'historique pour le moment.
         </CardContent>
       </Card>
@@ -276,15 +276,15 @@ export function SessionHistory({
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Barre de progression */}
-              <div className="relative h-2 w-full rounded-full bg-muted">
+              <div className="bg-muted relative h-2 w-full rounded-full">
                 <div
-                  className="absolute left-0 top-0 h-2 rounded-full bg-warning-foreground transition-all duration-300"
+                  className="bg-warning-foreground absolute top-0 left-0 h-2 rounded-full transition-all duration-300"
                   style={{
                     width: `${Math.min(((confirmedCount + optionalPlayers.length) / session.maxPlayers) * 100, 100)}%`,
                   }}
                 />
                 <div
-                  className="absolute left-0 top-0 h-2 rounded-full bg-success transition-all duration-300"
+                  className="bg-success absolute top-0 left-0 h-2 rounded-full transition-all duration-300"
                   style={{
                     width: `${Math.min((confirmedCount / session.maxPlayers) * 100, 100)}%`,
                   }}
@@ -294,19 +294,19 @@ export function SessionHistory({
               {/* Informations de base */}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="flex items-center gap-2">
-                  <IconCalendar className="h-4 w-4 text-muted-foreground" />
+                  <IconCalendar className="text-muted-foreground h-4 w-4" />
                   <span className="text-sm">{formatDate(session.date)}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <IconClock className="h-4 w-4 text-muted-foreground" />
+                  <IconClock className="text-muted-foreground h-4 w-4" />
                   <span className="text-sm">{session.time}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <IconMapPin className="h-4 w-4 text-muted-foreground" />
+                  <IconMapPin className="text-muted-foreground h-4 w-4" />
                   <span className="text-sm">{session.location}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <IconUsers className="h-4 w-4 text-muted-foreground" />
+                  <IconUsers className="text-muted-foreground h-4 w-4" />
                   <span className="text-sm">
                     {confirmedCount}/{session.maxPlayers} joueurs
                   </span>
@@ -314,13 +314,13 @@ export function SessionHistory({
               </div>
 
               {/* Légende de la barre de progression */}
-              <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+              <div className="text-muted-foreground flex items-center justify-center gap-4 text-xs">
                 <div className="flex items-center gap-1">
-                  <div className="h-2 w-3 rounded-sm bg-success"></div>
+                  <div className="bg-success h-2 w-3 rounded-sm"></div>
                   <span>Confirmés ({confirmedCount})</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="h-2 w-3 rounded-sm bg-warning-foreground"></div>
+                  <div className="bg-warning-foreground h-2 w-3 rounded-sm"></div>
                   <span>
                     Total avec optionnels (
                     {confirmedCount + optionalPlayers.length})
@@ -345,14 +345,14 @@ export function SessionHistory({
                     open={showAllPlayers}
                     onOpenChange={setShowAllPlayers}
                   >
-                    <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 p-3 transition-colors hover:bg-primary/20">
+                    <CollapsibleTrigger className="border-primary/20 bg-primary/10 hover:bg-primary/20 flex w-full items-center gap-2 rounded-lg border p-3 transition-colors">
                       {showAllPlayers ? (
-                        <IconChevronDown className="h-4 w-4 text-primary" />
+                        <IconChevronDown className="text-primary h-4 w-4" />
                       ) : (
-                        <IconChevronRight className="h-4 w-4 text-primary" />
+                        <IconChevronRight className="text-primary h-4 w-4" />
                       )}
-                      <IconUsers className="h-4 w-4 text-primary" />
-                      <span className="font-medium text-primary">
+                      <IconUsers className="text-primary h-4 w-4" />
+                      <span className="text-primary font-medium">
                         Tous les joueurs ({totalPlayersCount})
                       </span>
                       <Badge variant="default" className="ml-auto">
@@ -361,17 +361,17 @@ export function SessionHistory({
                     </CollapsibleTrigger>
                     <CollapsibleContent className="mt-3">
                       {/* Filtres */}
-                      <div className="mb-4 rounded-lg border border-border bg-muted/50 p-3">
+                      <div className="border-border bg-muted/50 mb-4 rounded-lg border p-3">
                         <div className="mb-3 flex items-center gap-2">
-                          <IconFilter className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm font-medium text-foreground">
+                          <IconFilter className="text-muted-foreground h-4 w-4" />
+                          <span className="text-foreground text-sm font-medium">
                             Filtrer par statut :
                           </span>
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {/* Filtre Confirmés */}
                           <Badge
-                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] relative outline-none ${
+                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px] ${
                               showConfirmed
                                 ? 'bg-success text-success-foreground'
                                 : 'has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground bg-muted text-muted-foreground'
@@ -398,7 +398,7 @@ export function SessionHistory({
 
                           {/* Filtre Optionnels */}
                           <Badge
-                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] relative outline-none ${
+                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px] ${
                               showOptional
                                 ? 'bg-warning text-warning-foreground'
                                 : 'has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground bg-muted text-muted-foreground'
@@ -425,7 +425,7 @@ export function SessionHistory({
 
                           {/* Filtre En attente */}
                           <Badge
-                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] relative outline-none ${
+                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px] ${
                               showPending
                                 ? 'bg-secondary text-secondary-foreground'
                                 : 'has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground bg-muted text-muted-foreground'
@@ -452,7 +452,7 @@ export function SessionHistory({
 
                           {/* Filtre Absents */}
                           <Badge
-                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] relative outline-none ${
+                            className={`has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px] ${
                               showAbsent
                                 ? 'bg-destructive text-destructive-foreground'
                                 : 'has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground bg-muted text-muted-foreground'
@@ -510,7 +510,7 @@ export function SessionHistory({
                                     {playerName}
                                   </span>
                                   {player && (player.email || player.phone) && (
-                                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                    <div className="text-muted-foreground flex items-center gap-2 text-xs">
                                       {player.email && (
                                         <span className="flex items-center gap-1 truncate">
                                           <IconMail className="h-3 w-3 flex-shrink-0" />
@@ -533,7 +533,7 @@ export function SessionHistory({
                             )
                           })
                         ) : (
-                          <div className="col-span-2 py-4 text-center text-muted-foreground">
+                          <div className="text-muted-foreground col-span-2 py-4 text-center">
                             Aucun joueur ne correspond aux filtres sélectionnés
                           </div>
                         )}
@@ -545,16 +545,16 @@ export function SessionHistory({
 
               {/* Section paiement */}
               {session.paymentLink && (
-                <div className="flex items-center gap-2 rounded-lg border border-chart-2/20 bg-chart-2/10 p-3">
-                  <IconCurrencyEuro className="h-4 w-4 text-chart-2" />
-                  <span className="text-sm font-medium text-chart-2">
+                <div className="border-chart-2/20 bg-chart-2/10 flex items-center gap-2 rounded-lg border p-3">
+                  <IconCurrencyEuro className="text-chart-2 h-4 w-4" />
+                  <span className="text-chart-2 text-sm font-medium">
                     Paiement :
                   </span>
                   <a
                     href={session.paymentLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-sm text-chart-2 underline hover:text-chart-2/80"
+                    className="text-chart-2 hover:text-chart-2/80 flex items-center gap-1 text-sm underline"
                   >
                     Lien de paiement
                     <IconExternalLink className="h-3 w-3" />

@@ -106,7 +106,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20 transition-colors">
+    <div className="bg-background min-h-screen pb-20 transition-colors">
       <div className="container mx-auto max-w-4xl px-4 py-8">
         {renderCurrentView()}
       </div>

@@ -20,8 +20,8 @@ export function HistoryView({
     <div className="space-y-6">
       <header className="text-center">
         <div className="mb-4 flex items-center justify-center gap-3">
-          <IconHistory className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold text-foreground">
+          <IconHistory className="text-primary h-8 w-8" />
+          <h1 className="text-foreground text-3xl font-bold">
             Historique des sessions
           </h1>
         </div>
@@ -39,8 +39,8 @@ export function HistoryView({
       ) : (
         <Card>
           <CardContent className="p-8 text-center">
-            <IconCalendarOff className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
-            <h3 className="mb-2 text-xl font-semibold text-foreground">
+            <IconCalendarOff className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
+            <h3 className="text-foreground mb-2 text-xl font-semibold">
               Aucune session dans l'historique
             </h3>
             <p className="text-muted-foreground">

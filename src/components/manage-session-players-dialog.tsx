@@ -159,7 +159,7 @@ export function ManageSessionPlayersDialog({
     return (
       <div
         key={player.id}
-        className="flex items-center gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:bg-accent/50"
+        className="border-border bg-card hover:bg-accent/50 flex items-center gap-3 rounded-lg border p-3 transition-colors"
       >
         <Avatar className="h-10 w-10">
           <AvatarFallback
@@ -177,14 +177,14 @@ export function ManageSessionPlayersDialog({
                 <div
                   className={`h-2 w-2 rounded-full ${getGroupColor(player.group)}`}
                 />
-                <span className="text-xs text-muted-foreground">
+                <span className="text-muted-foreground text-xs">
                   {getGroupName(player.group)}
                 </span>
               </div>
             )}
           </div>
           {player.email && (
-            <div className="truncate text-xs text-muted-foreground">
+            <div className="text-muted-foreground truncate text-xs">
               {player.email}
             </div>
           )}
@@ -257,7 +257,7 @@ export function ManageSessionPlayersDialog({
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Barre de recherche */}
           <div className="relative mb-4">
-            <IconSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
+            <IconSearch className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
             <Input
               placeholder="Rechercher un joueur par nom..."
               value={searchTerm}
@@ -274,7 +274,7 @@ export function ManageSessionPlayersDialog({
                 {filteredPlayers.length > 0 ? (
                   filteredPlayers.map(renderPlayerCard)
                 ) : (
-                  <div className="py-8 text-center text-muted-foreground">
+                  <div className="text-muted-foreground py-8 text-center">
                     Aucun joueur trouvé pour "{searchTerm}"
                   </div>
                 )}
@@ -311,7 +311,7 @@ export function ManageSessionPlayersDialog({
                       {groupPlayers.length > 0 ? (
                         groupPlayers.map(renderPlayerCard)
                       ) : (
-                        <div className="py-8 text-center text-muted-foreground">
+                        <div className="text-muted-foreground py-8 text-center">
                           Aucun joueur dans ce groupe
                         </div>
                       )}
@@ -324,41 +324,41 @@ export function ManageSessionPlayersDialog({
 
           {/* Statistiques rapides */}
           <div className="mt-4 grid grid-cols-4 gap-2 text-center">
-            <div className="rounded-lg border border-success bg-success p-2">
-              <div className="text-sm font-bold text-success-foreground">
+            <div className="border-success bg-success rounded-lg border p-2">
+              <div className="text-success-foreground text-sm font-bold">
                 {
                   players.filter((p) => getPlayerStatus(p.id) === 'coming')
                     .length
                 }
               </div>
-              <div className="text-xs text-success-foreground">Confirmés</div>
+              <div className="text-success-foreground text-xs">Confirmés</div>
             </div>
-            <div className="rounded-lg border border-warning bg-warning p-2">
-              <div className="text-sm font-bold text-warning-foreground">
+            <div className="border-warning bg-warning rounded-lg border p-2">
+              <div className="text-warning-foreground text-sm font-bold">
                 {
                   players.filter((p) => getPlayerStatus(p.id) === 'optional')
                     .length
                 }
               </div>
-              <div className="text-xs text-warning-foreground">Optionnels</div>
+              <div className="text-warning-foreground text-xs">Optionnels</div>
             </div>
-            <div className="rounded-lg border border-destructive bg-destructive p-2">
-              <div className="text-sm font-bold text-destructive-foreground">
+            <div className="border-destructive bg-destructive rounded-lg border p-2">
+              <div className="text-destructive-foreground text-sm font-bold">
                 {
                   players.filter((p) => getPlayerStatus(p.id) === 'not-coming')
                     .length
                 }
               </div>
-              <div className="text-xs text-destructive-foreground">Absents</div>
+              <div className="text-destructive-foreground text-xs">Absents</div>
             </div>
-            <div className="rounded-lg border border-border bg-muted p-2">
-              <div className="text-sm font-bold text-muted-foreground">
+            <div className="border-border bg-muted rounded-lg border p-2">
+              <div className="text-muted-foreground text-sm font-bold">
                 {
                   players.filter((p) => getPlayerStatus(p.id) === 'pending')
                     .length
                 }
               </div>
-              <div className="text-xs text-muted-foreground">En attente</div>
+              <div className="text-muted-foreground text-xs">En attente</div>
             </div>
           </div>
         </div>

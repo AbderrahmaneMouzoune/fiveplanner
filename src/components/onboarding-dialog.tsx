@@ -34,8 +34,8 @@ const onboardingSteps = [
     content: (
       <div className="space-y-4">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-            <IconBallFootball className="h-8 w-8 text-primary" />
+          <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <IconBallFootball className="text-primary h-8 w-8" />
           </div>
           <p className="text-muted-foreground">
             Five Planner vous aide à organiser vos matchs, gérer vos joueurs et
@@ -52,46 +52,46 @@ const onboardingSteps = [
     content: (
       <div className="space-y-4">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
-            <IconCalendarPlus className="h-8 w-8 text-accent-foreground" />
+          <div className="bg-accent/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <IconCalendarPlus className="text-accent-foreground h-8 w-8" />
           </div>
         </div>
         <div className="space-y-3">
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary">
-              <span className="text-xs font-bold text-primary-foreground">
+            <div className="bg-primary mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+              <span className="text-primary-foreground text-xs font-bold">
                 1
               </span>
             </div>
             <div>
               <h4 className="font-medium">Nouvelle session</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Cliquez sur "Nouvelle session" pour créer un match
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary">
-              <span className="text-xs font-bold text-primary-foreground">
+            <div className="bg-primary mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+              <span className="text-primary-foreground text-xs font-bold">
                 2
               </span>
             </div>
             <div>
               <h4 className="font-medium">Détails du match</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Renseignez la date, l'heure, le lieu et le type de session
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary">
-              <span className="text-xs font-bold text-primary-foreground">
+            <div className="bg-primary mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+              <span className="text-primary-foreground text-xs font-bold">
                 3
               </span>
             </div>
             <div>
               <h4 className="font-medium">Import depuis email</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Ou collez votre email de réservation pour créer automatiquement
               </p>
             </div>
@@ -107,46 +107,46 @@ const onboardingSteps = [
     content: (
       <div className="space-y-4">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
-            <IconUsers className="h-8 w-8 text-success" />
+          <div className="bg-success/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <IconUsers className="text-success h-8 w-8" />
           </div>
         </div>
         <div className="space-y-3">
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-success">
-              <span className="text-xs font-bold text-success-foreground">
+            <div className="bg-success mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+              <span className="text-success-foreground text-xs font-bold">
                 1
               </span>
             </div>
             <div>
               <h4 className="font-medium">Ajouter des joueurs</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Créez votre base de données de joueurs avec leurs contacts
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-success">
-              <span className="text-xs font-bold text-success-foreground">
+            <div className="bg-success mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+              <span className="text-success-foreground text-xs font-bold">
                 2
               </span>
             </div>
             <div>
               <h4 className="font-medium">Organiser en groupes</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Créez des groupes (Réguliers, Occasionnels, etc.)
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-success">
-              <span className="text-xs font-bold text-success-foreground">
+            <div className="bg-success mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+              <span className="text-success-foreground text-xs font-bold">
                 3
               </span>
             </div>
             <div>
               <h4 className="font-medium">Suivre les réponses</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Confirmé, Optionnel, Absent ou En attente
               </p>
             </div>
@@ -162,46 +162,46 @@ const onboardingSteps = [
     content: (
       <div className="space-y-4">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-chart-2/10">
-            <IconChartBar className="h-8 w-8 text-chart-2" />
+          <div className="bg-chart-2/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <IconChartBar className="text-chart-2 h-8 w-8" />
           </div>
         </div>
         <div className="space-y-3">
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-chart-2">
+            <div className="bg-chart-2 mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
               <span className="text-chart-2-foreground text-xs font-bold">
                 1
               </span>
             </div>
             <div>
               <h4 className="font-medium">Partage intelligent</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Partagez les détails avec lien agenda automatique
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-chart-2">
+            <div className="bg-chart-2 mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
               <span className="text-chart-2-foreground text-xs font-bold">
                 2
               </span>
             </div>
             <div>
               <h4 className="font-medium">Historique complet</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Consultez toutes vos sessions passées
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-chart-2">
+            <div className="bg-chart-2 mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
               <span className="text-chart-2-foreground text-xs font-bold">
                 3
               </span>
             </div>
             <div>
               <h4 className="font-medium">Statistiques détaillées</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Taux de participation, performances des joueurs
               </p>
             </div>

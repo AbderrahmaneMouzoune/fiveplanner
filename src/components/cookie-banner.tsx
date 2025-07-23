@@ -47,32 +47,32 @@ export function CookieBanner({ onAccept, onDecline }: CookieBannerProps) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-      <div className="fixed bottom-4 left-4 right-4 mx-auto max-w-md sm:left-6 sm:right-6 sm:max-w-lg">
+      <div className="fixed right-4 bottom-4 left-4 mx-auto max-w-md sm:right-6 sm:left-6 sm:max-w-lg">
         <Card className="border-border bg-card shadow-lg">
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                  <IconCookie className="h-5 w-5 text-primary" />
+                <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
+                  <IconCookie className="text-primary h-5 w-5" />
                 </div>
               </div>
 
               <div className="flex-1 space-y-3">
                 <div>
-                  <h3 className="mb-2 font-semibold text-foreground">
+                  <h3 className="text-foreground mb-2 font-semibold">
                     Nous utilisons des cookies
                   </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     Nous utilisons des cookies pour améliorer votre expérience
                     et analyser l'utilisation de notre site. En continuant, vous
                     acceptez notre utilisation des cookies.
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-2 text-xs">
                   <a
                     href="/privacy"
-                    className="inline-flex items-center gap-1 transition-colors hover:text-primary"
+                    className="hover:text-primary inline-flex items-center gap-1 transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -100,7 +100,7 @@ export function CookieBanner({ onAccept, onDecline }: CookieBannerProps) {
                 variant="ghost"
                 size="sm"
                 onClick={handleClose}
-                className="h-8 w-8 flex-shrink-0 p-0 text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 flex-shrink-0 p-0"
               >
                 <IconX className="h-4 w-4" />
                 <span className="sr-only">Fermer</span>

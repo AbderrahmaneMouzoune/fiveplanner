@@ -50,7 +50,7 @@ export function Navigation({
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 px-4 py-2 shadow-lg backdrop-blur-sm">
+    <nav className="border-border bg-card/95 fixed right-0 bottom-0 left-0 z-50 border-t px-4 py-2 shadow-lg backdrop-blur-sm">
       <div className="mx-auto flex max-w-md items-center justify-between">
         <div className="flex flex-1 items-center justify-around">
           {navItems.map((item) => {
@@ -74,7 +74,7 @@ export function Navigation({
                     className={`h-5 w-5 ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
                   />
                   {item.badge && (
-                    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-xs font-medium text-destructive-foreground">
+                    <span className="bg-destructive text-destructive-foreground absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-medium">
                       {item.badge > 99 ? '99+' : item.badge}
                     </span>
                   )}

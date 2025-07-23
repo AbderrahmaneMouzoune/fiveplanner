@@ -121,7 +121,7 @@ export function PlayerList({
   if (players.length === 0) {
     return (
       <Card>
-        <CardContent className="p-6 text-center text-muted-foreground">
+        <CardContent className="text-muted-foreground p-6 text-center">
           Aucun joueur dans votre liste. Commencez par ajouter des joueurs !
         </CardContent>
       </Card>
@@ -134,7 +134,7 @@ export function PlayerList({
     return (
       <div
         key={player.id}
-        className="flex items-center justify-between rounded-lg border border-border bg-card p-3"
+        className="border-border bg-card flex items-center justify-between rounded-lg border p-3"
       >
         <div className="flex flex-1 items-center gap-3">
           <div className="flex-1">
@@ -145,14 +145,14 @@ export function PlayerList({
                   <div
                     className={`h-3 w-3 rounded-full ${getGroupColor(player.group)}`}
                   />
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {getGroupName(player.group)}
                   </span>
                 </div>
               )}
               {getStatusBadge(status)}
             </div>
-            <div className="mt-1 flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="text-muted-foreground mt-1 flex items-center gap-4 text-sm">
               {player.email && (
                 <div className="flex items-center gap-1">
                   <IconMail className="h-3 w-3" />
@@ -233,29 +233,29 @@ export function PlayerList({
     <div className="space-y-6">
       {session && (
         <div className="grid grid-cols-2 gap-4 text-center md:grid-cols-4">
-          <div className="rounded-lg border border-success-foreground/20 bg-success p-4">
-            <div className="text-2xl font-bold text-success-foreground">
+          <div className="border-success-foreground/20 bg-success rounded-lg border p-4">
+            <div className="text-success-foreground text-2xl font-bold">
               {confirmedPlayers.length}
             </div>
-            <div className="text-sm text-success-foreground">Confirmés</div>
+            <div className="text-success-foreground text-sm">Confirmés</div>
           </div>
-          <div className="rounded-lg border border-warning-foreground/20 bg-warning p-4">
-            <div className="text-2xl font-bold text-warning-foreground">
+          <div className="border-warning-foreground/20 bg-warning rounded-lg border p-4">
+            <div className="text-warning-foreground text-2xl font-bold">
               {optionalPlayers.length}
             </div>
-            <div className="text-sm text-warning-foreground">Optionnels</div>
+            <div className="text-warning-foreground text-sm">Optionnels</div>
           </div>
-          <div className="rounded-lg border border-destructive-foreground/20 bg-destructive p-4">
-            <div className="text-2xl font-bold text-destructive-foreground">
+          <div className="border-destructive-foreground/20 bg-destructive rounded-lg border p-4">
+            <div className="text-destructive-foreground text-2xl font-bold">
               {absentPlayers.length}
             </div>
-            <div className="text-sm text-destructive-foreground">Absents</div>
+            <div className="text-destructive-foreground text-sm">Absents</div>
           </div>
-          <div className="rounded-lg border border-muted-foreground/20 bg-muted p-4">
-            <div className="text-2xl font-bold text-muted-foreground">
+          <div className="border-muted-foreground/20 bg-muted rounded-lg border p-4">
+            <div className="text-muted-foreground text-2xl font-bold">
               {pendingPlayers.length}
             </div>
-            <div className="text-sm text-muted-foreground">En attente</div>
+            <div className="text-muted-foreground text-sm">En attente</div>
           </div>
         </div>
       )}
@@ -278,7 +278,7 @@ export function PlayerList({
                   onUpdateGroup={onUpdateGroup}
                   onRemoveGroup={onRemoveGroup}
                 />
-                <IconFilter className="h-4 w-4 text-muted-foreground" />
+                <IconFilter className="text-muted-foreground h-4 w-4" />
                 <Select
                   value={selectedGroupFilter}
                   onValueChange={setSelectedGroupFilter}
@@ -295,7 +295,7 @@ export function PlayerList({
                     </SelectItem>
                     <SelectItem value="ungrouped">
                       <div className="flex items-center gap-2">
-                        <div className="h-3 w-3 rounded-full bg-muted-foreground" />
+                        <div className="bg-muted-foreground h-3 w-3 rounded-full" />
                         Sans groupe ({players.filter((p) => !p.group).length})
                       </div>
                     </SelectItem>
@@ -324,7 +324,7 @@ export function PlayerList({
           {filteredAndSortedPlayers.length > 0 ? (
             filteredAndSortedPlayers.map(renderPlayerCard)
           ) : (
-            <div className="py-8 text-center text-muted-foreground">
+            <div className="text-muted-foreground py-8 text-center">
               {selectedGroupFilter === 'all'
                 ? 'Aucun joueur dans votre liste'
                 : 'Aucun joueur dans ce groupe'}

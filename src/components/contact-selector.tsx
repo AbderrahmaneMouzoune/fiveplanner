@@ -70,8 +70,8 @@ export function ContactSelector({
     return (
       <Card>
         <CardContent className="p-6 text-center">
-          <IconAddressBook className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-          <p className="mb-4 text-muted-foreground">
+          <IconAddressBook className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
+          <p className="text-muted-foreground mb-4">
             L'accès aux contacts n'est pas supporté sur cet appareil ou
             navigateur.
           </p>
@@ -87,8 +87,8 @@ export function ContactSelector({
     return (
       <Card>
         <CardContent className="p-6 text-center">
-          <IconAddressBook className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-          <p className="mb-4 text-foreground">
+          <IconAddressBook className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
+          <p className="text-foreground mb-4">
             Importez facilement vos contacts pour ajouter des joueurs
           </p>
           <div className="flex justify-center gap-2">
@@ -118,7 +118,7 @@ export function ContactSelector({
 
       {contacts.length > 0 && (
         <div className="relative">
-          <IconSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
+          <IconSearch className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
           <Input
             placeholder="Rechercher un contact..."
             value={searchTerm}
@@ -133,7 +133,7 @@ export function ContactSelector({
           filteredContacts.map((contact, index) => (
             <Card
               key={index}
-              className="cursor-pointer transition-colors hover:bg-accent"
+              className="hover:bg-accent cursor-pointer transition-colors"
             >
               <CardContent
                 className="p-3"
@@ -141,14 +141,14 @@ export function ContactSelector({
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
-                      <IconUser className="h-5 w-5 text-muted-foreground" />
+                    <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-full">
+                      <IconUser className="text-muted-foreground h-5 w-5" />
                     </div>
                     <div>
                       <div className="font-medium">
                         {contact.name?.[0] || 'Contact sans nom'}
                       </div>
-                      <div className="space-y-1 text-sm text-muted-foreground">
+                      <div className="text-muted-foreground space-y-1 text-sm">
                         {contact.tel?.[0] && (
                           <div className="flex items-center gap-1">
                             <IconPhone className="h-3 w-3" />
@@ -172,7 +172,7 @@ export function ContactSelector({
             </Card>
           ))
         ) : (
-          <div className="py-8 text-center text-muted-foreground">
+          <div className="text-muted-foreground py-8 text-center">
             {searchTerm
               ? 'Aucun contact trouvé pour cette recherche'
               : 'Aucun contact disponible'}

@@ -65,8 +65,8 @@ export function CurrentSessionView({
     <div className="space-y-6">
       <header className="text-center">
         <div className="mb-4 flex items-center justify-center gap-3">
-          <IconBallFootball className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold text-foreground">Five Planner</h1>
+          <IconBallFootball className="text-primary h-8 w-8" />
+          <h1 className="text-foreground text-3xl font-bold">Five Planner</h1>
         </div>
         <p className="text-muted-foreground">
           Gérez facilement vos sessions de football 5v5
@@ -90,11 +90,11 @@ export function CurrentSessionView({
       ) : (
         <Card>
           <CardContent className="p-8 text-center">
-            <IconCalendarPlus className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
-            <h3 className="mb-2 text-xl font-semibold text-foreground">
+            <IconCalendarPlus className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
+            <h3 className="text-foreground mb-2 text-xl font-semibold">
               Aucune session en cours
             </h3>
-            <p className="mb-6 text-muted-foreground">
+            <p className="text-muted-foreground mb-6">
               Créez une nouvelle session pour commencer à organiser votre match
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">

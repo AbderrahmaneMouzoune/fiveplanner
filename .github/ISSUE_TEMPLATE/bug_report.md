@@ -48,7 +48,7 @@ Ajoutez tout autre contexte sur le problème ici.
 - [ ] Se produit à chaque fois
 - [ ] Se produit parfois
 - [ ] S'est produit une seule fois
-- [ ] Autre: ****\_\_\_****
+- [ ] Autre: \***\*\_\_\_\*\***
 
 **Impact**
 

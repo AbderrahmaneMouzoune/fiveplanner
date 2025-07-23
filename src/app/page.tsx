@@ -1,52 +1,22 @@
 'use client'
 
-import { useState } from 'react'
-import { usePlayers } from '@/hooks/use-players'
-import { useSession } from '@/hooks/use-session'
+import { CookieBanner } from '@/components/cookie-banner'
+import { Navigation } from '@/components/navigation'
+import { OnboardingDialog } from '@/components/onboarding-dialog'
+import { CurrentSessionView } from '@/components/views/current-session-view'
+import { HistoryView } from '@/components/views/history-view'
+import { PlayersView } from '@/components/views/players-view'
+import { StatsView } from '@/components/views/stats-view'
+import { useAnalytics } from '@/hooks/use-analytics'
+import { useOnboarding } from '@/hooks/use-onboarding'
 import { usePitches } from '@/hooks/use-pitches'
 import { usePlayerGroups } from '@/hooks/use-player-groups'
 import { usePlayerStats } from '@/hooks/use-player-stats'
-import { useOnboarding } from '@/hooks/use-onboarding'
-import { useAnalytics } from '@/hooks/use-analytics'
-import { Navigation } from '@/components/navigation'
-import { CurrentSessionView } from '@/components/views/current-session-view'
-import { PlayersView } from '@/components/views/players-view'
-import { HistoryView } from '@/components/views/history-view'
-import { StatsView } from '@/components/views/stats-view'
-import { OnboardingDialog } from '@/components/onboarding-dialog'
-import { CookieBanner } from '@/components/cookie-banner'
-import { FALLBACK_SEO } from '@/config/seo.config'
-import { Metadata, Viewport } from 'next'
-import { APP_CONFIG } from '@/config/app.config'
+import { usePlayers } from '@/hooks/use-players'
+import { useSession } from '@/hooks/use-session'
+import { useState } from 'react'
 
 type View = 'current' | 'history' | 'stats' | 'players'
-
-export const metadata: Metadata = {
-  ...FALLBACK_SEO,
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'FivePlanner',
-  },
-  keywords: [
-    'FivePlanner, foot 5, football 5v5, organiser match, gestion joueurs, session football, réservation terrain, app foot, calendrier foot, application PWA foot, Five LeFive, foot entre amis',
-  ],
-  alternates: {
-    canonical: APP_CONFIG.website,
-  },
-}
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#16a34a' },
-    { media: '(prefers-color-scheme: dark)', color: '#16a34a' },
-  ],
-}
 
 export default function HomePage() {
   const [currentView, setCurrentView] = useState<View>('current')

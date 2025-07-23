@@ -50,8 +50,8 @@ export function Navigation({
   ]
 
   return (
-    <nav className="border-border bg-card/95 app-core-nav fixed right-0 bottom-0 left-0 z-50 border-t px-4 py-2 shadow-lg backdrop-blur-sm">
-      <div className="mx-auto flex max-w-md items-center justify-between">
+    <nav className="border-border bg-card/95 app-core-nav fixed right-0 bottom-0 left-0 z-50 border-t shadow-lg backdrop-blur-sm">
+      <div className="flex items-center justify-between px-4 py-3">
         <div className="flex flex-1 items-center justify-around">
           {navItems.map((item) => {
             const Icon = item.icon

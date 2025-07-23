@@ -20,7 +20,8 @@ type View = 'current' | 'history' | 'stats' | 'players'
 
 export default function HomePage() {
   const [currentView, setCurrentView] = useState<View>('current')
-  const { players, addPlayer, removePlayer, updatePlayer } = usePlayers()
+  const { players, addPlayer, removePlayer, onBulkAddPlayers, updatePlayer } =
+    usePlayers()
   const { pitches, addPitch, updatePitch, removePitch } = usePitches()
   const { groups, addGroup, updateGroup, removeGroup } = usePlayerGroups()
   const {
@@ -82,6 +83,7 @@ export default function HomePage() {
             onAddGroup={addGroup}
             onUpdateGroup={updateGroup}
             onRemoveGroup={removeGroup}
+            onBulkAddPlayers={onBulkAddPlayers}
           />
         )
       case 'history':
@@ -107,7 +109,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-background min-h-screen pb-20 transition-colors">
-      <div className="container mx-auto max-w-4xl px-4 py-8">
+      <div className="app-core container mx-auto max-w-4xl px-4 py-8">
         {renderCurrentView()}
       </div>
       <Navigation

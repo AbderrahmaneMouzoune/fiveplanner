@@ -55,12 +55,7 @@ interface SessionCardProps {
     playerId: string,
     status: 'coming' | 'not-coming' | 'pending' | 'optional',
   ) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
@@ -88,7 +83,7 @@ export function SessionCard({
   const [showConfirmed, setShowConfirmed] = useState(true)
   const [showOptional, setShowOptional] = useState(true)
   const [showPending, setShowPending] = useState(true)
-  const [showAbsent, setShowAbsent] = useState(false)
+  const [showAbsent, setShowAbsent] = useState(true)
 
   // IDs pour les checkboxes
   const confirmedId = useId()

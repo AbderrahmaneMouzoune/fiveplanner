@@ -1,9 +1,16 @@
 'use client'
 
-import type { Player, Session, PlayerStatus, PlayerGroup } from '@/types'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { BulkAddPlayersDialog } from '@/components/bulk-add-players-dialog'
+import { EditPlayerDialog } from '@/components/edit-player-dialog'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import {
   Select,
   SelectContent,
@@ -11,21 +18,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { EditPlayerDialog } from '@/components/edit-player-dialog'
-import { BulkAddPlayersDialog } from '@/components/bulk-add-players-dialog'
+import type { Player, PlayerGroup, PlayerStatus, Session } from '@/types'
 import {
   IconCheck,
-  IconX,
   IconClock,
-  IconTrash,
-  IconMail,
-  IconPhone,
-  IconQuestionMark,
-  IconFilter,
-  IconUsers,
   IconEdit,
+  IconFilter,
+  IconQuestionMark,
+  IconTrash,
+  IconUsers,
+  IconX,
 } from '@tabler/icons-react'
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 interface PlayerListProps {
   players: Player[]
@@ -34,15 +38,11 @@ interface PlayerListProps {
   onUpdateResponse: (playerId: string, status: PlayerStatus) => void
   onRemovePlayer: (playerId: string) => void
   onUpdatePlayer: (playerId: string, updates: Partial<Player>) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
+  onBulkAddPlayers: (players: Omit<Player, 'id'>[]) => void
 }
 
 export function PlayerList({
@@ -56,6 +56,7 @@ export function PlayerList({
   onAddGroup,
   onUpdateGroup,
   onRemoveGroup,
+  onBulkAddPlayers,
 }: PlayerListProps) {
   const [selectedGroupFilter, setSelectedGroupFilter] = useState<string>('all')
   const [editingPlayer, setEditingPlayer] = useState<Player | null>(null)
@@ -120,10 +121,19 @@ export function PlayerList({
 
   if (players.length === 0) {
     return (
-      <Card>
+      <Card key={players.length}>
         <CardContent className="text-muted-foreground p-6 text-center">
           Aucun joueur dans votre liste. Commencez par ajouter des joueurs !
         </CardContent>
+        <CardFooter className="flex justify-center">
+          <BulkAddPlayersDialog
+            groups={groups}
+            onAddGroup={onAddGroup}
+            onUpdateGroup={onUpdateGroup}
+            onRemoveGroup={onRemoveGroup}
+            onBulkAddPlayers={onBulkAddPlayers}
+          />
+        </CardFooter>
       </Card>
     )
   }
@@ -151,20 +161,6 @@ export function PlayerList({
                 </div>
               )}
               {getStatusBadge(status)}
-            </div>
-            <div className="text-muted-foreground mt-1 flex items-center gap-4 text-sm">
-              {player.email && (
-                <div className="flex items-center gap-1">
-                  <IconMail className="h-3 w-3" />
-                  {player.email}
-                </div>
-              )}
-              {player.phone && (
-                <div className="flex items-center gap-1">
-                  <IconPhone className="h-3 w-3" />
-                  {player.phone}
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -270,13 +266,13 @@ export function PlayerList({
                 {players.length})
               </CardTitle>
 
-              <div className="flex items-center gap-2">
+              <div key={players.length} className="flex items-center gap-2">
                 <BulkAddPlayersDialog
                   groups={groups}
-                  onAddPlayer={onAddPlayer}
                   onAddGroup={onAddGroup}
                   onUpdateGroup={onUpdateGroup}
                   onRemoveGroup={onRemoveGroup}
+                  onBulkAddPlayers={onBulkAddPlayers}
                 />
                 <IconFilter className="text-muted-foreground h-4 w-4" />
                 <Select

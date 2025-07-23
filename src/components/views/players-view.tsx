@@ -11,15 +11,11 @@ interface PlayersViewProps {
   onUpdateResponse: (playerId: string, status: PlayerStatus) => void
   onRemovePlayer: (playerId: string) => void
   onUpdatePlayer: (playerId: string, updates: Partial<Player>) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
+  onBulkAddPlayers: (players: Omit<Player, 'id'>[]) => void
 }
 
 export function PlayersView({
@@ -31,6 +27,7 @@ export function PlayersView({
   onUpdatePlayer,
   onAddPlayer,
   onAddGroup,
+  onBulkAddPlayers,
   onUpdateGroup,
   onRemoveGroup,
 }: PlayersViewProps) {
@@ -59,6 +56,7 @@ export function PlayersView({
         onAddGroup={onAddGroup}
         onUpdateGroup={onUpdateGroup}
         onRemoveGroup={onRemoveGroup}
+        onBulkAddPlayers={onBulkAddPlayers}
       />
     </div>
   )

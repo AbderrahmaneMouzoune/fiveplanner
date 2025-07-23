@@ -21,10 +21,19 @@ export function usePlayers() {
   const addPlayer = (player: Omit<Player, 'id'>) => {
     const newPlayer: Player = {
       ...player,
-      id: Date.now().toString(),
+      id: `${Date.now().toString()}-${player.name}`,
     }
     const newPlayers = [...players, newPlayer]
     savePlayersToStorage(newPlayers)
+  }
+
+  const onBulkAddPlayers = (newPlayers: Omit<Player, 'id'>[]) => {
+    const playersWithId = newPlayers.map((p) => ({
+      ...p,
+      id: `${Date.now().toString()}-${p.name}`,
+    }))
+    const updatedPlayers = [...players, ...playersWithId]
+    savePlayersToStorage(updatedPlayers)
   }
 
   const removePlayer = (playerId: string) => {
@@ -44,5 +53,6 @@ export function usePlayers() {
     addPlayer,
     removePlayer,
     updatePlayer,
+    onBulkAddPlayers,
   }
 }

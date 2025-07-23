@@ -2,12 +2,8 @@
 
 import type React from 'react'
 
-import { useState, useMemo } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -17,16 +13,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import type { Player, Session, PlayerStatus, PlayerGroup } from '@/types'
-import {
-  IconUsers,
-  IconSearch,
-  IconX,
-  IconCheck,
-  IconQuestionMark,
-  IconClock,
-} from '@tabler/icons-react'
-import { getUniqueAvatarColor } from '@/utils/avatar-colors'
+import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import type { Player, PlayerGroup, PlayerStatus, Session } from '@/types'
+import { IconSearch, IconUsers } from '@tabler/icons-react'
+import { useMemo, useState } from 'react'
 import { PlayerCardInline } from './player-card-inline'
 
 interface ManageSessionPlayersDialogProps {
@@ -34,12 +25,7 @@ interface ManageSessionPlayersDialogProps {
   players: Player[]
   groups: PlayerGroup[]
   onUpdatePlayerResponse: (playerId: string, status: PlayerStatus) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
 }
 
 export function ManageSessionPlayersDialog({
@@ -55,15 +41,6 @@ export function ManageSessionPlayersDialog({
   const getPlayerStatus = (playerId: string): PlayerStatus => {
     const response = session.responses.find((r) => r.playerId === playerId)
     return response?.status || 'pending'
-  }
-
-  const getPlayerInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2)
   }
 
   // Obtenir tous les noms des joueurs pour le système de couleurs uniques
@@ -112,10 +89,8 @@ export function ManageSessionPlayersDialog({
   const filteredPlayers = useMemo(() => {
     if (!searchTerm.trim()) return []
 
-    return players.filter(
-      (player) =>
-        player.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        player.email?.toLowerCase().includes(searchTerm.toLowerCase()),
+    return players.filter((player) =>
+      player.name.toLowerCase().includes(searchTerm.toLowerCase()),
     )
   }, [players, searchTerm])
 
@@ -235,7 +210,7 @@ export function ManageSessionPlayersDialog({
                     <TabsTrigger
                       key={groupId}
                       value={groupId}
-                      className="text-xs"
+                      className="hover:text-foreground data-[state=active]:after:bg-primary relative text-xs after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 data-[state=active]:shadow-none"
                     >
                       {getTabLabel(groupId, groupPlayers)}
                     </TabsTrigger>

@@ -23,17 +23,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { ManageGroupsDialog } from '@/components/manage-groups-dialog'
-import type { PlayerGroup } from '@/types'
+import type { Player, PlayerGroup } from '@/types'
 import { IconPlus } from '@tabler/icons-react'
 
 interface AddPlayerDialogProps {
   groups: PlayerGroup[]
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void
@@ -48,8 +43,7 @@ export function AddPlayerDialog({
 }: AddPlayerDialogProps) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+
   const [selectedGroup, setSelectedGroup] = useState<string>('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,13 +51,10 @@ export function AddPlayerDialog({
     if (name.trim()) {
       onAddPlayer({
         name: name.trim(),
-        email: email.trim() || undefined,
-        phone: phone.trim() || undefined,
         group: selectedGroup || undefined,
       })
       setName('')
-      setEmail('')
-      setPhone('')
+
       setSelectedGroup('')
       setOpen(false)
     }
@@ -87,7 +78,7 @@ export function AddPlayerDialog({
 
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
+            <div className="flex flex-1 flex-col gap-2">
               <Label htmlFor="name">Nom *</Label>
               <Input
                 id="name"
@@ -95,26 +86,6 @@ export function AddPlayerDialog({
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Nom du joueur"
                 required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email@exemple.com"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="phone">Téléphone</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="06 12 34 56 78"
               />
             </div>
             <div className="grid gap-2">

@@ -30,12 +30,7 @@ interface CurrentSessionViewProps {
     playerId: string,
     status: 'coming' | 'not-coming' | 'pending' | 'optional',
   ) => void
-  onAddPlayer: (player: {
-    name: string
-    email?: string
-    phone?: string
-    group?: string
-  }) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
   onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
   onUpdatePitch: (pitchId: string, updates: Partial<Pitch>) => void
   onRemovePitch: (pitchId: string) => void
@@ -65,7 +60,7 @@ export function CurrentSessionView({
   return (
     <div className="space-y-6">
       <header className="text-center">
-        <div className="mb-4 flex items-center justify-center gap-3">
+        <div className="mb-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <IconBallFootball className="text-primary h-8 w-8" />
           <h1 className="text-foreground text-3xl font-bold">
             {APP_CONFIG.name} - Organisez vos five

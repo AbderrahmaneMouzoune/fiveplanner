@@ -210,7 +210,7 @@ export function ManageSessionPlayersDialog({
                   ))
                 ) : (
                   <div className="text-muted-foreground py-8 text-center">
-                    Aucun joueur trouvé pour "{searchTerm}"
+                    Aucun joueur trouvé pour &quot;{searchTerm}&quot;
                     <Button
                       onClick={() => onAddPlayer({ name: searchTerm })}
                       variant="outline"

@@ -202,7 +202,7 @@ export function SessionHistory({
     return (
       <Card>
         <CardContent className="text-muted-foreground p-6 text-center">
-          Aucune session dans l'historique pour le moment.
+          Aucune session dans l&apos;historique pour le moment.
         </CardContent>
       </Card>
     )

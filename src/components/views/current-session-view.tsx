@@ -7,6 +7,7 @@ import { CreateSessionFromEmailDialog } from '@/components/create-session-from-e
 import { SessionCard } from '@/components/session-card'
 import { Card, CardContent } from '@/components/ui/card'
 import { IconCalendarPlus, IconBallFootball } from '@tabler/icons-react'
+import { APP_CONFIG } from '@/config/app.config'
 
 interface CurrentSessionViewProps {
   currentSession: Session | null
@@ -66,7 +67,9 @@ export function CurrentSessionView({
       <header className="text-center">
         <div className="mb-4 flex items-center justify-center gap-3">
           <IconBallFootball className="text-primary h-8 w-8" />
-          <h1 className="text-foreground text-3xl font-bold">Five Planner</h1>
+          <h1 className="text-foreground text-3xl font-bold">
+            {APP_CONFIG.name} - Organisez vos five
+          </h1>
         </div>
         <p className="text-muted-foreground">
           Gérez facilement vos sessions de football 5v5

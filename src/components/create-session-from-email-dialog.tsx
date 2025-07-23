@@ -291,7 +291,7 @@ export function CreateSessionFromEmailDialog({
         <div className="space-y-4">
           <div className="grid gap-2">
             <Label htmlFor="email-content">
-              Contenu de l'email de confirmation
+              Contenu de l&apos;email de confirmation
             </Label>
             <Textarea
               id="email-content"
@@ -359,7 +359,7 @@ export function CreateSessionFromEmailDialog({
                     <div className="text-destructive flex items-center gap-2">
                       <IconX className="h-4 w-4" />
                       <span className="font-medium">
-                        Erreur lors de l'analyse
+                        Erreur lors de l&apos;analyse
                       </span>
                     </div>
                     <Alert>
@@ -374,13 +374,19 @@ export function CreateSessionFromEmailDialog({
           {parsedData && !parsedData.success && (
             <div className="space-y-2">
               <p className="text-muted-foreground text-sm">
-                L'email n'a pas pu être analysé automatiquement. Vérifiez que le
-                contenu contient :
+                L&apos;email n&apos;a pas pu être analysé automatiquement.
+                Vérifiez que le contenu contient :
               </p>
               <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
-                <li>Une date (ex: "samedi 26 juillet 2025" ou "26/07/2025")</li>
-                <li>Une heure (ex: "entre 19:30 et 21:00" ou "à 19:30")</li>
-                <li>Un lieu (ex: "LE FIVE Paris 18")</li>
+                <li>
+                  Une date (ex: &quot;samedi 26 juillet 2025&quot; ou
+                  &quot;26/07/2025&quot;)
+                </li>
+                <li>
+                  Une heure (ex: &quot;entre 19:30 et 21:00&quot; ou &quot;à
+                  19:30&quot;)
+                </li>
+                <li>Un lieu (ex: &quot;LE FIVE Paris 18&quot;)</li>
               </ul>
             </div>
           )}
@@ -397,7 +403,7 @@ export function CreateSessionFromEmailDialog({
               disabled={!emailContent.trim()}
             >
               <IconCalendarPlus className="mr-2 h-4 w-4" />
-              Analyser l'email
+              Analyser l&apos;email
             </Button>
           )}
           {parsedData && parsedData.success && (

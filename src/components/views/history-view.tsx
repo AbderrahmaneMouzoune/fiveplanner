@@ -41,7 +41,7 @@ export function HistoryView({
           <CardContent className="p-8 text-center">
             <IconCalendarOff className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
             <h3 className="text-foreground mb-2 text-xl font-semibold">
-              Aucune session dans l'historique
+              Aucune session dans l&apos;historique
             </h3>
             <p className="text-muted-foreground">
               Vos sessions terminées ou annulées apparaîtront ici pour que vous

@@ -66,7 +66,7 @@ const onboardingSteps = [
             <div>
               <h4 className="font-medium">Nouvelle session</h4>
               <p className="text-muted-foreground text-sm">
-                Cliquez sur "Nouvelle session" pour créer un match
+                Cliquez sur &quot;Nouvelle session&quot; pour créer un match
               </p>
             </div>
           </div>
@@ -79,7 +79,7 @@ const onboardingSteps = [
             <div>
               <h4 className="font-medium">Détails du match</h4>
               <p className="text-muted-foreground text-sm">
-                Renseignez la date, l'heure, le lieu et le type de session
+                Renseignez la date, l&apos;heure, le lieu et le type de session
               </p>
             </div>
           </div>

@@ -97,11 +97,6 @@ function PlayerCardInline({
             </div>
           )}
         </div>
-        {player.email && (
-          <div className="text-muted-foreground truncate text-xs">
-            {player.email}
-          </div>
-        )}
       </div>
 
       <div className="flex items-center gap-2">

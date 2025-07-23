@@ -38,7 +38,7 @@ interface PlayerListProps {
   onUpdateResponse: (playerId: string, status: PlayerStatus) => void
   onRemovePlayer: (playerId: string) => void
   onUpdatePlayer: (playerId: string, updates: Partial<Player>) => void
-  onAddPlayer: (player: Player) => void
+  onAddPlayer: (player: Omit<Player, 'id'>) => void
   onAddGroup: (group: Omit<PlayerGroup, 'id'>) => void
   onUpdateGroup: (groupId: string, updates: Partial<PlayerGroup>) => void
   onRemoveGroup: (groupId: string) => void

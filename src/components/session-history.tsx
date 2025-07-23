@@ -1,39 +1,36 @@
 'use client'
 
-import type { Session, Player } from '@/types'
-import { useState } from 'react'
-import { useId } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Checkbox } from '@/components/ui/checkbox'
-import { PlayerAvatar } from '@/components/player-avatar'
 import { PitchCard } from '@/components/pitch-card'
+import { PlayerAvatar } from '@/components/player-avatar'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
+import type { Player, Session } from '@/types'
 import {
-  IconMapPin,
-  IconUsers,
-  IconTrash,
-  IconCheck,
-  IconX,
-  IconQuestionMark,
-  IconCurrencyEuro,
-  IconExternalLink,
-  IconTrophy,
   IconCalendar,
-  IconClock,
-  IconHome,
-  IconSun,
+  IconCheck,
   IconChevronDown,
   IconChevronRight,
+  IconClock,
+  IconCurrencyEuro,
+  IconExternalLink,
   IconFilter,
-  IconMail,
-  IconPhone,
+  IconHome,
+  IconMapPin,
+  IconQuestionMark,
+  IconSun,
+  IconTrash,
+  IconTrophy,
+  IconUsers,
+  IconX,
 } from '@tabler/icons-react'
+import { useId, useState } from 'react'
 
 interface SessionHistoryProps {
   sessions: Session[]
@@ -509,24 +506,6 @@ export function SessionHistory({
                                   <span className="block truncate text-sm font-medium">
                                     {playerName}
                                   </span>
-                                  {player && (player.email || player.phone) && (
-                                    <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                                      {player.email && (
-                                        <span className="flex items-center gap-1 truncate">
-                                          <IconMail className="h-3 w-3 flex-shrink-0" />
-                                          <span className="truncate">
-                                            {player.email}
-                                          </span>
-                                        </span>
-                                      )}
-                                      {player.phone && (
-                                        <span className="flex items-center gap-1">
-                                          <IconPhone className="h-3 w-3 flex-shrink-0" />
-                                          {player.phone}
-                                        </span>
-                                      )}
-                                    </div>
-                                  )}
                                 </div>
                                 {getPlayerBadge(playerResponse.type)}
                               </div>

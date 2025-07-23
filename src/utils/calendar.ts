@@ -29,7 +29,10 @@ export function generateCalendarEvent(
     (r) => r.status === 'optional',
   )
 
-  const calculateEndTime = (timeString: string): string => {
+  const calculateEndTime = (
+    timeString: string,
+    durationMinutes: number,
+  ): string => {
     try {
       const [hours, minutes] = timeString.split(':').map(Number)
       if (
@@ -42,49 +45,47 @@ export function generateCalendarEvent(
       ) {
         throw new Error('Invalid time format')
       }
-      let endHours = hours + 1
-      let endMinutes = minutes + 30
-      if (endMinutes >= 60) {
-        endMinutes -= 60
-        endHours += 1
-      }
-      if (endHours >= 24) endHours -= 24
+
+      // Calculer l'heure de fin en ajoutant la durée
+      let totalMinutes = hours * 60 + minutes + durationMinutes
+      const endHours = Math.floor(totalMinutes / 60) % 24
+      const endMinutes = totalMinutes % 60
+
       return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`
     } catch (error) {
       console.error("Erreur lors du calcul de l'heure de fin:", error)
+      // Fallback: ajouter la durée ou 2h par défaut
       const [hours] = timeString.split(':').map(Number)
-      const endHours = (hours + 2) % 24
+      const fallbackDuration = durationMinutes || 120
+      const endHours = (hours + Math.floor(fallbackDuration / 60)) % 24
       return `${String(endHours).padStart(2, '0')}:00`
     }
   }
 
-  const endTime = calculateEndTime(session.time)
+  const endTime = calculateEndTime(session.time, session.duration)
   const startDateTime = formatDate(session.date, session.time)
   const endDateTime = formatDate(session.date, endTime)
 
-  // Description plus concise
-  let description = `⚽ ${session.sessionType === 'indoor' ? 'Indoor' : 'Outdoor'}\\n`
-  description += `👥 ${confirmedPlayers.length}/${session.maxPlayers}\\n`
+  // Description simple et robuste sans caractères spéciaux
+  const confirmedCount = confirmedPlayers.length
+  const optionalCount = optionalPlayers.length
 
-  // Lister seulement les joueurs confirmés, de manière plus compacte
-  if (confirmedPlayers.length > 0) {
+  let description = `${session.sessionType === 'indoor' ? 'Indoor' : 'Outdoor'} - ${confirmedCount}/${session.maxPlayers} joueurs`
+
+  // Ajouter les noms de façon simple
+  if (confirmedCount > 0) {
     const names = confirmedPlayers
       .map((r) => getPlayerName(r.playerId))
+      .slice(0, 5) // Limiter à 5 noms pour éviter une description trop longue
       .join(', ')
-    description += `✅ ${names}\\n`
+    description += `. Confirmés: ${names}`
+    if (confirmedCount > 5) {
+      description += ` et ${confirmedCount - 5} autres`
+    }
   }
 
-  // Optionnels en format compact aussi
-  if (optionalPlayers.length > 0) {
-    const optionalNames = optionalPlayers
-      .map((r) => getPlayerName(r.playerId))
-      .join(', ')
-    description += `❓ ${optionalNames}\\n`
-  }
-
-  // Paiement seulement si présent
-  if (session.paymentLink) {
-    description += `💳 ${session.paymentLink}`
+  if (optionalCount > 0) {
+    description += `. Optionnels: ${optionalCount}`
   }
 
   // Titre plus court
@@ -103,11 +104,10 @@ export function generateCalendarEvent(
 
   const params = new URLSearchParams({
     action: 'TEMPLATE',
-    text: `Foot ${getShortDate(session.date)}`, // Titre beaucoup plus court
+    text: `Foot ${getShortDate(session.date)}`,
     dates: `${startDateTime}/${endDateTime}`,
     details: description,
     location: session.location,
-    // Supprimer trp: 'false' car c'est la valeur par défaut
   })
 
   return `https://calendar.google.com/calendar/render?${params.toString()}`
@@ -133,15 +133,14 @@ export function generateCalendarEventMinimal(
   const confirmedCount = session.responses.filter(
     (r) => r.status === 'coming',
   ).length
-  const endTime = session.time.split(':').map(Number)
-  endTime[1] += 90 // Ajouter 90 minutes
-  if (endTime[1] >= 60) {
-    endTime[1] -= 60
-    endTime[0] += 1
-  }
-  if (endTime[0] >= 24) endTime[0] -= 24
 
-  const endTimeStr = `${String(endTime[0]).padStart(2, '0')}:${String(endTime[1]).padStart(2, '0')}`
+  // Utiliser session.duration au lieu d'une durée fixe
+  const [hours, minutes] = session.time.split(':').map(Number)
+  let totalMinutes = hours * 60 + minutes + session.duration
+  const endHours = Math.floor(totalMinutes / 60) % 24
+  const endMinutes = totalMinutes % 60
+
+  const endTimeStr = `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`
   const startDateTime = formatDate(session.date, session.time)
   const endDateTime = formatDate(session.date, endTimeStr)
 

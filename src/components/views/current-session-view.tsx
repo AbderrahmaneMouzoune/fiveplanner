@@ -14,15 +14,9 @@ interface CurrentSessionViewProps {
   players: Player[]
   pitches: Pitch[]
   groups: PlayerGroup[]
-  onCreateSession: (session: {
-    date: string
-    time: string
-    location: string
-    pitch?: Pitch
-    sessionType: 'indoor' | 'outdoor'
-    paymentLink?: string
-    maxPlayers: number
-  }) => void
+  onCreateSession: (
+    session: Omit<Session, 'id' | 'responses' | 'status' | 'createdAt'>,
+  ) => void
   onCompleteSession: () => void
   onCancelSession: () => void
   onClearSession: () => void

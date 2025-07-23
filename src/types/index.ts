@@ -24,6 +24,7 @@ export interface Session {
   id: string
   date: string
   time: string
+  duration: number // in minutes
   location: string
   pitch?: Pitch
   sessionType: 'indoor' | 'outdoor'

@@ -2,17 +2,10 @@
 
 import type React from 'react'
 
-import { useState } from 'react'
+import { ManagePitchesDialog } from '@/components/manage-pitches-dialog'
+import { PitchCard } from '@/components/pitch-card'
+import { PitchCombobox } from '@/components/pitch-combobox'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Card } from '@/components/ui/card'
 import {
   Dialog,
@@ -23,23 +16,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { PitchCard } from '@/components/pitch-card'
-import { PitchCombobox } from '@/components/pitch-combobox'
-import { ManagePitchesDialog } from '@/components/manage-pitches-dialog'
-import type { Pitch } from '@/types'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import type { Pitch, Session } from '@/types'
 import { IconCalendarPlus, IconHome, IconSun } from '@tabler/icons-react'
+import { useId, useState } from 'react'
 
 interface CreateSessionDialogProps {
   pitches: Pitch[]
-  onCreateSession: (session: {
-    date: string
-    time: string
-    location: string
-    pitch?: Pitch
-    sessionType: 'indoor' | 'outdoor'
-    paymentLink?: string
-    maxPlayers: number
-  }) => void
+  onCreateSession: (
+    session: Omit<Session, 'id' | 'responses' | 'status' | 'createdAt'>,
+  ) => void
   onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
   onUpdatePitch: (pitchId: string, updates: Partial<Pitch>) => void
   onRemovePitch: (pitchId: string) => void
@@ -52,9 +40,11 @@ export function CreateSessionDialog({
   onUpdatePitch,
   onRemovePitch,
 }: CreateSessionDialogProps) {
+  const id = useId()
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
+  const [duration, setDuration] = useState('90')
   const [selectedPitchId, setSelectedPitchId] = useState<string>('')
   const [customLocation, setCustomLocation] = useState('')
   const [sessionType, setSessionType] = useState<'indoor' | 'outdoor'>(
@@ -79,9 +69,11 @@ export function CreateSessionDialog({
         sessionType,
         paymentLink: paymentLink.trim() || undefined,
         maxPlayers,
+        duration: Number(duration),
       })
       setDate('')
       setTime('')
+      setDuration('90')
       setSelectedPitchId('')
       setCustomLocation('')
       setSessionType('outdoor')
@@ -109,54 +101,95 @@ export function CreateSessionDialog({
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="date">Date *</Label>
-              <Input
-                id="date"
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="time">Heure *</Label>
-              <Input
-                id="time"
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                required
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div className="grid gap-2">
+                <Label htmlFor="date">Date *</Label>
+                <Input
+                  id="date"
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="time">Heure *</Label>
+                <Input
+                  id="time"
+                  type="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
-            <div className="grid gap-2">
-              <Label>Type de session *</Label>
-              <Select
+            <fieldset className="space-y-3">
+              <legend className="text-foreground text-sm leading-none font-medium">
+                Durée *
+              </legend>
+              <RadioGroup
+                className="grid grid-cols-3 gap-2"
+                value={duration}
+                onValueChange={setDuration}
+              >
+                {[
+                  { value: '60', label: '60 min' },
+                  { value: '90', label: '90 min' },
+                  { value: '120', label: '120 min' },
+                ].map((item) => (
+                  <label
+                    key={`${id}-${item.value}`}
+                    className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+                  >
+                    <RadioGroupItem
+                      id={`${id}-${item.value}`}
+                      value={item.value}
+                      className="sr-only after:absolute after:inset-0"
+                    />
+                    <p className="text-foreground text-sm leading-none font-medium">
+                      {item.label}
+                    </p>
+                  </label>
+                ))}
+              </RadioGroup>
+            </fieldset>
+
+            <fieldset className="space-y-3">
+              <legend className="text-foreground text-sm leading-none font-medium">
+                Type de session *
+              </legend>
+              <RadioGroup
+                className="grid grid-cols-2 gap-2"
                 value={sessionType}
                 onValueChange={(value: 'indoor' | 'outdoor') =>
                   setSessionType(value)
                 }
               >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="outdoor">
-                    <div className="flex items-center gap-2">
-                      <IconSun className="h-4 w-4" />
-                      Extérieur
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="indoor">
-                    <div className="flex items-center gap-2">
-                      <IconHome className="h-4 w-4" />
-                      Intérieur
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+                {[
+                  { value: 'outdoor', label: 'Extérieur', icon: IconSun },
+                  { value: 'indoor', label: 'Intérieur', icon: IconHome },
+                ].map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <label
+                      key={`${id}-${item.value}`}
+                      className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+                    >
+                      <RadioGroupItem
+                        id={`${id}-${item.value}`}
+                        value={item.value}
+                        className="sr-only after:absolute after:inset-0"
+                      />
+                      <Icon className="h-4 w-4" />
+                      <p className="text-foreground text-sm leading-none font-medium">
+                        {item.label}
+                      </p>
+                    </label>
+                  )
+                })}
+              </RadioGroup>
+            </fieldset>
 
             <div className="grid gap-2">
               <div className="flex items-center justify-between">

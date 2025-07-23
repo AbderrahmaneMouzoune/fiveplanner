@@ -39,6 +39,7 @@ import {
   IconCalendarPlus,
   IconFilter,
   IconQuestionMark,
+  Icon24Hours,
 } from '@tabler/icons-react'
 import { AddPlayerDialog } from '@/components/add-player-dialog'
 import type { PlayerGroup } from '@/types'
@@ -239,52 +240,6 @@ export function SessionCard({
     }
   }
 
-  const getPlayerBadge = (type: string) => {
-    switch (type) {
-      case 'confirmed':
-        return (
-          <Badge variant="success" className="flex-shrink-0 text-xs">
-            Confirmé
-          </Badge>
-        )
-      case 'optional':
-        return (
-          <Badge variant="warning" className="flex-shrink-0 text-xs">
-            Optionnel
-          </Badge>
-        )
-      case 'pending':
-        return (
-          <Badge variant="outline" className="flex-shrink-0 text-xs">
-            En attente
-          </Badge>
-        )
-      case 'absent':
-        return (
-          <Badge variant="destructive" className="flex-shrink-0 text-xs">
-            Absent
-          </Badge>
-        )
-      default:
-        return null
-    }
-  }
-
-  const getPlayerCardBackground = (type: string) => {
-    switch (type) {
-      case 'confirmed':
-        return 'bg-success/20 border-success-foreground/10'
-      case 'optional':
-        return 'bg-warning/20 border-warning-foreground120'
-      case 'pending':
-        return 'bg-muted/20 border-muted-foreground/10'
-      case 'absent':
-        return 'bg-destructive/20 border-destructive-foreground/10'
-      default:
-        return 'bg-card border-border'
-    }
-  }
-
   const totalPlayersCount =
     confirmedPlayers.length +
     optionalPlayers.length +
@@ -335,7 +290,9 @@ export function SessionCard({
             </div>
             <div className="flex items-center gap-2">
               <IconClock className="text-muted-foreground h-4 w-4" />
-              <span className="text-sm">{session.time}</span>
+              <span className="text-sm">
+                {session.time} ({session.duration} minutes)
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <IconMapPin className="text-muted-foreground h-4 w-4" />

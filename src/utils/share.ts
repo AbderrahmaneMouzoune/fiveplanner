@@ -53,7 +53,7 @@ export function generateSessionSummary(
   let summary = ``
   summary += `⚽ ${locationText}\n`
   summary += `📅 ${formatDate(session.date)}\n`
-  summary += `🕐 ${session.time}\n`
+  summary += `🕐 ${session.time} (${session.duration} minutes)\n`
   summary += `🏟️ ${sessionTypeText}\n\n`
 
   if (confirmedPlayers.length > 0) {

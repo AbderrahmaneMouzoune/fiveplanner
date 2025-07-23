@@ -3,7 +3,7 @@ import type { Pitch } from '@/types'
 export const DEFAULT_PITCHES: Pitch[] = [
   {
     id: '1',
-    name: 'LE FIVE Paris 18ᵉ (Moussorgski)',
+    name: 'LE FIVE Paris 18ᵉ',
     address: '32 rue Moussorgski, Paris 18ᵉ',
     surfaceType: 'indoor',
     isFilmed: true,

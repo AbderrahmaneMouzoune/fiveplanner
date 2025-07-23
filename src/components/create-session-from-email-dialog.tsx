@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import type { Pitch } from '@/types'
+import type { Pitch, Session } from '@/types'
 import {
   IconMail,
   IconCalendarPlus,
@@ -24,15 +24,9 @@ import {
 
 interface CreateSessionFromEmailDialogProps {
   pitches: Pitch[]
-  onCreateSession: (session: {
-    date: string
-    time: string
-    location: string
-    pitch?: Pitch
-    sessionType: 'indoor' | 'outdoor'
-    paymentLink?: string
-    maxPlayers: number
-  }) => void
+  onCreateSession: (
+    session: Omit<Session, 'id' | 'responses' | 'status' | 'createdAt'>,
+  ) => void
   onAddPitch: (pitch: Omit<Pitch, 'id'>) => void
 }
 
@@ -247,6 +241,19 @@ export function CreateSessionFromEmailDialog({
       // Note: Dans un vrai cas, on récupérerait l'ID du terrain créé
     }
 
+    // Calculer la durée si endTime est présent
+    let duration = 0
+    if (parsedData.endTime) {
+      const [startHour, startMinute] = parsedData.time.split(':').map(Number)
+      const [endHour, endMinute] = parsedData.endTime.split(':').map(Number)
+      const start = startHour * 60 + startMinute
+      const end = endHour * 60 + endMinute
+      const diff = end - start
+      if (diff > 0) {
+        duration = diff
+      }
+    }
+
     onCreateSession({
       date: parsedData.date,
       time: parsedData.time,
@@ -254,7 +261,8 @@ export function CreateSessionFromEmailDialog({
       pitch: pitchToUse,
       sessionType: 'indoor', // Par défaut indoor pour les centres comme LE FIVE
       paymentLink: parsedData.paymentLink,
-      maxPlayers: 10, // Valeur par défaut
+      maxPlayers: 10,
+      duration: duration,
     })
 
     setIsCreating(false)

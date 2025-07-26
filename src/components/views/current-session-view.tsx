@@ -7,9 +7,13 @@ import { CreateSessionFromEmailDialog } from '@/components/create-session-from-e
 import { SessionCard } from '@/components/session-card'
 import { Card, CardContent } from '@/components/ui/card'
 import { IconCalendarPlus, IconBallFootball } from '@tabler/icons-react'
+import { MultiSessionSelector } from '@/components/multi-session-selector'
 import { APP_CONFIG } from '@/config/app.config'
 
 interface CurrentSessionViewProps {
+  activeSessions: Session[]
+  selectedSessionId: string | null
+  setSelectedSessionId: (id: string | null) => void
   currentSession: Session | null
   players: Player[]
   pitches: Pitch[]
@@ -34,6 +38,9 @@ interface CurrentSessionViewProps {
 }
 
 export function CurrentSessionView({
+  activeSessions,
+  selectedSessionId,
+  setSelectedSessionId,
   currentSession,
   players,
   pitches,
@@ -53,6 +60,11 @@ export function CurrentSessionView({
 }: CurrentSessionViewProps) {
   return (
     <div className="space-y-6">
+      <MultiSessionSelector
+        sessions={activeSessions}
+        selectedId={selectedSessionId}
+        onSelect={setSelectedSessionId}
+      />
       <header className="text-center">
         <div className="mb-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <IconBallFootball className="text-primary h-8 w-8" />
@@ -116,22 +128,21 @@ export function CurrentSessionView({
           onUpdateGroup={onUpdateGroup}
           onRemoveGroup={onRemoveGroup}
         />
-        {!currentSession && (
-          <>
-            <CreateSessionDialog
-              pitches={pitches}
-              onCreateSession={onCreateSession}
-              onAddPitch={onAddPitch}
-              onUpdatePitch={onUpdatePitch}
-              onRemovePitch={onRemovePitch}
-            />
-            <CreateSessionFromEmailDialog
-              pitches={pitches}
-              onCreateSession={onCreateSession}
-              onAddPitch={onAddPitch}
-            />
-          </>
-        )}
+
+        <>
+          <CreateSessionDialog
+            pitches={pitches}
+            onCreateSession={onCreateSession}
+            onAddPitch={onAddPitch}
+            onUpdatePitch={onUpdatePitch}
+            onRemovePitch={onRemovePitch}
+          />
+          <CreateSessionFromEmailDialog
+            pitches={pitches}
+            onCreateSession={onCreateSession}
+            onAddPitch={onAddPitch}
+          />
+        </>
       </div>
     </div>
   )

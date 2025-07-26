@@ -25,6 +25,9 @@ export default function HomePage() {
   const { pitches, addPitch, updatePitch, removePitch } = usePitches()
   const { groups, addGroup, updateGroup, removeGroup } = usePlayerGroups()
   const {
+    activeSessions,
+    selectedSessionId,
+    setSelectedSessionId,
     currentSession,
     sessionHistory,
     createSession,
@@ -52,6 +55,9 @@ export default function HomePage() {
       case 'current':
         return (
           <CurrentSessionView
+            activeSessions={activeSessions}
+            selectedSessionId={selectedSessionId}
+            setSelectedSessionId={setSelectedSessionId}
             currentSession={currentSession}
             players={players}
             pitches={pitches}

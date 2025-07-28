@@ -247,7 +247,6 @@ export function ManagePitchesDialog({
                         variant="destructive"
                         size="sm"
                         onClick={() => onRemovePitch(pitch.id)}
-                        className="text-red-500 hover:text-red-700"
                       >
                         <IconTrash className="h-4 w-4" />
                       </Button>

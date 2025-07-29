@@ -178,7 +178,6 @@ export function ManageGroupsDialog({
                         variant="destructive"
                         size="sm"
                         onClick={() => onRemoveGroup(group.id)}
-                        className="text-red-500 hover:text-red-700"
                       >
                         <IconTrash className="h-4 w-4" />
                       </Button>

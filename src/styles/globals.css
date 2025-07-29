@@ -256,6 +256,13 @@
 
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .app-core::-webkit-scrollbar {
+    display: none;
   }
 
   .app-core-nav {

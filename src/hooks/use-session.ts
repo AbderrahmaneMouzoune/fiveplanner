@@ -2,6 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import type { Session, PlayerStatus } from '@/types'
+import { generateUniqueId } from '@/lib/generator'
+
+const STORAGE_KEYS = {
+  ACTIVE_SESSIONS: 'five-planner-active-sessions',
+  SELECTED_SESSION_ID: 'five-planner-selected-session-id',
+  SESSION_HISTORY: 'five-planner-session-history',
+}
 
 export function useSession() {
   const [activeSessions, setActiveSessions] = useState<Session[]>([])
@@ -11,11 +18,9 @@ export function useSession() {
   const [sessionHistory, setSessionHistory] = useState<Session[]>([])
 
   useEffect(() => {
-    const savedSessions = localStorage.getItem('five-planner-active-sessions')
-    const savedSelected = localStorage.getItem(
-      'five-planner-selected-session-id',
-    )
-    const savedHistory = localStorage.getItem('five-planner-session-history')
+    const savedSessions = localStorage.getItem(STORAGE_KEYS.ACTIVE_SESSIONS)
+    const savedSelected = localStorage.getItem(STORAGE_KEYS.SELECTED_SESSION_ID)
+    const savedHistory = localStorage.getItem(STORAGE_KEYS.SESSION_HISTORY)
 
     if (savedSessions) setActiveSessions(JSON.parse(savedSessions))
     if (savedSelected) setSelectedSessionId(savedSelected)
@@ -24,16 +29,13 @@ export function useSession() {
 
   const persistSessions = (sessions: Session[]) => {
     setActiveSessions(sessions)
-    localStorage.setItem(
-      'five-planner-active-sessions',
-      JSON.stringify(sessions),
-    )
+    localStorage.setItem(STORAGE_KEYS.ACTIVE_SESSIONS, JSON.stringify(sessions))
   }
 
   const persistSelectedId = (id: string | null) => {
     setSelectedSessionId(id)
-    if (id) localStorage.setItem('five-planner-selected-session-id', id)
-    else localStorage.removeItem('five-planner-selected-session-id')
+    if (id) localStorage.setItem(STORAGE_KEYS.SELECTED_SESSION_ID, id)
+    else localStorage.removeItem(STORAGE_KEYS.SELECTED_SESSION_ID)
   }
 
   const currentSession =
@@ -41,10 +43,7 @@ export function useSession() {
 
   const saveHistoryToStorage = (history: Session[]) => {
     setSessionHistory(history)
-    localStorage.setItem(
-      'five-planner-session-history',
-      JSON.stringify(history),
-    )
+    localStorage.setItem(STORAGE_KEYS.SESSION_HISTORY, JSON.stringify(history))
   }
 
   const createSession = (
@@ -52,7 +51,7 @@ export function useSession() {
   ) => {
     const newSession: Session = {
       ...data,
-      id: Date.now().toString(),
+      id: generateUniqueId(),
       responses: [],
       status: 'upcoming',
       createdAt: new Date().toISOString(),
@@ -117,9 +116,8 @@ export function useSession() {
     persistSelectedId(null)
   }
 
-  const clearSession = () => {
-    if (!currentSession) return
-    persistSessions(activeSessions.filter((s) => s.id !== currentSession.id))
+  const clearSession = (sessionId: string) => {
+    persistSessions(activeSessions.filter((s) => s.id !== sessionId))
     persistSelectedId(null)
   }
 

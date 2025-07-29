@@ -1,19 +1,24 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import type { Session, Player, Pitch, PlayerGroup } from '@/types'
 import { AddPlayerDialog } from '@/components/add-player-dialog'
 import { CreateSessionDialog } from '@/components/create-session-dialog'
 import { CreateSessionFromEmailDialog } from '@/components/create-session-from-email-dialog'
 import { SessionCard } from '@/components/session-card'
+import { SessionSelector } from '@/components/session-selector'
 import { Card, CardContent } from '@/components/ui/card'
-import { IconCalendarPlus, IconBallFootball } from '@tabler/icons-react'
-import { MultiSessionSelector } from '@/components/multi-session-selector'
+import {
+  IconCalendarPlus,
+  IconBallFootball,
+  IconUsers,
+} from '@tabler/icons-react'
 import { APP_CONFIG } from '@/config/app.config'
 
 interface CurrentSessionViewProps {
   activeSessions: Session[]
-  selectedSessionId: string | null
-  setSelectedSessionId: (id: string | null) => void
+  selectedSessionId: Session['id'] | null
+  setSelectedSessionId: (id: Session['id'] | null) => void
   currentSession: Session | null
   players: Player[]
   pitches: Pitch[]
@@ -39,9 +44,6 @@ interface CurrentSessionViewProps {
 
 export function CurrentSessionView({
   activeSessions,
-  selectedSessionId,
-  setSelectedSessionId,
-  currentSession,
   players,
   pitches,
   groups,
@@ -58,13 +60,20 @@ export function CurrentSessionView({
   onUpdateGroup,
   onRemoveGroup,
 }: CurrentSessionViewProps) {
+  const [selectedSessionId, setSelectedSessionId] = useState<string | null>(
+    null,
+  )
+
+  const handleSessionChange = (sessionId: string | null) => {
+    setSelectedSessionId(sessionId)
+  }
+
+  const filteredSessions = selectedSessionId
+    ? activeSessions.filter((session) => session.id === selectedSessionId)
+    : activeSessions
+
   return (
     <div className="space-y-6">
-      <MultiSessionSelector
-        sessions={activeSessions}
-        selectedId={selectedSessionId}
-        onSelect={setSelectedSessionId}
-      />
       <header className="text-center">
         <div className="mb-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <IconBallFootball className="text-primary h-8 w-8" />
@@ -77,20 +86,42 @@ export function CurrentSessionView({
         </p>
       </header>
 
-      {currentSession ? (
-        <SessionCard
-          session={currentSession}
-          players={players}
-          groups={groups}
-          onCompleteSession={onCompleteSession}
-          onCancelSession={onCancelSession}
-          onClearSession={onClearSession}
-          onUpdatePlayerResponse={onUpdatePlayerResponse}
-          onAddPlayer={onAddPlayer}
-          onAddGroup={onAddGroup}
-          onUpdateGroup={onUpdateGroup}
-          onRemoveGroup={onRemoveGroup}
-        />
+      {activeSessions.length > 0 && (
+        <div className="flex items-center justify-center lg:justify-between">
+          <div className="hidden items-center gap-2 lg:flex">
+            <IconUsers className="text-muted-foreground h-4 w-4" />
+            <span className="text-muted-foreground text-sm font-medium">
+              Sessions actives ({activeSessions.length})
+            </span>
+          </div>
+
+          <SessionSelector
+            sessions={activeSessions}
+            selectedSessionId={selectedSessionId}
+            onSessionChange={handleSessionChange}
+          />
+        </div>
+      )}
+
+      {filteredSessions.length > 0 ? (
+        <div className="space-y-6">
+          {filteredSessions.map((session) => (
+            <SessionCard
+              key={session.id}
+              session={session}
+              players={players}
+              groups={groups}
+              onCompleteSession={onCompleteSession}
+              onCancelSession={onCancelSession}
+              onClearSession={onClearSession}
+              onUpdatePlayerResponse={onUpdatePlayerResponse}
+              onAddPlayer={onAddPlayer}
+              onAddGroup={onAddGroup}
+              onUpdateGroup={onUpdateGroup}
+              onRemoveGroup={onRemoveGroup}
+            />
+          ))}
+        </div>
       ) : (
         <Card>
           <CardContent className="p-8 text-center">

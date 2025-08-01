@@ -46,7 +46,7 @@ interface SessionCardProps {
   groups: PlayerGroup[]
   onCompleteSession: (score?: { team1: number; team2: number }) => void
   onCancelSession: () => void
-  onClearSession: () => void
+  onClearSession: (sessionId: string) => void
   onUpdatePlayerResponse: (
     playerId: string,
     status: 'coming' | 'not-coming' | 'pending' | 'optional',
@@ -512,7 +512,7 @@ export function SessionCard({
               title="Annuler la session"
               description="Êtes-vous sûr de vouloir annuler cette session ? Cette action ne peut pas être annulée."
               confirmText="Annuler la session"
-              onConfirm={onCancelSession}
+              onConfirm={() => onClearSession(session.id)}
             >
               <Button
                 variant="destructive"
@@ -527,7 +527,7 @@ export function SessionCard({
               title="Supprimer la session"
               description="Êtes-vous sûr de vouloir supprimer définitivement cette session ? Toutes les données seront perdues."
               confirmText="Supprimer"
-              onConfirm={onClearSession}
+              onConfirm={() => onClearSession(session.id)}
             >
               <Button
                 variant="ghost"
